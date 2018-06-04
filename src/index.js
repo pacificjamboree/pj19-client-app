@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const client = new ApolloClient({
+  uri: 'http://pj.docker/graphql',
+});
+
+class Root extends Component {
+  render() {
+    return (
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    );
+  }
+}
+
+ReactDOM.render(<Root />, document.getElementById('root'));
 registerServiceWorker();
