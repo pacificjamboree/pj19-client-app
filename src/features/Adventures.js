@@ -22,15 +22,21 @@ const Adventures = ({ workflowState = 'active' }) => {
       displayName="AdventureQuery"
     >
       {({ loading, error, data, refetch, networkStatus }) => {
-        console.log(networkStatus);
         if (networkStatus === 4) return <p>Refetching!</p>;
 
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :( --> {error.message}</p>;
-        return [
-          data.adventures.map(({ name, id }) => <h2 key={id}>{name}</h2>),
-          <button onClick={() => refetch()}>Refetch!</button>,
-        ];
+
+        const adventures = data.adventures.map(a => (
+          <li key={a.id}>{a.name}</li>
+        ));
+
+        return (
+          <div>
+            <ul>{adventures}</ul>
+            <button onClick={() => refetch()}>Refetch!</button>
+          </div>
+        );
       }}
     </Query>
   );
