@@ -7,13 +7,6 @@ const QUERY = gql`
     adventures(filters: { workflowState: [$workflowState] }) {
       name
       id
-      OffersOfServiceConnection {
-        edges {
-          node {
-            fullName
-          }
-        }
-      }
     }
   }
 `;
