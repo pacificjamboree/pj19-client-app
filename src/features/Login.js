@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
+import { navigate } from '@reach/router';
 import gql from 'graphql-tag';
 
 const LOGIN_MUTATION = gql`
@@ -15,20 +16,17 @@ const Login = () => {
   return (
     <Mutation
       mutation={LOGIN_MUTATION}
-      update={(
-        cache,
-        {
-          data: {
-            createLoginToken: { token },
-          },
-        }
-      ) => {
-        console.log(cache);
-        console.log(token);
+      onError={e => {
+        console.log('onError');
+      }}
+      onCompleted={({ createLoginToken: { token } }) => {
+        window.localStorage.setItem('token', token);
+        navigate('/');
       }}
     >
       {(login, obj) => (
         <div>
+          <h2>Login</h2>
           <form
             onSubmit={e => {
               e.preventDefault();
@@ -58,8 +56,7 @@ const Login = () => {
             />
             <br />
             <button type="submit">Login</button>
-            {obj.loading && <p>Loading...</p>}
-            {obj.error && <p>Error :( {obj.error.message}</p>}
+            {obj.error && <p>{obj.error.message}</p>}
           </form>
         </div>
       )}
