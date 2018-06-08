@@ -11,9 +11,6 @@ const Login = () => {
   return (
     <Mutation
       mutation={LOGIN_MUTATION}
-      onError={e => {
-        console.log('onError', e);
-      }}
       update={(cache, { data }) => {
         const {
           createLoginToken: { token },
