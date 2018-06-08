@@ -3,8 +3,8 @@
 
 
 "@reach/router@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.0.7.tgz#2a6b313e4fe8a5b8a83234a9297694a97232b96f"
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.0.11.tgz#4e407e2de88f55b7d4eeb5154a08569a81b150bc"
   dependencies:
     create-react-context "^0.2.1"
     invariant "^2.2.3"
