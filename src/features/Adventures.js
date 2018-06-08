@@ -12,7 +12,6 @@ const QUERY = gql`
 `;
 
 const Adventures = ({ workflowState = 'active' }) => {
-  console.log(workflowState);
   return (
     <Query
       query={QUERY}
