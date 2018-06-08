@@ -30,6 +30,10 @@ const client = new ApolloClient({
   },
 });
 
+client.onResetStore(() => {
+  client.cache.writeData({ data: defaults });
+});
+
 class Root extends Component {
   render() {
     return (

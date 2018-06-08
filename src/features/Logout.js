@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation, withApollo } from 'react-apollo';
 import { navigate } from '@reach/router';
 import { UPDATE_LOGIN_STATE } from '../graphql/queries';
-/*
-  on logout, we need to:
-  - clear the token from local storage
-  - set the loggedIn flag in local state
-  - redirect to /
- */
 
 class Logout extends Component {
   componentDidMount() {
     this.logout();
+    this.props.client.resetStore();
   }
 
   render() {
@@ -36,4 +31,4 @@ class Logout extends Component {
   }
 }
 
-export default Logout;
+export default withApollo(Logout);
