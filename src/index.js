@@ -6,6 +6,7 @@ import './index.css';
 import App from './features/App';
 import registerServiceWorker from './registerServiceWorker';
 import { defaults, resolvers } from './graphql';
+import 'semantic-ui-css/semantic.min.css';
 
 const { REACT_APP_GRAPHQL_ENDPOINT, REACT_APP_JWT_NAME } = process.env;
 
