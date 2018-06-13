@@ -5,11 +5,9 @@ import { withApollo } from 'react-apollo';
 import { GET_VIEWER_USERNAME } from '../../graphql/queries';
 
 const UserMenu = ({ client }) => {
-  const {
-    viewer: { username },
-  } = client.readQuery({ query: GET_VIEWER_USERNAME });
-  return (
-    <Dropdown item text={username}>
+  const { viewer } = client.readQuery({ query: GET_VIEWER_USERNAME });
+  return viewer ? (
+    <Dropdown item text={viewer.username}>
       <Dropdown.Menu>
         <Dropdown.Item
           as="a"
@@ -36,7 +34,7 @@ const UserMenu = ({ client }) => {
         <Dropdown.Item>List Item</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-  );
+  ) : null;
 };
 
 export default withApollo(UserMenu);
