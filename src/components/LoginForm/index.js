@@ -6,9 +6,9 @@ class LoginForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(e) {
+  handleSubmit = async e => {
     e.preventDefault();
-    this.props.mutate({
+    await this.props.mutate({
       variables: {
         username: this.username.value,
         password: this.password.value,
@@ -16,7 +16,7 @@ class LoginForm extends Component {
     });
     this.username.value = '';
     this.password.value = '';
-  }
+  };
 
   render() {
     return (
