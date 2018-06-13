@@ -1,5 +1,5 @@
-import { Router, Link } from '@reach/router';
 import React from 'react';
+import { Router } from '@reach/router';
 import Login from './Login';
 import Logout from './Logout';
 import Adventures from './Adventures';
