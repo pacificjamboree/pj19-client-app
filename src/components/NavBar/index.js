@@ -7,7 +7,7 @@ export default () => (
   <header>
     <Menu fixed="top" color="blue" inverted>
       <Container>
-        <Menu.Item header>
+        <Menu.Item header className="borderless">
           <Link to="/">Pacific Jamboree 2019 – Adventure</Link>
         </Menu.Item>
 
