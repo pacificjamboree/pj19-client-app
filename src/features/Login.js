@@ -11,7 +11,6 @@ const Login = ({ client }) => {
     <Mutation
       mutation={LOGIN_MUTATION}
       update={async (cache, { data }) => {
-        console.log(data);
         const {
           createLoginToken: { token },
         } = data;
