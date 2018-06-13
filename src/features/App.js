@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
 import { Router, Link } from '@reach/router';
+import React from 'react';
 import Login from './Login';
 import Logout from './Logout';
 import Adventures from './Adventures';
 import LoginLogout from '../components/LoginLogout';
 import NavBar from '../components/NavBar';
 
-class App extends Component {
-  render() {
-    return (
+const App = () => (
       <div>
         <NavBar />
         <Router>
