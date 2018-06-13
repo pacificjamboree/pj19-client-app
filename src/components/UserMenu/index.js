@@ -3,7 +3,8 @@ import { Dropdown } from 'semantic-ui-react';
 import { navigate } from '@reach/router';
 import { withApollo } from 'react-apollo';
 import { GET_VIEWER_USERNAME } from '../../graphql/queries';
-export default withApollo(({ client }) => {
+
+const UserMenu = ({ client }) => {
   const {
     viewer: { username },
   } = client.readQuery({ query: GET_VIEWER_USERNAME });
@@ -18,7 +19,7 @@ export default withApollo(({ client }) => {
             navigate('/logout');
           }}
         >
-          <i className="icon sign out" />Logout
+          Logout<i className="icon sign out" />
         </Dropdown.Item>
 
         <Dropdown.Item>List Item</Dropdown.Item>
@@ -36,4 +37,6 @@ export default withApollo(({ client }) => {
       </Dropdown.Menu>
     </Dropdown>
   );
-});
+};
+
+export default withApollo(UserMenu);
