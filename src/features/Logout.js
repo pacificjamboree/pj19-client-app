@@ -6,6 +6,7 @@ import { UPDATE_LOGIN_STATE } from '../graphql/queries';
 class Logout extends Component {
   componentDidMount() {
     this.logout();
+    localStorage.removeItem(process.env.REACT_APP_JWT_NAME);
     this.props.client.resetStore();
   }
 
@@ -18,7 +19,6 @@ class Logout extends Component {
           console.log(e);
         }}
         onCompleted={() => {
-          localStorage.removeItem(process.env.REACT_APP_JWT_NAME);
           navigate('/');
         }}
       >
