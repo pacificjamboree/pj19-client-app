@@ -1,17 +1,17 @@
 import React from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation, withApollo } from 'react-apollo';
 import { navigate } from '@reach/router';
-
 import { LOGIN_MUTATION } from '../graphql/queries';
 
 import LoginForm from '../components/LoginForm';
 const { REACT_APP_JWT_NAME } = process.env;
 
-const Login = () => {
+const Login = ({ client }) => {
   return (
     <Mutation
       mutation={LOGIN_MUTATION}
-      update={(cache, { data }) => {
+      update={async (cache, { data }) => {
+        console.log(data);
         const {
           createLoginToken: { token },
         } = data;
@@ -19,6 +19,10 @@ const Login = () => {
         cache.writeData({
           data: {
             loggedIn,
+            viewer: {
+              __typename: data.createLoginToken.viewer.__typename,
+              username: data.createLoginToken.viewer.username,
+            },
           },
         });
         window.localStorage.setItem(REACT_APP_JWT_NAME, token);
@@ -34,4 +38,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withApollo(Login);
