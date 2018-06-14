@@ -8,6 +8,8 @@ import {
   Header,
   Message,
 } from 'semantic-ui-react';
+
+import './LoginForm.css';
 class LoginForm extends Component {
   state = {
     username: '',
@@ -52,10 +54,12 @@ class LoginForm extends Component {
               <Segment stacked>
                 <Form.Input
                   name="username"
+                  type="email"
                   fluid
                   icon="user"
                   iconPosition="left"
                   placeholder="Username"
+                  autoCapitalize="none"
                   onChange={this.handleChange}
                 />
                 <Form.Input
