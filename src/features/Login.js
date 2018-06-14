@@ -1,12 +1,17 @@
 import React from 'react';
 import { Mutation, withApollo } from 'react-apollo';
 import { navigate } from '@reach/router';
-import { LOGIN_MUTATION } from '../graphql/queries';
+import { GET_LOGIN_STATE, LOGIN_MUTATION } from '../graphql/queries';
 
 import LoginForm from '../components/LoginForm';
 const { REACT_APP_JWT_NAME } = process.env;
 
 const Login = ({ client }) => {
+  const loggedIn = client.readQuery({ query: GET_LOGIN_STATE });
+  if (loggedIn) {
+    navigate('/');
+    return null;
+  }
   return (
     <Mutation
       mutation={LOGIN_MUTATION}
