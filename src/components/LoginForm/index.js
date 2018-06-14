@@ -42,7 +42,9 @@ class LoginForm extends Component {
             </Header>
             {(error &&
               error.graphQLErrors.map(x => (
-                <Message negative>{x.message}</Message>
+                <Message key={btoa(x.message)} negative>
+                  {x.message}
+                </Message>
               ))) ||
               null}
 
