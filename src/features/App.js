@@ -1,6 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { Router } from '@reach/router';
+import Home from './Home';
 import Login from './Login';
 import Logout from './Logout';
 import Adventures from './Adventures';
@@ -21,13 +22,6 @@ const App = () => (
       </div>
     )}
   </Query>
-);
-
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-    <p>Welcome to PJ 2019 Adventure</p>
-  </div>
 );
 
 export default App;
