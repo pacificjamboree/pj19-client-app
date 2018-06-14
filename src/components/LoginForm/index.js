@@ -50,10 +50,11 @@ class LoginForm extends Component {
               ))) ||
               null}
 
-            <Form size="large" onSubmit={this.handleSubmit}>
+            <Form size="large" onSubmit={this.handleSubmit} noValidate>
               <Segment stacked>
                 <Form.Input
                   name="username"
+                  type="email"
                   fluid
                   icon="user"
                   iconPosition="left"
