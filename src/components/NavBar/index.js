@@ -5,7 +5,7 @@ import LoginLogout from '../LoginLogout';
 
 export default () => (
   <header>
-    <Menu fixed="top" color="blue" inverted>
+    <Menu color="teal" inverted borderless fixed="top">
       <Container>
         <Menu.Item header className="borderless">
           <Link to="/">Pacific Jamboree 2019 – Adventure</Link>
