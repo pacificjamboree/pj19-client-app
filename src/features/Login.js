@@ -33,11 +33,9 @@ const Login = ({ client }) => {
         navigate('/');
       }}
     >
-      {loginMutation => (
-        <div>
-          <LoginForm mutate={loginMutation} />
-        </div>
-      )}
+      {(loginMutation, { data, error }) => {
+        return <LoginForm error={error} mutate={loginMutation} />;
+      }}
     </Mutation>
   );
 };
