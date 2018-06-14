@@ -7,7 +7,7 @@ import LoginForm from '../components/LoginForm';
 const { REACT_APP_JWT_NAME } = process.env;
 
 const Login = ({ client }) => {
-  const loggedIn = client.readQuery({ query: GET_LOGIN_STATE });
+  const { loggedIn } = client.readQuery({ query: GET_LOGIN_STATE });
   if (loggedIn) {
     navigate('/');
     return null;
