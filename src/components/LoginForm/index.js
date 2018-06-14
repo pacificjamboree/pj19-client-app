@@ -54,7 +54,6 @@ class LoginForm extends Component {
               <Segment stacked>
                 <Form.Input
                   name="username"
-                  type="email"
                   fluid
                   icon="user"
                   iconPosition="left"
