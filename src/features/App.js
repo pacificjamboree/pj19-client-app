@@ -1,6 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { Router } from '@reach/router';
+import { Container } from 'semantic-ui-react';
 import Home from './Home';
 import Login from './Login';
 import Logout from './Logout';
@@ -13,12 +14,14 @@ const App = () => (
     {() => (
       <div>
         <NavBar />
-        <Router>
-          <Home path="/" />
-          <Login path="/login" />
-          <Logout path="/logout" />
-          <Adventures path="/adventures" />
-        </Router>
+        <Container style={{ paddingTop: '6em' }}>
+          <Router>
+            <Home path="/" />
+            <Login path="/login" />
+            <Logout path="/logout" />
+            <Adventures path="/adventures" />
+          </Router>
+        </Container>
       </div>
     )}
   </Query>

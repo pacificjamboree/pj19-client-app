@@ -3,7 +3,6 @@ import {
   Grid,
   Form,
   Segment,
-  Container,
   Button,
   Header,
   Message,
@@ -32,56 +31,54 @@ class LoginForm extends Component {
   render() {
     const { error } = this.props;
     return (
-      <Container style={{ paddingTop: '7em' }}>
-        <Grid
-          textAlign="center"
-          style={{ height: '100%' }}
-          verticalAlign="middle"
-        >
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" textAlign="left">
-              Log in to start your PJ Adventure
-            </Header>
-            {(error &&
-              error.graphQLErrors.map(x => (
-                <Message key={btoa(x.message)} negative>
-                  {x.message}
-                </Message>
-              ))) ||
-              null}
+      <Grid
+        textAlign="center"
+        style={{ height: '100%' }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h2" textAlign="left">
+            Log in to start your PJ Adventure
+          </Header>
+          {(error &&
+            error.graphQLErrors.map(x => (
+              <Message key={btoa(x.message)} negative>
+                {x.message}
+              </Message>
+            ))) ||
+            null}
 
-            <Form size="large" onSubmit={this.handleSubmit} noValidate>
-              <Segment stacked>
-                <Form.Input
-                  name="username"
-                  type="email"
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  autoCapitalize="none"
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  name="password"
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  onChange={this.handleChange}
-                />
-                <Button color="teal" fluid size="large">
-                  Login
-                </Button>
-              </Segment>
-            </Form>
-            <Message>
-              <a href="#">Forgot your Password?</a>
-            </Message>
-          </Grid.Column>
-        </Grid>
-      </Container>
+          <Form size="large" onSubmit={this.handleSubmit} noValidate>
+            <Segment stacked>
+              <Form.Input
+                name="username"
+                type="email"
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="Username"
+                autoCapitalize="none"
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                name="password"
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                type="password"
+                onChange={this.handleChange}
+              />
+              <Button color="teal" fluid size="large">
+                Login
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            <a href="#">Forgot your Password?</a>
+          </Message>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
