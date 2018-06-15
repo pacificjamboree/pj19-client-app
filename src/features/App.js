@@ -7,6 +7,7 @@ import Login from './Login';
 import Logout from './Logout';
 import Adventures from './Adventures';
 import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 import { GET_VIEWER_USERNAME } from '../graphql/queries';
 
 const App = () => (
@@ -22,6 +23,7 @@ const App = () => (
             <Adventures path="/adventures" />
           </Router>
         </Container>
+        <Footer />
       </div>
     )}
   </Query>
