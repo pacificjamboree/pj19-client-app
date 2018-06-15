@@ -8,6 +8,20 @@ const GET_VIEWER_USERNAME = gql`
   }
 `;
 
+const GET_NAVBAR_VISIBILITY_STATE = gql`
+  query {
+    navbarVisible @client
+  }
+`;
+
+const UPDATE_NAVBAR_VISIBILITY_STATE = gql`
+  mutation updateNavbarVisibilityState($visible: Boolean!) {
+    updateNavbarVisibilityState(visible: $visible) @client {
+      navbarVisible
+    }
+  }
+`;
+
 const LOGIN_MUTATION = gql`
   mutation loginAsAdmin($username: String!, $password: String!) {
     createLoginToken(input: { username: $username, password: $password }) {
@@ -38,4 +52,6 @@ export {
   LOGIN_MUTATION,
   GET_LOGIN_STATE,
   UPDATE_LOGIN_STATE,
+  GET_NAVBAR_VISIBILITY_STATE,
+  UPDATE_NAVBAR_VISIBILITY_STATE,
 };
