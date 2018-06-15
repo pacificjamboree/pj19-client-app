@@ -51,6 +51,7 @@ class LoginForm extends Component {
           <Form size="large" onSubmit={this.handleSubmit} noValidate>
             <Segment stacked>
               <Form.Input
+                autoFocus
                 name="username"
                 type="email"
                 fluid
