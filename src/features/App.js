@@ -13,9 +13,11 @@ import { GET_VIEWER_USERNAME } from '../graphql/queries';
 const App = () => (
   <Query fetchPolicy="network-only" query={GET_VIEWER_USERNAME}>
     {() => (
-      <div>
+      <div
+        style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}
+      >
         <NavBar />
-        <Container style={{ paddingTop: '6em' }}>
+        <Container style={{ flex: 1, paddingTop: '6em' }}>
           <Router>
             <Home path="/" />
             <Login path="/login" />
