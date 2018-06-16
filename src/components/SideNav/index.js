@@ -30,7 +30,16 @@ const SideNav = ({ children }) => (
               Channels
             </Menu.Item>
           </Sidebar>
-          <Sidebar.Pusher>{children}</Sidebar.Pusher>
+          <Sidebar.Pusher
+            style={{
+              minHeight: '100vh',
+              display: 'grid',
+              gridTemplateRows: 'auto 1fr auto',
+              gridTemplateColumns: '100%',
+            }}
+          >
+            {children}
+          </Sidebar.Pusher>
         </Sidebar.Pushable>
       );
     }}

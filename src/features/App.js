@@ -19,17 +19,16 @@ class App extends Component {
         {() => (
           <div
             style={{
-              display: 'flex',
-              minHeight: '100vh',
-              flexDirection: 'column',
+              minHeight: '100%',
+              display: 'grid',
+              gridTemplateRows: 'auto 1fr auto',
+              gridTemplateColumns: '100%',
             }}
           >
             <SideNav>
               <NavBar />
 
-              <Container
-                style={{ flex: 1, paddingTop: '6em', paddingBottom: '2em' }}
-              >
+              <Container style={{ paddingTop: '6em', paddingBottom: '2em' }}>
                 <Router>
                   <Home path="/" />
                   <Login path="/login" />
@@ -37,8 +36,8 @@ class App extends Component {
                   <Adventures path="/adventures" />
                 </Router>
               </Container>
+              <Footer />
             </SideNav>
-            <Footer />
           </div>
         )}
       </Query>
