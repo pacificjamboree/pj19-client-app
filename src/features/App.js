@@ -9,6 +9,7 @@ import Adventures from './Adventures';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import SideNav from '../components/SideNav';
+import NotFound from './NotFound';
 
 import { GET_VIEWER_USERNAME } from '../graphql/queries';
 
@@ -34,6 +35,7 @@ class App extends Component {
                   <Login path="/login" />
                   <Logout path="/logout" />
                   <Adventures path="/adventures" />
+                  <NotFound default />
                 </Router>
               </Container>
               <Footer />
@@ -46,15 +48,3 @@ class App extends Component {
 }
 
 export default App;
-
-/*
-logged out
-- / --> Home
-- /login --> Login
-- /adventures
-- /adventure/:id
-- /adventure_guide
-- /faq
-
-
-*/
