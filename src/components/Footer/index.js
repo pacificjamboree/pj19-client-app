@@ -15,7 +15,7 @@ const Footer = () => (
     <Container>
       <Grid divided inverted stackable>
         <Grid.Row>
-          <Grid.Column width={3}>
+          <Grid.Column width={2}>
             {/* <Header inverted as="h4" content="PJ Adventure" /> */}
             <List link inverted>
               <List.Item as="a">Adventure Guide</List.Item>
@@ -23,7 +23,7 @@ const Footer = () => (
             </List>
           </Grid.Column>
           <Grid.Column width={3}>
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'left' }}>
               <a
                 style={socialIconStyle}
                 href="https://www.facebook.com/pacificjamboree"
