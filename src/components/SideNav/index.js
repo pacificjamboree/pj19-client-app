@@ -1,6 +1,8 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { Sidebar, Menu, Icon } from 'semantic-ui-react';
+import { Sidebar, Menu } from 'semantic-ui-react';
+import { Link } from '@reach/router';
+
 import { GET_NAVBAR_VISIBILITY_STATE } from '../../graphql/queries';
 
 const SideNav = ({ children }) => (
@@ -13,21 +15,23 @@ const SideNav = ({ children }) => (
             animation="push"
             width="thin"
             visible={navbarVisible}
-            icon="labeled"
             vertical
             inverted
           >
-            <Menu.Item name="home">
-              <Icon name="home" />
-              Home
+            <Menu.Item>
+              <Link to="/">Home</Link>
             </Menu.Item>
-            <Menu.Item name="gamepad">
-              <Icon name="gamepad" />
-              Games
+            <Menu.Item>
+              <Link to="/adventures">Adventures</Link>
             </Menu.Item>
-            <Menu.Item name="camera">
-              <Icon name="camera" />
-              Channels
+            <Menu.Item>
+              <Link to="/adventure_guide">Adventure Guide</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/faq">FAQ</Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/Contact">Contact</Link>
             </Menu.Item>
           </Sidebar>
           <Sidebar.Pusher
