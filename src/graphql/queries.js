@@ -9,7 +9,7 @@ const GET_VIEWER_USERNAME = gql`
 `;
 
 const GET_NAVBAR_VISIBILITY_STATE = gql`
-  query {
+  query getNavbarVisibilityState {
     navbarVisible @client
   }
 `;
@@ -34,7 +34,7 @@ const LOGIN_MUTATION = gql`
 `;
 
 const GET_LOGIN_STATE = gql`
-  query {
+  query getLoginState {
     loggedIn @client
   }
 `;
