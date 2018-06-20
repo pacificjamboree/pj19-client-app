@@ -49,7 +49,7 @@ class LoginForm extends Component {
             null}
 
           <Form size="large" onSubmit={this.handleSubmit} noValidate>
-            <Segment stacked>
+            <Segment>
               <Form.Input
                 autoFocus
                 name="username"
@@ -76,7 +76,8 @@ class LoginForm extends Component {
             </Segment>
           </Form>
           <Message>
-            <a href="#">Forgot your Password?</a>
+            {/* TODO replace with functionality */}
+            <span>Forgot your Password?</span>
           </Message>
         </Grid.Column>
       </Grid>
