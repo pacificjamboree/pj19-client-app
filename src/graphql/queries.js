@@ -47,6 +47,24 @@ const UPDATE_LOGIN_STATE = gql`
   }
 `;
 
+const GET_ADVENTURE_LIST = gql`
+  query adventures($workflowState: WorkflowState) {
+    adventures(filters: { workflowState: [$workflowState] }) {
+      adventureCode
+      id
+      _id
+      name
+      themeName
+      description
+      fee
+      premiumAdventure
+      periodsRequired
+      location
+      capacityPerPeriod
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -54,4 +72,5 @@ export {
   UPDATE_LOGIN_STATE,
   GET_NAVBAR_VISIBILITY_STATE,
   UPDATE_NAVBAR_VISIBILITY_STATE,
+  GET_ADVENTURE_LIST,
 };
