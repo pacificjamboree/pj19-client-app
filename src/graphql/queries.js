@@ -65,6 +65,24 @@ const GET_ADVENTURE_LIST = gql`
   }
 `;
 
+const GET_ADVENTURE_BY_ID = gql`
+  query adventureById($id: String!) {
+    adventure(search: { searchField: id, value: $id }) {
+      adventureCode
+      id
+      _id
+      name
+      themeName
+      description
+      fee
+      premiumAdventure
+      periodsRequired
+      location
+      capacityPerPeriod
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -73,4 +91,5 @@ export {
   GET_NAVBAR_VISIBILITY_STATE,
   UPDATE_NAVBAR_VISIBILITY_STATE,
   GET_ADVENTURE_LIST,
+  GET_ADVENTURE_BY_ID,
 };
