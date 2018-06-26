@@ -55,7 +55,7 @@ const Footer = () => (
               <List.Item as="a" href="http://scouts.ca">
                 scouts.ca
               </List.Item>
-              <List.Item as="a" href="campbarnard.ca">
+              <List.Item as="a" href="http://campbarnard.ca">
                 campbarnard.ca
               </List.Item>
             </List>
