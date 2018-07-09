@@ -8,7 +8,6 @@
   }
   .adventureLabels .ui.label {
     display: block;
-    margin-bottom: .5em;
-    margin-left: 0;
+    margin: 0 0 .5em 0 !important;
   }
 }
