@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import { Container, Loader, Header } from 'semantic-ui-react';
 
 import AdventureLabels from '../components/AdventureLabels';
+import PlanDoReview from '../components/PlanDoReview';
 
 import { GET_ADVENTURE_BY_ID } from '../graphql/queries';
 
@@ -19,7 +20,16 @@ const AdventureDetail = ({ id }) => (
             <p>{adventure.name}</p>
             <AdventureLabels adventure={adventure} />
 
+            <Header as="h2">Description</Header>
             <p>{adventure.description}</p>
+
+            <Header as="h2">Plan, Do, Review</Header>
+            <PlanDoReview
+              plan={adventure.pdrPlan}
+              do={adventure.pdrDo}
+              review={adventure.pdrReview}
+              safetyTips={adventure.pdrSafetyTips}
+            />
           </Fragment>
         );
       }}
