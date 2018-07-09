@@ -1,0 +1,14 @@
+.adventureLabels {
+  margin: 1em 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .adventureLables {
+    margin-left: 0 !important;
+  }
+  .adventureLabels .ui.label {
+    display: block;
+    margin-bottom: .5em;
+    margin-left: 0;
+  }
+}
