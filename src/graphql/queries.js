@@ -79,6 +79,10 @@ const GET_ADVENTURE_BY_ID = gql`
       periodsRequired
       location
       capacityPerPeriod
+      pdrPlan
+      pdrDo
+      pdrReview
+      pdrSafetyTips
     }
   }
 `;
