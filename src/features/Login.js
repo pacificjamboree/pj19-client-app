@@ -26,6 +26,7 @@ const Login = ({ client }) => {
             viewer: {
               __typename: data.createLoginToken.viewer.__typename,
               username: data.createLoginToken.viewer.username,
+              roles: data.createLoginToken.viewer.roles,
             },
           },
         });

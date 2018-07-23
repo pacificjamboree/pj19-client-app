@@ -4,6 +4,7 @@ const GET_VIEWER_USERNAME = gql`
   query {
     viewer {
       username
+      roles
     }
   }
 `;
@@ -23,11 +24,12 @@ const UPDATE_NAVBAR_VISIBILITY_STATE = gql`
 `;
 
 const LOGIN_MUTATION = gql`
-  mutation loginAsAdmin($username: String!, $password: String!) {
+  mutation login($username: String!, $password: String!) {
     createLoginToken(input: { username: $username, password: $password }) {
       token
       viewer {
         username
+        roles
       }
     }
   }
