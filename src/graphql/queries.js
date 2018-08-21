@@ -81,6 +81,7 @@ const GET_ADVENTURE_BY_ID = gql`
       periodsRequired
       location
       capacityPerPeriod
+      periodsOffered
       pdrPlan
       pdrDo
       pdrReview
