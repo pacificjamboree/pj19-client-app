@@ -7,6 +7,7 @@ import Login from './Login';
 import Logout from './Logout';
 import Adventures from './Adventures';
 import AdventureDetail from './AdventureDetail';
+import AdventureEdit from './AdventureEdit';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import SideNav from '../components/SideNav';
@@ -37,6 +38,7 @@ class App extends Component {
                   <Logout path="/logout" />
                   <Adventures path="/adventures" />
                   <AdventureDetail path="/adventures/:id" />
+                  <AdventureEdit path="/adventures/:id/edit" />
                   <NotFound default />
                 </Router>
               </Container>
