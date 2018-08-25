@@ -5,8 +5,11 @@ import DurationLabel from '../DurationLabel';
 import PremiumAdventureLabel from '../PremiumAdventureLabel';
 import './AdventureLabels.css';
 
-const AdventureLabels = ({ adventure }) => (
+const AdventureLabels = ({ adventure, location = false }) => (
   <div className="adventureLabels">
+    {location && (
+      <Label>{adventure.location.replace(/^\w/, c => c.toUpperCase())}</Label>
+    )}
     {adventure.fee ? <FeeLabel fee={adventure.fee} /> : null}
     {adventure.premiumAdventure ? <PremiumAdventureLabel /> : null}
     <DurationLabel duration={adventure.periodsRequired} />
