@@ -18,7 +18,7 @@ const AdventureDetail = ({ id }) => (
           <Fragment>
             <Header as="h1">{adventure.themeName}</Header>
             <p>{adventure.name}</p>
-            <AdventureLabels adventure={adventure} />
+            <AdventureLabels location={true} adventure={adventure} />
 
             <Header as="h2">Description</Header>
             <p>{adventure.description}</p>
