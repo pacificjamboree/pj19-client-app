@@ -90,6 +90,31 @@ const GET_ADVENTURE_BY_ID = gql`
   }
 `;
 
+const UPDATE_ADVENTURE_BY_ID = gql`
+  mutation updateAdventureLalala($id: ID!, $adventure: AdventureUpdate) {
+    updateAdventure(input: { id: $id, Adventure: $adventure }) {
+      Adventure {
+        adventureCode
+        id
+        _id
+        name
+        themeName
+        description
+        fee
+        premiumAdventure
+        periodsRequired
+        location
+        capacityPerPeriod
+        periodsOffered
+        pdrPlan
+        pdrDo
+        pdrReview
+        pdrSafetyTips
+      }
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -99,4 +124,5 @@ export {
   UPDATE_NAVBAR_VISIBILITY_STATE,
   GET_ADVENTURE_LIST,
   GET_ADVENTURE_BY_ID,
+  UPDATE_ADVENTURE_BY_ID,
 };
