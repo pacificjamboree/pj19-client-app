@@ -19,8 +19,6 @@ const AdventureDetail = ({ id }) => (
             <Header as="h1">{adventure.themeName}</Header>
             <p>{adventure.name}</p>
             <AdventureLabels location={true} adventure={adventure} />
-
-            <Header as="h2">Description</Header>
             <p>{adventure.description}</p>
 
             <Header as="h2">Plan, Do, Review</Header>
