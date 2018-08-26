@@ -60,13 +60,22 @@ class AdventureEditForm extends Component {
         id: btoa(`${type}-${Date.now()}`),
       },
     ];
-    console.log(newState);
-    this.setState({ [type]: newState }, () => console.log(this.state));
+    this.setState({ [type]: newState });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-    console.log('submit');
+    const payload = { ...this.state };
+    delete payload.id;
+    ['pdrPlan', 'pdrDo', 'pdrReview', 'pdrSafetyTips'].forEach(
+      x => (payload[x] = payload[x].map(y => y.text).filter(y => y !== ''))
+    );
+    await this.props.mutate({
+      variables: {
+        id: this.props.adventure.id,
+        adventure: payload,
+      },
+    });
   };
 
   render() {
