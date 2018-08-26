@@ -88,18 +88,18 @@ class AdventureEditForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Input
-          name="name"
-          id="name"
-          label="Adventure Name"
-          value={this.state.name}
-          fluid
-          onChange={this.handleChange}
-        />
-        <Form.Input
           name="themeName"
           id="themeName"
           label="Theme Name"
           value={this.state.themeName}
+          fluid
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          name="name"
+          id="name"
+          label="Adventure Name"
+          value={this.state.name}
           fluid
           onChange={this.handleChange}
         />
@@ -178,88 +178,99 @@ class AdventureEditForm extends Component {
 
         <Header as="h3">Plan</Header>
         {this.state.pdrPlan.map(x => (
-          <div key={x.id}>
-            <Form.Input
-              name="pdrPlan"
-              id={x.id}
-              value={x.text}
-              onChange={this.handleChangeMultiVariant}
-            />
-            <Button
-              onClick={e => this.handleRemoveMultiVariant('pdrPlan', x.id, e)}
-            >
-              Remove
-            </Button>
-          </div>
+          <Form.Input
+            fluid
+            key={x.id}
+            name="pdrPlan"
+            id={x.id}
+            value={x.text}
+            onChange={this.handleChangeMultiVariant}
+            action={{
+              color: 'red',
+              icon: 'trash alternate',
+              onClick: e => this.handleRemoveMultiVariant('pdrPlan', x.id, e),
+            }}
+          />
         ))}
+        <Button
+          type="pdrPlan"
+          onClick={e => this.handleAddMultiVariant('pdrPlan', e)}
+          size="small"
+        >
+          Add "Plan" Item
+        </Button>
 
         <Header as="h3">Do</Header>
         {this.state.pdrDo.map(x => (
-          <div key={x.id}>
-            <Form.Input
-              name="pdrDo"
-              id={x.id}
-              value={x.text}
-              onChange={this.handleChangeMultiVariant}
-            />
-            <Button
-              onClick={e => this.handleRemoveMultiVariant('pdrDo', x.id, e)}
-            >
-              Remove
-            </Button>
-          </div>
+          <Form.Input
+            key={x.id}
+            name="pdrDo"
+            id={x.id}
+            value={x.text}
+            onChange={this.handleChangeMultiVariant}
+            action={{
+              color: 'red',
+              icon: 'trash alternate',
+              onClick: e => this.handleRemoveMultiVariant('pdrDo', x.id, e),
+            }}
+          />
         ))}
+        <Button
+          type="pdrDo"
+          onClick={e => this.handleAddMultiVariant('pdrDo', e)}
+          size="small"
+        >
+          Add "Do" Item
+        </Button>
 
         <Header as="h3">Review</Header>
         {this.state.pdrReview.map(x => (
-          <div key={x.id}>
-            <Form.Input
-              name="pdrReview"
-              id={x.id}
-              value={x.text}
-              onChange={this.handleChangeMultiVariant}
-            />
-            <Button
-              onClick={e => this.handleRemoveMultiVariant('pdrReview', x.id, e)}
-            >
-              Remove
-            </Button>
-          </div>
+          <Form.Input
+            key={x.id}
+            name="pdrReview"
+            id={x.id}
+            value={x.text}
+            onChange={this.handleChangeMultiVariant}
+            action={{
+              color: 'red',
+              icon: 'trash alternate',
+              onClick: e => this.handleRemoveMultiVariant('pdrReview', x.id, e),
+            }}
+          />
         ))}
+        <Button
+          type="pdrReview"
+          onClick={e => this.handleAddMultiVariant('pdrReview', e)}
+          size="small"
+        >
+          Add "Review" Item
+        </Button>
 
         <Header as="h3">Safety Tips</Header>
         {this.state.pdrSafetyTips.map(x => (
-          <div key={x.id}>
-            <Form.Input
-              name="pdrSafetyTips"
-              id={x.id}
-              value={x.text}
-              onChange={this.handleChangeMultiVariant}
-            />
-            <Button
-              onClick={e =>
-                this.handleRemoveMultiVariant('pdrSafetyTips', x.id, e)
-              }
-            >
-              Remove
-            </Button>
-          </div>
+          <Form.Input
+            key={x.id}
+            name="pdrSafetyTips"
+            id={x.id}
+            value={x.text}
+            onChange={this.handleChangeMultiVariant}
+            action={{
+              color: 'red',
+              icon: 'trash alternate',
+              onClick: e =>
+                this.handleRemoveMultiVariant('pdrSafetyTips', x.id, e),
+            }}
+          />
         ))}
         <Button
           type="pdrSafetyTips"
           onClick={e => this.handleAddMultiVariant('pdrSafetyTips', e)}
+          size="small"
         >
-          Add Item
+          Add "Safety Tip" Item
         </Button>
 
-        {/* 
-          premium activity
-          plan
-          do
-          review
-          safety tips
-          hidden
-        */}
+        <Button onClick={this.handleSubmit}>Save</Button>
       </Form>
     );
   }
