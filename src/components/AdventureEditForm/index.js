@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Header, Button } from 'semantic-ui-react';
+import './AdventureEditForm.css';
 
 class AdventureEditForm extends Component {
   constructor(props) {
@@ -185,101 +186,111 @@ class AdventureEditForm extends Component {
 
         <Header as="h2">Plan, Do, Review</Header>
 
-        <Header as="h3">Plan</Header>
-        {this.state.pdrPlan.map(x => (
-          <Form.Input
-            fluid
-            key={x.id}
-            name="pdrPlan"
-            id={x.id}
-            value={x.text}
-            onChange={this.handleChangeMultiVariant}
-            action={{
-              color: 'red',
-              icon: 'trash alternate',
-              onClick: e => this.handleRemoveMultiVariant('pdrPlan', x.id, e),
-            }}
-          />
-        ))}
-        <Button
-          type="pdrPlan"
-          onClick={e => this.handleAddMultiVariant('pdrPlan', e)}
-          size="small"
-        >
-          Add "Plan" Item
-        </Button>
+        <div className="pdrBlock">
+          <Header as="h3">Plan</Header>
+          {this.state.pdrPlan.map(x => (
+            <Form.Input
+              fluid
+              key={x.id}
+              name="pdrPlan"
+              id={x.id}
+              value={x.text}
+              onChange={this.handleChangeMultiVariant}
+              action={{
+                color: 'red',
+                icon: 'trash alternate',
+                onClick: e => this.handleRemoveMultiVariant('pdrPlan', x.id, e),
+              }}
+            />
+          ))}
+          <Button
+            type="pdrPlan"
+            onClick={e => this.handleAddMultiVariant('pdrPlan', e)}
+            size="tiny"
+          >
+            Add "Plan" Item
+          </Button>
+        </div>
 
-        <Header as="h3">Do</Header>
-        {this.state.pdrDo.map(x => (
-          <Form.Input
-            key={x.id}
-            name="pdrDo"
-            id={x.id}
-            value={x.text}
-            onChange={this.handleChangeMultiVariant}
-            action={{
-              color: 'red',
-              icon: 'trash alternate',
-              onClick: e => this.handleRemoveMultiVariant('pdrDo', x.id, e),
-            }}
-          />
-        ))}
-        <Button
-          type="pdrDo"
-          onClick={e => this.handleAddMultiVariant('pdrDo', e)}
-          size="small"
-        >
-          Add "Do" Item
-        </Button>
+        <div className="pdrBlock">
+          <Header as="h3">Do</Header>
+          {this.state.pdrDo.map(x => (
+            <Form.Input
+              key={x.id}
+              name="pdrDo"
+              id={x.id}
+              value={x.text}
+              onChange={this.handleChangeMultiVariant}
+              action={{
+                color: 'red',
+                icon: 'trash alternate',
+                onClick: e => this.handleRemoveMultiVariant('pdrDo', x.id, e),
+              }}
+            />
+          ))}
+          <Button
+            type="pdrDo"
+            onClick={e => this.handleAddMultiVariant('pdrDo', e)}
+            size="tiny"
+          >
+            Add "Do" Item
+          </Button>
+        </div>
 
-        <Header as="h3">Review</Header>
-        {this.state.pdrReview.map(x => (
-          <Form.Input
-            key={x.id}
-            name="pdrReview"
-            id={x.id}
-            value={x.text}
-            onChange={this.handleChangeMultiVariant}
-            action={{
-              color: 'red',
-              icon: 'trash alternate',
-              onClick: e => this.handleRemoveMultiVariant('pdrReview', x.id, e),
-            }}
-          />
-        ))}
-        <Button
-          type="pdrReview"
-          onClick={e => this.handleAddMultiVariant('pdrReview', e)}
-          size="small"
-        >
-          Add "Review" Item
-        </Button>
+        <div className="pdrBlock">
+          <Header as="h3">Review</Header>
+          {this.state.pdrReview.map(x => (
+            <Form.Input
+              key={x.id}
+              name="pdrReview"
+              id={x.id}
+              value={x.text}
+              onChange={this.handleChangeMultiVariant}
+              action={{
+                color: 'red',
+                icon: 'trash alternate',
+                onClick: e =>
+                  this.handleRemoveMultiVariant('pdrReview', x.id, e),
+              }}
+            />
+          ))}
+          <Button
+            type="pdrReview"
+            onClick={e => this.handleAddMultiVariant('pdrReview', e)}
+            size="tiny"
+          >
+            Add "Review" Item
+          </Button>
+        </div>
 
-        <Header as="h3">Safety Tips</Header>
-        {this.state.pdrSafetyTips.map(x => (
-          <Form.Input
-            key={x.id}
-            name="pdrSafetyTips"
-            id={x.id}
-            value={x.text}
-            onChange={this.handleChangeMultiVariant}
-            action={{
-              color: 'red',
-              icon: 'trash alternate',
-              onClick: e =>
-                this.handleRemoveMultiVariant('pdrSafetyTips', x.id, e),
-            }}
-          />
-        ))}
-        <Button
-          type="pdrSafetyTips"
-          onClick={e => this.handleAddMultiVariant('pdrSafetyTips', e)}
-          size="small"
-        >
-          Add "Safety Tip" Item
+        <div className="pdrBlock">
+          <Header as="h3">Safety Tips</Header>
+          {this.state.pdrSafetyTips.map(x => (
+            <Form.Input
+              key={x.id}
+              name="pdrSafetyTips"
+              id={x.id}
+              value={x.text}
+              onChange={this.handleChangeMultiVariant}
+              action={{
+                color: 'red',
+                icon: 'trash alternate',
+                onClick: e =>
+                  this.handleRemoveMultiVariant('pdrSafetyTips', x.id, e),
+              }}
+            />
+          ))}
+          <Button
+            type="pdrSafetyTips"
+            onClick={e => this.handleAddMultiVariant('pdrSafetyTips', e)}
+            size="tiny"
+          >
+            Add "Safety Tip" Item
+          </Button>
+        </div>
+        <Button style={{ marginTop: '1.5em' }} onClick={this.handleSubmit}>
+          Save
         </Button>
-
-        <Button onClick={this.handleSubmit}>Save</Button>
       </Form>
     );
   }
