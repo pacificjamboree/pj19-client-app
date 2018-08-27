@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Header, Button } from 'semantic-ui-react';
+import { Form, Header, Button, Icon } from 'semantic-ui-react';
 import './AdventureEditForm.css';
 
 class AdventureEditForm extends Component {
@@ -288,7 +288,14 @@ class AdventureEditForm extends Component {
             Add "Safety Tip" Item
           </Button>
         </div>
-        <Button style={{ marginTop: '1.5em' }} onClick={this.handleSubmit}>
+        <Button
+          style={{ marginTop: '1.5em' }}
+          onClick={this.handleSubmit}
+          color="teal"
+          icon
+          labelPosition="left"
+        >
+          <Icon name="check" />
           Save
         </Button>
       </Form>
