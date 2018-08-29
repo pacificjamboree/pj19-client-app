@@ -9,6 +9,16 @@ const GET_VIEWER_USERNAME = gql`
   }
 `;
 
+const GET_LOGGED_IN_VIEWER = gql`
+  query getLoginState {
+    loggedIn @client
+    viewer {
+      username
+      roles
+    }
+  }
+`;
+
 const GET_NAVBAR_VISIBILITY_STATE = gql`
   query getNavbarVisibilityState {
     navbarVisible @client
@@ -115,6 +125,24 @@ const UPDATE_ADVENTURE_BY_ID = gql`
   }
 `;
 
+const OFFERS_OF_SERVICE_FOR_ADVENTURE = gql`
+  query oosForAdventure($id: String!) {
+    adventure(search: { searchField: id, value: $id }) {
+      OffersOfServiceConnection {
+        edges {
+          node {
+            id
+            _id
+            oosNumber
+            fullName
+            email
+          }
+        }
+      }
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -125,4 +153,6 @@ export {
   GET_ADVENTURE_LIST,
   GET_ADVENTURE_BY_ID,
   UPDATE_ADVENTURE_BY_ID,
+  GET_LOGGED_IN_VIEWER,
+  OFFERS_OF_SERVICE_FOR_ADVENTURE,
 };
