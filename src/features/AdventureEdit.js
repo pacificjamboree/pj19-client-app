@@ -9,7 +9,11 @@ import {
 import AdventureEditForm from '../components/AdventureEditForm';
 
 const AdventureEdit = ({ id }) => (
-  <Query query={GET_ADVENTURE_BY_ID} variables={{ id }}>
+  <Query
+    query={GET_ADVENTURE_BY_ID}
+    variables={{ id }}
+    fetchPolicy="network-only"
+  >
     {({ data: { adventure }, loading, error }) => {
       if (loading) return <Loader active />;
       if (error) return <p>Error</p>;
