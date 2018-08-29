@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Header, Button, Icon } from 'semantic-ui-react';
+import UserHasRole from '../UserHasRole';
 import './AdventureEditForm.css';
 
 class AdventureEditForm extends Component {
@@ -121,68 +122,70 @@ class AdventureEditForm extends Component {
           onChange={this.handleChange}
         />
 
-        <Form.Group inline>
-          <label>Location</label>
-          <Form.Radio
-            name="location"
-            label="On-Site"
-            value="onsite"
-            checked={this.state.location === 'onsite'}
-            onChange={this.handleChange}
-          />
-          <Form.Radio
-            name="location"
-            label="Off-Site"
-            value="offsite"
-            checked={this.state.location === 'offsite'}
-            onChange={this.handleChange}
-          />
-        </Form.Group>
+        <UserHasRole userRoles={['admin']}>
+          <Form.Group inline>
+            <label>Location</label>
+            <Form.Radio
+              name="location"
+              label="On-Site"
+              value="onsite"
+              checked={this.state.location === 'onsite'}
+              onChange={this.handleChange}
+            />
+            <Form.Radio
+              name="location"
+              label="Off-Site"
+              value="offsite"
+              checked={this.state.location === 'offsite'}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
 
-        <Form.Group widths="equal">
-          <Form.Dropdown
-            label="Duration"
-            name="periodsRequired"
-            id="periodsRequired"
-            defaultValue={this.state.periodsRequired}
-            options={locationOptions}
-            onChange={this.handleChange}
-            fluid
-            selection
-            style={{ lineHeight: 'unset' }}
-          />
-          <Form.Input
-            name="periodsOffered"
-            id="periodsOffered"
-            fluid
-            label="Periods Offered"
-            type="number"
-            value={this.state.periodsOffered}
-            onChange={this.handleChange}
-          />
+          <Form.Group widths="equal">
+            <Form.Dropdown
+              label="Duration"
+              name="periodsRequired"
+              id="periodsRequired"
+              defaultValue={this.state.periodsRequired}
+              options={locationOptions}
+              onChange={this.handleChange}
+              fluid
+              selection
+              style={{ lineHeight: 'unset' }}
+            />
+            <Form.Input
+              name="periodsOffered"
+              id="periodsOffered"
+              fluid
+              label="Periods Offered"
+              type="number"
+              value={this.state.periodsOffered}
+              onChange={this.handleChange}
+            />
 
-          <Form.Input
-            name="capacityPerPeriod"
-            id="capacityPerPeriod"
-            fluid
-            label="Capacity per Period"
-            type="number"
-            value={this.state.capacityPerPeriod}
-            onChange={this.handleChange}
-          />
+            <Form.Input
+              name="capacityPerPeriod"
+              id="capacityPerPeriod"
+              fluid
+              label="Capacity per Period"
+              type="number"
+              value={this.state.capacityPerPeriod}
+              onChange={this.handleChange}
+            />
 
-          <Form.Input
-            name="fee"
-            id="fee"
-            fluid
-            label="Fee"
-            type="number"
-            value={this.state.fee}
-            onChange={this.handleChange}
-            icon="dollar"
-            iconPosition="left"
-          />
-        </Form.Group>
+            <Form.Input
+              name="fee"
+              id="fee"
+              fluid
+              label="Fee"
+              type="number"
+              value={this.state.fee}
+              onChange={this.handleChange}
+              icon="dollar"
+              iconPosition="left"
+            />
+          </Form.Group>
+        </UserHasRole>
 
         <Header as="h2">Plan, Do, Review</Header>
 
