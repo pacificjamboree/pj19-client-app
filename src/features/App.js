@@ -12,6 +12,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import SideNav from '../components/SideNav';
 import NotFound from './NotFound';
+import AuthorizedRoute from '../components/AuthorizedRoute';
 
 import { GET_VIEWER_USERNAME } from '../graphql/queries';
 
@@ -38,7 +39,11 @@ class App extends Component {
                   <Logout path="/logout" />
                   <Adventures path="/adventures" />
                   <AdventureDetail path="/adventures/:id" />
-                  <AdventureEdit path="/adventures/:id/edit" />
+                  <AuthorizedRoute
+                    userRoles={['adventureManager', 'admin']}
+                    path="/adventures/:id/edit"
+                    component={AdventureEdit}
+                  />
                   <NotFound default />
                 </Router>
               </Container>
