@@ -12,6 +12,8 @@ import { Link } from '@reach/router';
 import AdventureLabels from '../components/AdventureLabels';
 import PlanDoReview from '../components/PlanDoReview';
 import UserHasRole from '../components/UserHasRole';
+import AdventureOOSList from '../components/AdventureOOSList';
+
 import { GET_ADVENTURE_BY_ID } from '../graphql/queries';
 
 const AdventureDetail = ({ id }) => (
@@ -51,6 +53,7 @@ const AdventureDetail = ({ id }) => (
               review={adventure.pdrReview}
               safetyTips={adventure.pdrSafetyTips}
             />
+            <AdventureOOSList id={adventure.id} />
           </Fragment>
         );
       }}
