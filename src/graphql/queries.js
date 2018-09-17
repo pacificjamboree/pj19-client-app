@@ -101,7 +101,7 @@ const GET_ADVENTURE_BY_ID = gql`
 `;
 
 const UPDATE_ADVENTURE_BY_ID = gql`
-  mutation updateAdventureLalala($id: ID!, $adventure: AdventureUpdate) {
+  mutation updateAdventure($id: ID!, $adventure: AdventureUpdate) {
     updateAdventure(input: { id: $id, Adventure: $adventure }) {
       Adventure {
         adventureCode
@@ -143,6 +143,36 @@ const OFFERS_OF_SERVICE_FOR_ADVENTURE = gql`
   }
 `;
 
+const GET_OFFER_OF_SERVICE_BY_ID = gql`
+  query oosById($id: String!) {
+    offerOfService(search: { searchField: id, value: $id }) {
+      id
+      _id
+      oosNumber
+      firstName
+      lastName
+      preferredName
+      fullName
+      birthdate
+      isYouth
+      email
+      parentEmail
+      phone1
+      phone2
+      prerecruited
+      prerecruitedBy
+      additionalInformation
+      previousExperience
+      specialSkills
+      assigned
+      assignment {
+        name
+        id
+      }
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -155,4 +185,5 @@ export {
   UPDATE_ADVENTURE_BY_ID,
   GET_LOGGED_IN_VIEWER,
   OFFERS_OF_SERVICE_FOR_ADVENTURE,
+  GET_OFFER_OF_SERVICE_BY_ID,
 };

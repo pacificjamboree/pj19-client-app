@@ -6,6 +6,7 @@
     "@reach/router": "^1.1.1",
     "apollo-boost": "^0.1.7",
     "apollo-link": "^1.2.2",
+    "date-fns": "^1.29.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "lodash.sortby": "^4.7.0",
