@@ -8,6 +8,7 @@ class SortableTable extends Component {
     columns: PropTypes.array.isRequired,
     data: PropTypes.array.isRequired,
     defaultSortColumn: PropTypes.string,
+    rowKeyField: PropTypes.string.isRequired,
   };
   state = {
     column: this.props.defaultSortColumn || null,
@@ -55,11 +56,11 @@ class SortableTable extends Component {
         </Table.Header>
 
         <Table.Body>
-          {data.map(({ id, oosNumber, fullName, email }) => (
-            <Table.Row key={id}>
-              <Table.Cell>{oosNumber}</Table.Cell>
-              <Table.Cell>{fullName}</Table.Cell>
-              <Table.Cell>{email}</Table.Cell>
+          {data.map(d => (
+            <Table.Row key={d[this.props.rowKeyField]}>
+              {this.props.columns.map(({ key }) => (
+                <Table.Cell>{d[key]}</Table.Cell>
+              ))}
             </Table.Row>
           ))}
         </Table.Body>
