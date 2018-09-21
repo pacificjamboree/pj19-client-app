@@ -70,7 +70,7 @@ const OOSDetail = ({ id }) => (
 
             <Header as="h2">{assigned ? assignment.name : 'Unassigned'}</Header>
 
-            {!isYouth ? (
+            {isYouth ? (
               <Segment inverted color="red">
                 {fullName} is a youth member. To maintain two-deep, please CC
                 safescouting.pj@scouts.ca on all email communications with this

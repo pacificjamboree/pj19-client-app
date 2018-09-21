@@ -136,6 +136,7 @@ const OFFERS_OF_SERVICE_FOR_ADVENTURE = gql`
             oosNumber
             fullName
             email
+            isYouth
           }
         }
       }
