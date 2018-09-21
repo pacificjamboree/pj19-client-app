@@ -53,7 +53,9 @@ const AdventureDetail = ({ id }) => (
               review={adventure.pdrReview}
               safetyTips={adventure.pdrSafetyTips}
             />
-            <AdventureOOSList id={adventure.id} />
+            <UserHasRole userRoles={['adventureManager', 'admin']}>
+              <AdventureOOSList id={adventure.id} />
+            </UserHasRole>
           </Fragment>
         );
       }}
