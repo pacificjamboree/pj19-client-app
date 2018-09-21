@@ -8,6 +8,7 @@ import Logout from './Logout';
 import Adventures from './Adventures';
 import AdventureDetail from './AdventureDetail';
 import AdventureEdit from './AdventureEdit';
+import OOSList from './OOSList';
 import OOSDetail from './OOSDetail';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -47,7 +48,12 @@ class App extends Component {
                   />
                   <AuthorizedRoute
                     userRoles={['adventureManager', 'admin']}
-                    path="/oos/:id"
+                    path="/oos"
+                    component={OOSList}
+                  />
+                  <AuthorizedRoute
+                    userRoles={['adventureManager', 'admin']}
+                    path="/oos/:oosNumber"
                     component={OOSDetail}
                   />
                   <NotFound default />

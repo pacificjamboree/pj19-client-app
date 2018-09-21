@@ -146,6 +146,9 @@ const OFFERS_OF_SERVICE_FOR_ADVENTURE = gql`
 const GET_OFFER_OF_SERVICE_BY_ID = gql`
   query oosById($id: String!) {
     offerOfService(search: { searchField: id, value: $id }) {
+const GET_OFFERS_OF_SERVICE = gql`
+  query getOffersOfService {
+    offersOfService {
       id
       _id
       oosNumber
@@ -186,4 +189,5 @@ export {
   GET_LOGGED_IN_VIEWER,
   OFFERS_OF_SERVICE_FOR_ADVENTURE,
   GET_OFFER_OF_SERVICE_BY_ID,
+  GET_OFFERS_OF_SERVICE,
 };
