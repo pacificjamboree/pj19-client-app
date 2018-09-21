@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { Header, Loader } from 'semantic-ui-react';
 
 import { OFFERS_OF_SERVICE_FOR_ADVENTURE } from '../../graphql/queries';
-import SortableTable from '../SortableTable';
+import AdventureOOSTable from './table';
 
 class AdventureOOSList extends Component {
   render() {
@@ -19,36 +19,23 @@ class AdventureOOSList extends Component {
           if (error) {
             return <p>Error</p>;
           }
-          const tableData = data.adventure.OffersOfServiceConnection.edges.map(
-            ({ node: { id, oosNumber, email, fullName } }) => ({
-              id,
-              email,
-              fullName,
-              oosNumber,
-            })
-          );
-          const columns = [
-            {
-              key: 'oosNumber',
-              text: 'OOS Number',
-            },
-            {
-              key: 'fullName',
-              text: 'Name',
-            },
-            {
-              key: 'email',
-              text: 'Email Address',
-            },
-          ];
+          console.log(data.adventure);
+          const tableData = data.adventure.OffersOfServiceConnection
+            ? data.adventure.OffersOfServiceConnection.edges.map(
+                ({ node: { id, oosNumber, email, fullName, isYouth } }) => ({
+                  id,
+                  email,
+                  fullName,
+                  oosNumber,
+                  isYouth,
+                })
+              )
+            : [];
+
           return (
             <Fragment>
               <Header as="h2">Offers of Service</Header>
-              <SortableTable
-                columns={columns}
-                data={tableData}
-                defaultSortColumn="fullName"
-              />
+              <AdventureOOSTable data={tableData} />
             </Fragment>
           );
         }}
