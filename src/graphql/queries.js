@@ -144,9 +144,36 @@ const OFFERS_OF_SERVICE_FOR_ADVENTURE = gql`
   }
 `;
 
-const GET_OFFER_OF_SERVICE_BY_ID = gql`
-  query oosById($id: String!) {
-    offerOfService(search: { searchField: id, value: $id }) {
+const GET_OFFER_OF_SERVICE_BY_OOS_NUMBER = gql`
+  query oosById($oosNumber: String!) {
+    offerOfService(search: { searchField: oosNumber, value: $oosNumber }) {
+      id
+      _id
+      oosNumber
+      firstName
+      lastName
+      preferredName
+      fullName
+      birthdate
+      isYouth
+      email
+      parentEmail
+      phone1
+      phone2
+      prerecruited
+      prerecruitedBy
+      additionalInformation
+      previousExperience
+      specialSkills
+      assigned
+      assignment {
+        name
+        id
+      }
+    }
+  }
+`;
+
 const GET_OFFERS_OF_SERVICE = gql`
   query getOffersOfService {
     offersOfService {
@@ -189,6 +216,6 @@ export {
   UPDATE_ADVENTURE_BY_ID,
   GET_LOGGED_IN_VIEWER,
   OFFERS_OF_SERVICE_FOR_ADVENTURE,
-  GET_OFFER_OF_SERVICE_BY_ID,
   GET_OFFERS_OF_SERVICE,
+  GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
 };

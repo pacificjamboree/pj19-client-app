@@ -12,12 +12,12 @@ import {
 } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 import differenceInYears from 'date-fns/difference_in_years';
-import { GET_OFFER_OF_SERVICE_BY_ID } from '../graphql/queries';
+import { GET_OFFER_OF_SERVICE_BY_OOS_NUMBER } from '../graphql/queries';
 import UserHasRole from '../components/UserHasRole';
 
-const OOSDetail = ({ id }) => (
+const OOSDetail = ({ oosNumber }) => (
   <Container>
-    <Query query={GET_OFFER_OF_SERVICE_BY_ID} variables={{ id }}>
+    <Query query={GET_OFFER_OF_SERVICE_BY_OOS_NUMBER} variables={{ oosNumber }}>
       {({ data: { offerOfService }, loading, error }) => {
         if (loading) return <Loader active />;
         if (error) return <p>Error</p>;
