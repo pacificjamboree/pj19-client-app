@@ -9,7 +9,7 @@ const AuthorizedRoute = ({ userRoles, component: Component, ...rest }) => (
       if (loading) return null;
       if (error) return `Error!: ${error}`;
 
-      if (!data.loggedIn) return <Redirect to="/login" />;
+      if (!data.loggedIn) return <Redirect noThrow to="/login" />;
       if (!data.viewer) return null;
 
       const { roles } = data.viewer;
