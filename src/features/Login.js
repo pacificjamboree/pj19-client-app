@@ -1,16 +1,17 @@
 import React from 'react';
 import { Mutation, withApollo } from 'react-apollo';
-import { navigate } from '@reach/router';
+import { Redirect } from '@reach/router';
 import { GET_LOGIN_STATE, LOGIN_MUTATION } from '../graphql/queries';
 
 import LoginForm from '../components/LoginForm';
 const { REACT_APP_JWT_NAME } = process.env;
 
-const Login = ({ client }) => {
+const Login = ({ client, location, ...rest }) => {
+  const params = new URLSearchParams(location.search);
+  const redirectTo = params.get('redirectTo') || '/';
   const { loggedIn } = client.readQuery({ query: GET_LOGIN_STATE });
   if (loggedIn) {
-    navigate('/');
-    return null;
+    return <Redirect to={redirectTo} noThrow />;
   }
   return (
     <Mutation
@@ -31,7 +32,6 @@ const Login = ({ client }) => {
           },
         });
         window.localStorage.setItem(REACT_APP_JWT_NAME, token);
-        navigate('/');
       }}
     >
       {(loginMutation, { data, error }) => {
