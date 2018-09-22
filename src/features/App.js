@@ -10,6 +10,7 @@ import AdventureDetail from './AdventureDetail';
 import AdventureEdit from './AdventureEdit';
 import OOSList from './OOSList';
 import OOSDetail from './OOSDetail';
+import OOSEdit from './OOSEdit';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import SideNav from '../components/SideNav';
@@ -55,6 +56,11 @@ class App extends Component {
                     userRoles={['adventureManager', 'admin']}
                     path="/oos/:oosNumber"
                     component={OOSDetail}
+                  />
+                  <AuthorizedRoute
+                    userRoles={['admin']}
+                    path="/oos/:oosNumber/edit"
+                    component={OOSEdit}
                   />
                   <NotFound default />
                 </Router>
