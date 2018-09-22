@@ -19,7 +19,7 @@ class AdventureOOSList extends Component {
           if (error) {
             return <p>Error</p>;
           }
-          console.log(data.adventure);
+
           const tableData = data.adventure.OffersOfServiceConnection
             ? data.adventure.OffersOfServiceConnection.edges.map(
                 ({ node: { id, oosNumber, email, fullName, isYouth } }) => ({
