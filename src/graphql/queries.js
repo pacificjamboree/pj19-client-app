@@ -144,6 +144,41 @@ const OFFERS_OF_SERVICE_FOR_ADVENTURE = gql`
   }
 `;
 
+const OOS_EDIT_QUERY_WITH_ADVENTURE_NAMES = gql`
+  query oosEditQueryWithAdventureNames($oosNumber: String!) {
+    adventures {
+      _id
+      name
+    }
+    offerOfService(search: { searchField: oosNumber, value: $oosNumber }) {
+      id
+      _id
+      oosNumber
+      firstName
+      lastName
+      preferredName
+      fullName
+      birthdate
+      isYouth
+      email
+      parentEmail
+      phone1
+      phone2
+      prerecruited
+      prerecruitedBy
+      additionalInformation
+      previousExperience
+      specialSkills
+      assigned
+      assignment {
+        name
+        id
+        _id
+      }
+    }
+  }
+`;
+
 const GET_OFFER_OF_SERVICE_BY_OOS_NUMBER = gql`
   query oosById($oosNumber: String!) {
     offerOfService(search: { searchField: oosNumber, value: $oosNumber }) {
@@ -204,6 +239,41 @@ const GET_OFFERS_OF_SERVICE = gql`
   }
 `;
 
+const UPDATE_OFFER_OF_SERVICE_BY_ID = gql`
+  mutation updateOfferOfService(
+    $id: ID!
+    $offerOfService: OfferOfServiceUpdate!
+  ) {
+    updateOfferOfService(input: { id: $id, OfferOfService: $offerOfService }) {
+      OfferOfService {
+        id
+        _id
+        oosNumber
+        firstName
+        lastName
+        preferredName
+        fullName
+        birthdate
+        isYouth
+        email
+        parentEmail
+        phone1
+        phone2
+        prerecruited
+        prerecruitedBy
+        additionalInformation
+        previousExperience
+        specialSkills
+        assigned
+        assignment {
+          name
+          id
+        }
+      }
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -218,4 +288,6 @@ export {
   OFFERS_OF_SERVICE_FOR_ADVENTURE,
   GET_OFFERS_OF_SERVICE,
   GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
+  UPDATE_OFFER_OF_SERVICE_BY_ID,
+  OOS_EDIT_QUERY_WITH_ADVENTURE_NAMES,
 };
