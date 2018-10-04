@@ -1,5 +1,5 @@
 FROM node:10.10.0-alpine
-RUN apk --no-cache add --virtual procps shadow
+RUN apk add procps shadow
 RUN groupadd -r nodejs && useradd -m -r -g nodejs -s /bin/sh nodejs && mkdir -p /usr/src/app && chown nodejs:nodejs /usr/src/app
 USER nodejs
 WORKDIR /usr/src/app
