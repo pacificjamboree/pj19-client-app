@@ -10,7 +10,7 @@ class OOSEditForm extends Component {
       firstName: offerOfService.firstName || '',
       lastName: offerOfService.lastName || '',
       preferredName: offerOfService.preferredName || '',
-      birthdate: offerOfService.birthdate || '',
+      isYouth: offerOfService.isYouth ? 'yes' : 'no',
       email: offerOfService.email || '',
       parentEmail: offerOfService.parentEmail || '',
       phone1: offerOfService.phone1 || '',
@@ -24,6 +24,7 @@ class OOSEditForm extends Component {
         : 'unassigned',
     };
     this.handleChange = this.handleChange.bind(this);
+    // this.handleIsYouthChange = this.handleIsYouthChange.bind(this);
   }
 
   shouldComponentUpdate({ adventures, offerOfService }, nextState) {
@@ -36,7 +37,11 @@ class OOSEditForm extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const payload = { ...this.state };
+    const payload = {
+      ...this.state,
+      isYouth: this.state.isYouth === 'yes' ? true : false,
+    };
+    console.log(payload);
     for (const key in payload) {
       if (payload.hasOwnProperty(key)) {
         const element = payload[key];
@@ -44,6 +49,7 @@ class OOSEditForm extends Component {
           payload[key] = null;
         }
       }
+
       if (payload.assignedAdventureId === 'unassigned') {
         payload.assignedAdventureId = null;
       }
@@ -105,14 +111,24 @@ class OOSEditForm extends Component {
             onChange={this.handleChange}
           />
         </Form.Group>
-        <Form.Input
-          name="birthdate"
-          id="birthdate"
-          label="Birthdate"
-          value={this.state.birthdate}
-          fluid
-          onChange={this.handleChange}
-        />
+
+        <Form.Group inline>
+          <label>Is Youth Member (under 18)</label>
+          <Form.Radio
+            name="isYouth"
+            label="No"
+            value="no"
+            checked={this.state.isYouth === 'no'}
+            onChange={this.handleChange}
+          />
+          <Form.Radio
+            name="isYouth"
+            label="Yes"
+            value="yes"
+            checked={this.state.isYouth === 'yes'}
+            onChange={this.handleChange}
+          />
+        </Form.Group>
 
         <Header as="h3">Contact Information</Header>
         <Form.Group widths="equal">

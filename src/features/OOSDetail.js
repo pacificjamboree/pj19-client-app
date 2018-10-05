@@ -11,7 +11,6 @@ import {
   Icon,
 } from 'semantic-ui-react';
 import { Link } from '@reach/router';
-import differenceInYears from 'date-fns/difference_in_years';
 import { GET_OFFER_OF_SERVICE_BY_OOS_NUMBER } from '../graphql/queries';
 import UserHasRole from '../components/UserHasRole';
 
@@ -28,7 +27,6 @@ const OOSDetail = ({ oosNumber }) => (
           lastName,
           preferredName,
           fullName,
-          birthdate,
           isYouth,
           email,
           parentEmail,
@@ -42,9 +40,6 @@ const OOSDetail = ({ oosNumber }) => (
           assigned,
           assignment,
         } = offerOfService;
-
-        const age = birthdate =>
-          differenceInYears(new Date(), new Date(birthdate));
 
         return (
           <Fragment>
@@ -96,10 +91,8 @@ const OOSDetail = ({ oosNumber }) => (
                 </Table.Row>
 
                 <Table.Row>
-                  <Table.Cell>Birthdate</Table.Cell>
-                  <Table.Cell>
-                    {birthdate} ({age(birthdate)})
-                  </Table.Cell>
+                  <Table.Cell>Is Youth Member</Table.Cell>
+                  <Table.Cell>{isYouth ? 'Yes' : 'No'}</Table.Cell>
                 </Table.Row>
 
                 <Table.Row>

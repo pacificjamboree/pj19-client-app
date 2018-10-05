@@ -158,7 +158,6 @@ const OOS_EDIT_QUERY_WITH_ADVENTURE_NAMES = gql`
       lastName
       preferredName
       fullName
-      birthdate
       isYouth
       email
       parentEmail
@@ -189,7 +188,6 @@ const GET_OFFER_OF_SERVICE_BY_OOS_NUMBER = gql`
       lastName
       preferredName
       fullName
-      birthdate
       isYouth
       email
       parentEmail
@@ -219,7 +217,6 @@ const GET_OFFERS_OF_SERVICE = gql`
       lastName
       preferredName
       fullName
-      birthdate
       isYouth
       email
       parentEmail
@@ -253,7 +250,6 @@ const UPDATE_OFFER_OF_SERVICE_BY_ID = gql`
         lastName
         preferredName
         fullName
-        birthdate
         isYouth
         email
         parentEmail
