@@ -1,0 +1,32 @@
+.dropzone {
+  width: 100%;
+  margin: 1em 0;
+  background-color: aliceblue;
+  outline: 3px dashed #cccccc;
+  outline-offset: -10px;
+  border-radius: 5px;
+  padding: 4em 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropzoneHover {
+  composes: dropzone;
+  background-color: rgb(142, 202, 255);
+  outline: 3px dashed #fff;
+}
+
+.fakelink {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.form {
+  display:none;
+}
+
+.icon {
+  margin-bottom: .25em;
+}
