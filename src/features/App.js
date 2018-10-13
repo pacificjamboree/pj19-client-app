@@ -11,6 +11,7 @@ import AdventureEdit from './AdventureEdit';
 import OOSList from './OOSList';
 import OOSDetail from './OOSDetail';
 import OOSEdit from './OOSEdit';
+import OOSImport from './OOSImport';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import SideNav from '../components/SideNav';
@@ -61,6 +62,11 @@ class App extends Component {
                     userRoles={['admin']}
                     path="/oos/:oosNumber/edit"
                     component={OOSEdit}
+                  />
+                  <AuthorizedRoute
+                    userRoles={['admin']}
+                    path="/oos/import"
+                    component={OOSImport}
                   />
                   <NotFound default />
                 </Router>
