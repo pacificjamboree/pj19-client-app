@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 import ExcelFileUploadReader from '../components/ExcelFileUploadReader';
 import OOSImporter from '../components/OOSImporter';
 import parseOOSExcelFile from '../lib/parseOOSExcelFile';
 import { BATCH_IMPORT_OOS_MUTATION } from '../graphql/queries';
+import { OFFERS_OF_SERVICE_FRAGMENT } from '../graphql/fragments';
+
+const refetchQuery = gql`
+  query {
+    offersOfService: offersOfService {
+      ...OffersOfServiceFragment
+    }
+  }
+  ${OFFERS_OF_SERVICE_FRAGMENT}
+`;
 
 class OOSImport extends Component {
   constructor() {
@@ -62,6 +73,7 @@ class OOSImport extends Component {
             mutation={BATCH_IMPORT_OOS_MUTATION}
             onCompleted={data => console.log({ data })}
             update={(cache, mutationResult) => console.log({ mutationResult })}
+            refetchQueries={[{ query: refetchQuery }]}
           >
             {(mutationFn, { data, error }) => {
               console.log({ data, error });

@@ -273,9 +273,29 @@ const UPDATE_OFFER_OF_SERVICE_BY_ID = gql`
 const BATCH_IMPORT_OOS_MUTATION = gql`
   mutation batchImportOffersOfService($data: [OfferOfServiceDraft!]!) {
     batchImportOffersOfService(input: { OffersOfService: $data }) {
-      OffersOfService {
+      offersOfService {
         id
+        _id
         oosNumber
+        firstName
+        lastName
+        preferredName
+        fullName
+        isYouth
+        email
+        parentEmail
+        phone1
+        phone2
+        prerecruited
+        prerecruitedBy
+        additionalInformation
+        previousExperience
+        specialSkills
+        assigned
+        assignment {
+          name
+          id
+        }
       }
     }
   }

@@ -20,10 +20,10 @@ const OFFERS_OF_SERVICE_FRAGMENT = gql`
     previousExperience
     specialSkills
     assigned
-    # assignment {
-    #   name
-    #   id
-    # }
+    assignment {
+      name
+      id
+    }
   }
 `;
 
