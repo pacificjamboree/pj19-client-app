@@ -27,7 +27,7 @@ class OOSImporter extends Component {
     const { importData, importCount, changeHandler, mutation } = this.props;
     console.log({ importData });
     return (
-      <Query query={query} fetchPolicy="no-cache">
+      <Query query={query}>
         {({ data, loading, error }) => {
           if (loading) return <Loader active />;
           if (error) {
@@ -35,7 +35,6 @@ class OOSImporter extends Component {
           }
 
           const newOOS = importData.filter(x => {
-            debugger;
             return !data.offersOfService
               .map(x => x.oosNumber)
               .includes(x.oosNumber);
