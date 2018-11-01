@@ -1,0 +1,15 @@
+.label {
+  font-weight: bold;
+}
+
+.parentEmail {
+  margin-right: 2em;
+}
+
+.disabled {
+  color: rgba(0,0,0,.4) !important;
+}
+
+.assignmentLabel {
+  margin-right: 1em;
+}

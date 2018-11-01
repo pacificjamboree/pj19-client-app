@@ -270,6 +270,17 @@ const UPDATE_OFFER_OF_SERVICE_BY_ID = gql`
   }
 `;
 
+const BATCH_IMPORT_OOS_MUTATION = gql`
+  mutation batchImportOffersOfService($data: [OfferOfServiceDraft!]!) {
+    batchImportOffersOfService(input: { OffersOfService: $data }) {
+      OffersOfService {
+        id
+        oosNumber
+      }
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -286,4 +297,5 @@ export {
   GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
   UPDATE_OFFER_OF_SERVICE_BY_ID,
   OOS_EDIT_QUERY_WITH_ADVENTURE_NAMES,
+  BATCH_IMPORT_OOS_MUTATION,
 };

@@ -34,5 +34,9 @@ export default data => {
     range: `${rangeStart}:${rangeEnd}`,
   });
 
-  return dataObject.map(row => renameKeys(oosFieldMap, row));
+  return dataObject.map(row => ({
+    importOOS: true,
+    assignedAdventureId: 'unassigned',
+    ...renameKeys(oosFieldMap, row),
+  }));
 };
