@@ -54,7 +54,7 @@ class OOSImporter extends Component {
 
           return (
             <>
-              <Header as="h2">New Offers of Service</Header>
+              <Header as="h2">Prepare Offers of Service for Import</Header>
               <p>
                 The list below contains Offers of Service from the Registrar's
                 report that do not already exist in this system. Review the

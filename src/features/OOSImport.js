@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Segment } from 'semantic-ui-react';
+import { Icon, Header, Segment, Step } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import ExcelFileUploadReader from '../components/ExcelFileUploadReader';
@@ -21,6 +21,8 @@ class OOSImport extends Component {
   constructor() {
     super();
     this.state = {
+      step: 1,
+      importId: btoa(`OOSImport:::${Date.now()}`),
       fileParsed: false,
       errors: [],
       importData: [],
@@ -39,6 +41,7 @@ class OOSImport extends Component {
         importData: sanitizedData,
         importCount: sanitizedData.filter(x => x.importOOS === true).length,
         fileParsed: true,
+        step: 2,
       });
     } catch (error) {
       this.setState({ error });
@@ -68,6 +71,22 @@ class OOSImport extends Component {
             <p>{this.state.error.message}</p>
           </Segment>
         )}
+
+        <Step.Group widths={3}>
+          <Step active={this.state.step === 1}>
+            <Icon name="file excel" />
+            <Step.Content>Upload OOS Excel File</Step.Content>
+          </Step>
+          <Step active={this.state.step === 2}>
+            <Icon name="edit" />
+            <Step.Content>Prepare OOS for Import</Step.Content>
+          </Step>
+          <Step active={this.state.step === 3}>
+            <Icon name="mail" />
+            <Step.Content>Review Import and Send Emails</Step.Content>
+          </Step>
+        </Step.Group>
+
         {this.state.fileParsed && this.state.importData ? (
           <Mutation
             mutation={BATCH_IMPORT_OOS_MUTATION}
@@ -76,7 +95,6 @@ class OOSImport extends Component {
             refetchQueries={[{ query: refetchQuery }]}
           >
             {(mutationFn, { data, error }) => {
-              console.log({ data, error });
               return (
                 <OOSImporter
                   importData={this.state.importData}
