@@ -1,36 +1,27 @@
 import React, { Component } from 'react';
 import { Icon, Header, Segment, Step } from 'semantic-ui-react';
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
 import ExcelFileUploadReader from '../components/ExcelFileUploadReader';
 import OOSImporter from '../components/OOSImporter';
+import OOSImportReview from '../components/OOSImportReview';
 import parseOOSExcelFile from '../lib/parseOOSExcelFile';
-import { BATCH_IMPORT_OOS_MUTATION } from '../graphql/queries';
-import { OFFERS_OF_SERVICE_FRAGMENT } from '../graphql/fragments';
 
-const refetchQuery = gql`
-  query {
-    offersOfService: offersOfService {
-      ...OffersOfServiceFragment
-    }
-  }
-  ${OFFERS_OF_SERVICE_FRAGMENT}
-`;
+const importId = () => btoa(`OOSImport:::${Date.now()}`);
 
 class OOSImport extends Component {
   constructor() {
     super();
     this.state = {
       step: 1,
-      importId: btoa(`OOSImport:::${Date.now()}`),
+      importId: importId(),
       fileParsed: false,
       errors: [],
       importData: [],
-      importCount: 0,
     };
     this.onReadFile = this.onReadFile.bind(this);
     this.onError = this.onError.bind(this);
     this.onHandleImportDataChange = this.onHandleImportDataChange.bind(this);
+    this.stepUpdater = this.stepUpdater.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
   onReadFile(data) {
@@ -39,7 +30,7 @@ class OOSImport extends Component {
       this.setState({
         error: null,
         importData: sanitizedData,
-        importCount: sanitizedData.filter(x => x.importOOS === true).length,
+
         fileParsed: true,
         step: 2,
       });
@@ -58,8 +49,47 @@ class OOSImport extends Component {
     );
     this.setState({
       importData,
-      importCount: importData.filter(x => x.importOOS === true).length,
     });
+  }
+
+  stepUpdater(step) {
+    this.setState({ step });
+  }
+
+  resetState() {
+    this.setState({
+      ...this.state,
+      importData: [],
+      step: 1,
+      importId: importId(),
+    });
+  }
+
+  stepRenderer(step) {
+    switch (step) {
+      case 1:
+        return (
+          <ExcelFileUploadReader
+            onError={this.onError}
+            onReadFile={this.onReadFile}
+          />
+        );
+      case 2:
+        return (
+          <OOSImporter
+            importData={this.state.importData}
+            importId={this.state.importId}
+            changeHandler={this.onHandleImportDataChange}
+            stepUpdater={this.stepUpdater}
+            resetState={this.resetState}
+          />
+        );
+
+      case 3:
+        return <OOSImportReview importId={this.state.importId} />;
+      default:
+        break;
+    }
   }
 
   render() {
@@ -87,30 +117,7 @@ class OOSImport extends Component {
           </Step>
         </Step.Group>
 
-        {this.state.fileParsed && this.state.importData ? (
-          <Mutation
-            mutation={BATCH_IMPORT_OOS_MUTATION}
-            onCompleted={data => console.log({ data })}
-            update={(cache, mutationResult) => console.log({ mutationResult })}
-            refetchQueries={[{ query: refetchQuery }]}
-          >
-            {(mutationFn, { data, error }) => {
-              return (
-                <OOSImporter
-                  importData={this.state.importData}
-                  importCount={this.state.importCount}
-                  changeHandler={this.onHandleImportDataChange}
-                  mutation={mutationFn}
-                />
-              );
-            }}
-          </Mutation>
-        ) : (
-          <ExcelFileUploadReader
-            onError={this.onError}
-            onReadFile={this.onReadFile}
-          />
-        )}
+        {this.stepRenderer(this.state.step)}
       </>
     );
   }

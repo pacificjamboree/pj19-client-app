@@ -45,7 +45,6 @@ const OOSEdit = ({ oosNumber }) => (
             }}
           >
             {(mutation, { data, error }) => {
-              console.log({ data, error });
               return (
                 <OOSEditForm
                   adventures={adventures}

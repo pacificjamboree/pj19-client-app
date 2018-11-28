@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import { Loader, Header, Button, Icon } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import OOSCard from './card';
 
+import { BATCH_IMPORT_OOS_MUTATION } from '../../graphql/queries';
 import {
   OFFERS_OF_SERVICE_FRAGMENT,
   ADVENTURE_NAME_ID_FRAGMENT,
@@ -22,10 +23,36 @@ const query = gql`
   ${ADVENTURE_NAME_ID_FRAGMENT}
 `;
 
+const refetchQuery = gql`
+  query {
+    offersOfService: offersOfService {
+      ...OffersOfServiceFragment
+    }
+  }
+  ${OFFERS_OF_SERVICE_FRAGMENT}
+`;
+
+const noOOS = resetState => (
+  <>
+    <Header as="h2">No Offers of Service to Import</Header>
+    <p>
+      The OOS Import file uploaded contains no new Offers of Service to import.
+    </p>
+    <Button color="teal" onClick={resetState}>
+      Upload Another File
+    </Button>
+  </>
+);
+
 class OOSImporter extends Component {
   render() {
-    const { importData, importCount, changeHandler, mutation } = this.props;
-    console.log({ importData });
+    const {
+      importData,
+      importId,
+      changeHandler,
+      stepUpdater,
+      resetState,
+    } = this.props;
     return (
       <Query query={query}>
         {({ data, loading, error }) => {
@@ -39,6 +66,8 @@ class OOSImporter extends Component {
               .map(x => x.oosNumber)
               .includes(x.oosNumber);
           });
+
+          const count = newOOS.filter(x => x.importOOS).length;
           const adventureOptions = [
             {
               key: 'unassigned',
@@ -52,7 +81,9 @@ class OOSImporter extends Component {
             })),
           ];
 
-          return (
+          return newOOS.length === 0 ? (
+            noOOS(resetState)
+          ) : (
             <>
               <Header as="h2">Prepare Offers of Service for Import</Header>
               <p>
@@ -71,37 +102,53 @@ class OOSImporter extends Component {
                   changeHandler={changeHandler}
                 />
               ))}
-              <Button
-                onClick={e => {
-                  e.preventDefault();
-                  const toImport = importData
-                    .filter(x => x.importOOS)
-                    .map(x => {
-                      const { importOOS, ...data } = x;
-                      return {
-                        ...data,
-                        assignedAdventureId:
-                          data.assignedAdventureId === 'unassigned'
-                            ? null
-                            : data.assignedAdventureId,
-                        isYouth: data.isYouth === 'Y' ? true : false,
-                        prerecruited: data.prerecruited === 'Yes',
-                        workflowState: 'active',
-                      };
-                    });
-                  mutation({
-                    variables: {
-                      data: toImport,
-                    },
-                  });
+              <Mutation
+                mutation={BATCH_IMPORT_OOS_MUTATION}
+                onCompleted={() => {
+                  stepUpdater(3);
                 }}
-                color="teal"
-                icon
-                labelPosition="left"
+                refetchQueries={[{ query: refetchQuery }]}
               >
-                <Icon name="check" />
-                Import {importCount} Offers of Service
-              </Button>
+                {(mutationFn, { data, error }) => {
+                  return (
+                    <Button
+                      disabled={count === 0}
+                      onClick={e => {
+                        e.preventDefault();
+                        const toImport = newOOS
+                          .filter(x => x.importOOS)
+                          .map(x => {
+                            const { importOOS, ...data } = x;
+                            return {
+                              ...data,
+                              importId,
+                              assignedAdventureId:
+                                data.assignedAdventureId === 'unassigned'
+                                  ? null
+                                  : data.assignedAdventureId,
+                              isYouth: data.isYouth === 'Y' ? true : false,
+                              prerecruited: data.prerecruited === 'Yes',
+                              workflowState: 'active',
+                            };
+                          });
+                        mutationFn({
+                          variables: {
+                            data: toImport,
+                          },
+                        });
+                      }}
+                      color="teal"
+                      icon
+                      labelPosition="left"
+                    >
+                      <Icon name="check" />
+                      {count > 0
+                        ? `Import ${count} Offers of Service`
+                        : `No Offers of Service Selected for Import`}
+                    </Button>
+                  );
+                }}
+              </Mutation>
             </>
           );
         }}

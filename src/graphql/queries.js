@@ -296,6 +296,7 @@ const BATCH_IMPORT_OOS_MUTATION = gql`
           name
           id
         }
+        importId
       }
     }
   }
