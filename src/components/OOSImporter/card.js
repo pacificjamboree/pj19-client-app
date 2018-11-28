@@ -9,7 +9,7 @@ export default ({ oos, changeHandler, adventures }) => {
     firstName,
     preferredName,
     isYouth,
-    emailAddress,
+    email,
     parentEmail,
     prerecruited,
     prerecruitedBy,
@@ -51,7 +51,7 @@ export default ({ oos, changeHandler, adventures }) => {
 
           <p>
             <span className={styles.label}>Email Address: </span>
-            {emailAddress}
+            {email}
             {isYouthBool && (
               <span className={styles.parentEmail}>
                 <span className={styles.label}> Parent Email: </span>

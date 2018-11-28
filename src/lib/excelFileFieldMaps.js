@@ -9,6 +9,7 @@ export const oosFieldMap = {
   "Alternate First Name (ie. If myscouts has you as 'Colin James' but you go by 'Jim')":
     'preferredName',
   'Email Address2': 'email',
+  'Email Address': 'email',
   'Youth Y/N': 'isYouth',
   'Youth (18 and under) Please provide a parent/guardian Email Address':
     'parentEmail',
