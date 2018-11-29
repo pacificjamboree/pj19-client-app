@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './features/App';
 import registerServiceWorker from './registerServiceWorker';
 import { defaults, resolvers } from './graphql';
