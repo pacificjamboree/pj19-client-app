@@ -10,7 +10,7 @@ if [ $CURRENT_BRANCH != "master" ] ; then
   exit 1
 else
   echo 'Syncing build folder to S3'
-  aws s3 sync build/ s3://pj2019.grahamballantyne.com && \
+  aws s3 sync build/ s3://adventure.pacificjamboree.ca && \
   echo 'Invalidating CloudFront cache' && \
   aws cloudfront create-invalidation --distribution-id E305U167B57NUX --paths '/*'
 fi
