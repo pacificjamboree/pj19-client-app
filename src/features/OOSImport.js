@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Header, Segment, Step } from 'semantic-ui-react';
+import { Link } from '@reach/router';
 import ExcelFileUploadReader from '../components/ExcelFileUploadReader';
 import OOSImporter from '../components/OOSImporter';
 import OOSImportReview from '../components/OOSImportReview';
@@ -44,8 +45,8 @@ class OOSImport extends Component {
   }
 
   onHandleImportDataChange(oos) {
-    const importData = this.state.importData.map(
-      i => (i.oosNumber === oos.oosNumber ? oos : i)
+    const importData = this.state.importData.map(i =>
+      i.oosNumber === oos.oosNumber ? oos : i
     );
     this.setState({
       importData,
@@ -86,7 +87,23 @@ class OOSImport extends Component {
         );
 
       case 3:
-        return <OOSImportReview importId={this.state.importId} />;
+        return (
+          <OOSImportReview
+            stepUpdater={this.stepUpdater}
+            importId={this.state.importId}
+          />
+        );
+
+      case 4:
+        return (
+          <>
+            <Header as="h2">Import Complete</Header>
+            <p>
+              Offer of Service import is complete.{' '}
+              <Link to="/oos">Go to Offer of Service listing</Link>
+            </p>
+          </>
+        );
       default:
         break;
     }
@@ -102,7 +119,7 @@ class OOSImport extends Component {
           </Segment>
         )}
 
-        <Step.Group widths={3}>
+        <Step.Group widths={4}>
           <Step active={this.state.step === 1}>
             <Icon name="file excel" />
             <Step.Content>Upload OOS Excel File</Step.Content>
@@ -113,7 +130,11 @@ class OOSImport extends Component {
           </Step>
           <Step active={this.state.step === 3}>
             <Icon name="mail" />
-            <Step.Content>Review Import and Send Emails</Step.Content>
+            <Step.Content>Review Import Results and Send Emails</Step.Content>
+          </Step>
+          <Step active={this.state.step === 4}>
+            <Icon name="check circle" />
+            <Step.Content>Done</Step.Content>
           </Step>
         </Step.Group>
 

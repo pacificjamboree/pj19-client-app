@@ -302,6 +302,14 @@ const BATCH_IMPORT_OOS_MUTATION = gql`
   }
 `;
 
+const SEND_OOS_WELCOME_EMAILS_BULK = gql`
+  mutation sendOfferOfServiceWelcomeMessagesBulk($ids: [ID!]!) {
+    sendOfferOfServiceWelcomeMessagesBulk(input: { ids: $ids }) {
+      status
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -319,4 +327,5 @@ export {
   UPDATE_OFFER_OF_SERVICE_BY_ID,
   OOS_EDIT_QUERY_WITH_ADVENTURE_NAMES,
   BATCH_IMPORT_OOS_MUTATION,
+  SEND_OOS_WELCOME_EMAILS_BULK,
 };
