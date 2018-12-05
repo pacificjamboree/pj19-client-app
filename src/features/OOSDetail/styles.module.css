@@ -1,0 +1,9 @@
+.actionButtons button {
+  display: block !important;
+  width: 100%;
+  margin-bottom: 0.75em !important;
+}
+
+.label {
+  font-weight: bold;
+}
