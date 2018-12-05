@@ -302,6 +302,22 @@ const BATCH_IMPORT_OOS_MUTATION = gql`
   }
 `;
 
+const SEND_OOS_WELCOME_EMAIL = gql`
+  mutation sendOfferOfServiceWelcomeEmail($id: ID!) {
+    sendOfferOfServiceWelcomeEmail(input: { id: $id }) {
+      status
+    }
+  }
+`;
+
+const SEND_OOS_ASSIGNMENT_EMAIL = gql`
+  mutation sendOfferOfServiceWelcomeEmail($id: ID!) {
+    sendOfferOfServiceAssignmentEmail(input: { id: $id }) {
+      status
+    }
+  }
+`;
+
 const SEND_OOS_WELCOME_EMAILS_BULK = gql`
   mutation sendOfferOfServiceWelcomeMessagesBulk($ids: [ID!]!) {
     sendOfferOfServiceWelcomeMessagesBulk(input: { ids: $ids }) {
@@ -328,4 +344,6 @@ export {
   OOS_EDIT_QUERY_WITH_ADVENTURE_NAMES,
   BATCH_IMPORT_OOS_MUTATION,
   SEND_OOS_WELCOME_EMAILS_BULK,
+  SEND_OOS_WELCOME_EMAIL,
+  SEND_OOS_ASSIGNMENT_EMAIL,
 };
