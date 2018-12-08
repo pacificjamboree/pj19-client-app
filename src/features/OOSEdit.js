@@ -26,7 +26,6 @@ const OOSEdit = ({ oosNumber }) => (
             mutation={UPDATE_OFFER_OF_SERVICE_BY_ID}
             onError={error => {
               console.log('MUTATION ERROR', error);
-              debugger;
             }}
             onCompleted={data => {
               navigate(
