@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import { Router } from '@reach/router';
 import { Container } from 'semantic-ui-react';
+import Flash from '../components/Flash';
 import Home from './Home';
 import Login from './Login';
 import Logout from './Logout';
@@ -37,6 +38,7 @@ class App extends Component {
               <NavBar />
 
               <Container style={{ paddingTop: '6em', paddingBottom: '2em' }}>
+                <Flash />
                 <Router>
                   <Home path="/" />
                   <Login path="/login" />

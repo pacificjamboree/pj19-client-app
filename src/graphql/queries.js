@@ -33,6 +33,16 @@ const UPDATE_NAVBAR_VISIBILITY_STATE = gql`
   }
 `;
 
+const GET_FLASH_MESSAGES = gql`
+  {
+    messages @client {
+      id
+      kind
+      message
+    }
+  }
+`;
+
 const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
     createLoginToken(input: { username: $username, password: $password }) {
@@ -334,6 +344,7 @@ export {
   UPDATE_LOGIN_STATE,
   GET_NAVBAR_VISIBILITY_STATE,
   UPDATE_NAVBAR_VISIBILITY_STATE,
+  GET_FLASH_MESSAGES,
   GET_ADVENTURE_LIST,
   GET_ADVENTURE_BY_ID,
   UPDATE_ADVENTURE_BY_ID,
