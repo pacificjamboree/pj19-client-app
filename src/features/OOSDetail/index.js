@@ -9,6 +9,8 @@ import {
   Grid,
   Button,
   Icon,
+  Divider,
+  Label,
 } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 import {
@@ -18,6 +20,8 @@ import {
 } from '../../graphql/queries';
 import UserHasRole from '../../components/UserHasRole';
 import styles from './styles.module.css';
+import AddAdventureManagerButton from './AddAdventureManagerButton';
+import RemoveAdventureManagerButton from './RemoveAdventureManagerButton';
 
 const OOSDetail = ({ oosNumber }) => (
   <Container>
@@ -45,6 +49,7 @@ const OOSDetail = ({ oosNumber }) => (
           specialSkills,
           assigned,
           assignment,
+          isAdventureManager,
         } = offerOfService;
 
         return (
@@ -54,6 +59,12 @@ const OOSDetail = ({ oosNumber }) => (
                 <Header as="h1">
                   {fullName} ({oosNumber})
                 </Header>
+                {isAdventureManager ? (
+                  <Label color="green" horizontal>
+                    <Icon name="star" />
+                    Adventure Manager
+                  </Label>
+                ) : null}
                 <Header as="h2">
                   {assigned ? assignment.name : 'Unassigned'}
                 </Header>
@@ -162,11 +173,23 @@ const OOSDetail = ({ oosNumber }) => (
               >
                 <UserHasRole userRoles={['admin']}>
                   <Link to={`./edit`}>
-                    <Button icon labelPosition="left" color="teal">
+                    <Button icon labelPosition="left">
                       <Icon name="edit" />
                       Edit Offer of Service
                     </Button>
                   </Link>
+
+                  <Divider />
+
+                  {isAdventureManager ? (
+                    <RemoveAdventureManagerButton
+                      offerOfService={offerOfService}
+                    />
+                  ) : (
+                    <AddAdventureManagerButton
+                      offerOfService={offerOfService}
+                    />
+                  )}
 
                   <Mutation
                     mutation={SEND_OOS_WELCOME_EMAIL}
@@ -179,7 +202,6 @@ const OOSDetail = ({ oosNumber }) => (
                         <Button
                           icon
                           labelPosition="left"
-                          color="teal"
                           title="Send welcome email to OOS"
                           onClick={() => {
                             sendEmail({ variables: { id } });
@@ -203,7 +225,6 @@ const OOSDetail = ({ oosNumber }) => (
                         <Button
                           icon
                           labelPosition="left"
-                          color="teal"
                           disabled={!assigned}
                           title={
                             assigned
