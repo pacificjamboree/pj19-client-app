@@ -1,6 +1,7 @@
 import { GET_FLASH_MESSAGES } from '../graphql/queries';
 
-const pushFlashMessage = (cache, { message, kind, autoDismiss }) => {
+const pushFlashMessage = (client, { message, kind, autoDismiss }) => {
+  const { cache } = client;
   const { messages } = cache.readQuery({
     query: GET_FLASH_MESSAGES,
   });
@@ -22,24 +23,23 @@ const pushFlashMessage = (cache, { message, kind, autoDismiss }) => {
     },
   });
 
-  // setTimeout(() => {
-  //   popFlashMessage(cache, id);
-  // }, 5000);
+  if (kind === 'success') {
+    setTimeout(() => {
+      popFlashMessage(client, id);
+    }, 5000);
+  }
 };
 
-const popFlashMessage = (cache, id) => {
-  console.log('popmessage');
-  const { messages } = cache.readQuery({
+const popFlashMessage = (client, id) => {
+  const { messages } = client.cache.readQuery({
     query: GET_FLASH_MESSAGES,
   });
-
   const newMessages = messages.filter(m => m.id !== id);
-  console.log(newMessages);
-  cache.writeData({
-    data: {
-      messages: newMessages,
-    },
-  });
+  const data = {
+    messages: newMessages,
+  };
+  client.cache.writeData({ data });
+  client.queryManager.broadcastQueries();
 };
 
 export { pushFlashMessage, popFlashMessage };

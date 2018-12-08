@@ -34,7 +34,7 @@ const UPDATE_NAVBAR_VISIBILITY_STATE = gql`
 `;
 
 const GET_FLASH_MESSAGES = gql`
-  {
+  query {
     messages @client {
       id
       kind
@@ -337,6 +337,29 @@ const SEND_OOS_WELCOME_EMAILS_BULK = gql`
   }
 `;
 
+const ASSIGN_MANAGER_TO_ADVENTURE = gql`
+  mutation assignManagerToAdventure($adventureId: ID!, $oosId: ID!) {
+    assignManagerToAdventure(
+      input: { adventureId: $adventureId, oosId: $oosId }
+    ) {
+      Adventure {
+        id
+      }
+    }
+  }
+`;
+const REMOVE_MANAGER_FROM_ADVENTURE = gql`
+  mutation removeManagerFromAdventure($adventureId: ID!, $oosId: ID!) {
+    removeManagerFromAdventure(
+      input: { adventureId: $adventureId, oosId: $oosId }
+    ) {
+      Adventure {
+        id
+      }
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -358,4 +381,6 @@ export {
   SEND_OOS_WELCOME_EMAILS_BULK,
   SEND_OOS_WELCOME_EMAIL,
   SEND_OOS_ASSIGNMENT_EMAIL,
+  ASSIGN_MANAGER_TO_ADVENTURE,
+  REMOVE_MANAGER_FROM_ADVENTURE,
 };

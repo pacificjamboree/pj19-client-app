@@ -9,7 +9,6 @@ const Flash = ({ client }) => {
     <div style={{ marginBottom: '3em' }}>
       <Query query={GET_FLASH_MESSAGES}>
         {({ data: { messages } }) => {
-          console.log({ messages });
           return messages
             ? messages.map(({ message, kind, id }, i) => {
                 switch (kind) {
@@ -19,7 +18,7 @@ const Flash = ({ client }) => {
                         success
                         key={id}
                         onDismiss={() => {
-                          popFlashMessage(client.cache, id);
+                          popFlashMessage(client, id);
                         }}
                       >
                         {message}
@@ -28,13 +27,28 @@ const Flash = ({ client }) => {
 
                   case 'error':
                     return (
-                      <Message error key={id}>
+                      <Message
+                        error
+                        key={id}
+                        onDismiss={() => {
+                          popFlashMessage(client, id);
+                        }}
+                      >
                         {message}
                       </Message>
                     );
 
                   default:
-                    return <Message key={id}>{message}</Message>;
+                    return (
+                      <Message
+                        key={id}
+                        onDismiss={() => {
+                          popFlashMessage(client, id);
+                        }}
+                      >
+                        {message}
+                      </Message>
+                    );
                 }
               })
             : null;
