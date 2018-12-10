@@ -241,6 +241,28 @@ const OOSDetail = ({ oosNumber }) => (
                       );
                     }}
                   </Mutation>
+                  <div className={styles.userMetadata}>
+                    <p>
+                      OOS ID:
+                      <br />
+                      {id}
+                    </p>
+                    <p>
+                      Database ID:
+                      <br />
+                      {_id}
+                    </p>
+                    <p>
+                      Assignment ID:
+                      <br />
+                      {assigned ? assignment.id : 'N/A'}
+                    </p>
+                    <p>
+                      User ID:
+                      <br />
+                      {user && user.id ? user.id : 'N/A'}
+                    </p>
+                  </div>
                 </UserHasRole>
               </Grid.Column>
             </Grid>
