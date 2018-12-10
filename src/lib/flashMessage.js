@@ -32,6 +32,7 @@ const pushFlashMessage = (
       popFlashMessage(client, id);
     }, 5000);
   }
+  client.queryManager.broadcastQueries();
 };
 
 const popFlashMessage = (client, id) => {
