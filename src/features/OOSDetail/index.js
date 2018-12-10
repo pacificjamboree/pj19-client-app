@@ -1,8 +1,8 @@
 import React from 'react';
-import { Query, Mutation } from 'react-apollo';
+import Query from '../../components/Query';
+
 import {
   Container,
-  Loader,
   Header,
   Table,
   Segment,
@@ -13,25 +13,27 @@ import {
   Label,
 } from 'semantic-ui-react';
 import { Link } from '@reach/router';
-import {
-  GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
-  SEND_OOS_WELCOME_EMAIL,
-  SEND_OOS_ASSIGNMENT_EMAIL,
-} from '../../graphql/queries';
+import { GET_OFFER_OF_SERVICE_BY_OOS_NUMBER } from '../../graphql/queries';
 import UserHasRole from '../../components/UserHasRole';
 import styles from './styles.module.css';
 import AddAdventureManagerButton from './AddAdventureManagerButton';
 import RemoveAdventureManagerButton from './RemoveAdventureManagerButton';
+import SendWelcomeEmailButton from './SendWelcomeEmailButton';
+import SendAssignmentEmailButton from './SendAssignmentEmailButton';
+import CreateLoginButton from './CreateUserButton';
 
 const OOSDetail = ({ oosNumber }) => (
   <Container>
-    <Query query={GET_OFFER_OF_SERVICE_BY_OOS_NUMBER} variables={{ oosNumber }}>
-      {({ data: { offerOfService }, loading, error }) => {
-        if (loading) return <Loader active />;
-        if (error) return <p>Error</p>;
-
+    <Query
+      notFoundIfFalsy="offerOfService"
+      query={GET_OFFER_OF_SERVICE_BY_OOS_NUMBER}
+      variables={{ oosNumber }}
+    >
+      {({ data: { offerOfService } }) => {
+        console.log({ offerOfService });
         const {
           id,
+          _id,
           oosNumber,
           firstName,
           lastName,
@@ -50,11 +52,16 @@ const OOSDetail = ({ oosNumber }) => (
           assigned,
           assignment,
           isAdventureManager,
+          user,
         } = offerOfService;
 
         return (
           <>
-            <Grid stackable divided columns={16}>
+            <Link to="/oos" style={styles.backLink}>
+              <Icon name="chevron left" />
+              Offers of Service
+            </Link>
+            <Grid stackable divided columns={16} style={{ marginTop: '0' }}>
               <Grid.Column width={10}>
                 <Header as="h1">
                   {fullName} ({oosNumber})
@@ -110,7 +117,7 @@ const OOSDetail = ({ oosNumber }) => (
                     <Table.Row>
                       <Table.Cell className={styles.label}>Email</Table.Cell>
                       <Table.Cell>
-                        <a href="mailto:{email}">{email}</a>
+                        <a href={`mailto:${email}`}>{email}</a>
                       </Table.Cell>
                     </Table.Row>
 
@@ -181,66 +188,31 @@ const OOSDetail = ({ oosNumber }) => (
 
                   <Divider />
 
-                  {isAdventureManager ? (
-                    <RemoveAdventureManagerButton
-                      offerOfService={offerOfService}
-                    />
-                  ) : (
-                    <AddAdventureManagerButton
-                      offerOfService={offerOfService}
-                    />
-                  )}
+                  <CreateLoginButton
+                    oosId={id}
+                    username={email}
+                    disabled={user && !!user.id}
+                  />
 
-                  <Mutation
-                    mutation={SEND_OOS_WELCOME_EMAIL}
-                    onCompleted={() => {
-                      alert('sent');
-                    }}
-                  >
-                    {(sendEmail, { data, error }) => {
-                      return (
-                        <Button
-                          icon
-                          labelPosition="left"
-                          title="Send welcome email to OOS"
-                          onClick={() => {
-                            sendEmail({ variables: { id } });
-                          }}
-                        >
-                          <Icon name="mail" />
-                          Send Welcome Email
-                        </Button>
-                      );
-                    }}
-                  </Mutation>
+                  {assigned ? (
+                    isAdventureManager ? (
+                      <RemoveAdventureManagerButton
+                        offerOfService={offerOfService}
+                      />
+                    ) : (
+                      <AddAdventureManagerButton
+                        offerOfService={offerOfService}
+                      />
+                    )
+                  ) : null}
 
-                  <Mutation
-                    mutation={SEND_OOS_ASSIGNMENT_EMAIL}
-                    onCompleted={() => {
-                      alert('sent');
-                    }}
-                  >
-                    {(sendEmail, { data, error }) => {
-                      return (
-                        <Button
-                          icon
-                          labelPosition="left"
-                          disabled={!assigned}
-                          title={
-                            assigned
-                              ? 'Send assignment email to OOS'
-                              : 'OOS is not assigned to an Adventure'
-                          }
-                          onClick={() => {
-                            sendEmail({ variables: { id } });
-                          }}
-                        >
-                          <Icon name="mail" />
-                          Send Assignment Email
-                        </Button>
-                      );
-                    }}
-                  </Mutation>
+                  <Divider />
+
+                  <SendWelcomeEmailButton id={id} />
+                  <SendAssignmentEmailButton id={id} assigned={assigned} />
+
+                  <Divider />
+
                   <div className={styles.userMetadata}>
                     <p>
                       OOS ID:
