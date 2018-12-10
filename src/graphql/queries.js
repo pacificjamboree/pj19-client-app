@@ -360,6 +360,32 @@ const REMOVE_MANAGER_FROM_ADVENTURE = gql`
   }
 `;
 
+const CREATE_USER = gql`
+  mutation createUser(
+    $username: String!
+    $oosId: ID
+    $patrolScouterId: ID
+    $admin: Boolean
+  ) {
+    createUser(
+      input: {
+        User: {
+          username: $username
+          oosId: $oosId
+          patrolScouterId: $patrolScouterId
+          admin: $admin
+          workflowState: active
+        }
+      }
+    ) {
+      User {
+        id
+        username
+      }
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
