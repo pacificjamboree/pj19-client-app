@@ -1,6 +1,9 @@
 import { GET_FLASH_MESSAGES } from '../graphql/queries';
 
-const pushFlashMessage = (client, { message, kind, autoDismiss }) => {
+const pushFlashMessage = (
+  client,
+  { message, kind, error = null, autoDismiss }
+) => {
   const { cache } = client;
   const { messages } = cache.readQuery({
     query: GET_FLASH_MESSAGES,
@@ -12,6 +15,7 @@ const pushFlashMessage = (client, { message, kind, autoDismiss }) => {
       id,
       kind,
       message,
+      error,
       __typename: 'FlashMessage',
     },
     ...messages,

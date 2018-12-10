@@ -39,6 +39,7 @@ const GET_FLASH_MESSAGES = gql`
       id
       kind
       message
+      error
     }
   }
 `;
