@@ -25,6 +25,14 @@ const AddAdventureManagerButton = ({
         message: 'OOS is now an Adventure Manager',
       });
     }}
+    onError={error => {
+      pushFlashMessage(client, {
+        kind: 'error',
+        message:
+          'An error occured while tring to make this OOS an Adventure Manager',
+        error: error.message,
+      });
+    }}
   >
     {(mutation, { data, error }) => (
       <Button
