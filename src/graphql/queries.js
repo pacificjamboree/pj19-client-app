@@ -370,6 +370,7 @@ const CREATE_USER = gql`
     $oosId: ID
     $patrolScouterId: ID
     $admin: Boolean
+    $workflowState: WorkflowState
   ) {
     createUser(
       input: {
@@ -378,7 +379,7 @@ const CREATE_USER = gql`
           oosId: $oosId
           patrolScouterId: $patrolScouterId
           admin: $admin
-          workflowState: active
+          workflowState: $workflowState
         }
       }
     ) {

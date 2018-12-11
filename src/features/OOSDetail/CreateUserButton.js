@@ -2,12 +2,21 @@ import { Mutation, withApollo } from 'react-apollo';
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 import { pushFlashMessage } from '../../lib/flashMessage';
-import { CREATE_USER } from '../../graphql/queries';
+import {
+  GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
+  CREATE_USER,
+} from '../../graphql/queries';
 
-const CreateUserButton = ({ client, oosId, username, disabled }) => (
+const CreateUserButton = ({ client, oosId, username, disabled, oosNumber }) => (
   <Mutation
     errorPolicy="all"
     mutation={CREATE_USER}
+    refetchQueries={[
+      {
+        query: GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
+        variables: { oosNumber },
+      },
+    ]}
     update={() => {
       pushFlashMessage(client, {
         kind: 'success',
@@ -30,7 +39,9 @@ const CreateUserButton = ({ client, oosId, username, disabled }) => (
           labelPosition="left"
           title="Create login for OOS"
           onClick={() => {
-            createLogin({ variables: { username, oosId } });
+            createLogin({
+              variables: { username, oosId, workflowState: 'defined' },
+            });
           }}
         >
           <Icon name="user plus" />

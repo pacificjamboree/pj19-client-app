@@ -190,6 +190,7 @@ const OOSDetail = ({ oosNumber }) => (
 
                   <CreateLoginButton
                     oosId={id}
+                    oosNumber={oosNumber}
                     username={email}
                     disabled={user && !!user.id}
                   />
