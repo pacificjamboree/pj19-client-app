@@ -28,6 +28,15 @@ class LoginForm extends Component {
     });
   };
 
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.error !== undefined &&
+      this.props.error !== prevProps.error
+    ) {
+      this.setState({ password: '' });
+    }
+  }
+
   render() {
     const { error } = this.props;
     return (
