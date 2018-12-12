@@ -7,7 +7,7 @@ import {
   Header,
   Message,
 } from 'semantic-ui-react';
-
+import { Link } from '@reach/router';
 import './LoginForm.css';
 class LoginForm extends Component {
   state = {
@@ -69,6 +69,7 @@ class LoginForm extends Component {
                 placeholder="Username"
                 autoCapitalize="none"
                 onChange={this.handleChange}
+                value={this.state.username}
               />
               <Form.Input
                 name="password"
@@ -78,16 +79,18 @@ class LoginForm extends Component {
                 placeholder="Password"
                 type="password"
                 onChange={this.handleChange}
+                value={this.state.password}
               />
               <Button color="teal" fluid size="large">
                 Login
               </Button>
             </Segment>
           </Form>
-          <Message>
-            {/* TODO replace with functionality */}
-            <span>Forgot your Password?</span>
-          </Message>
+          <Link to="/forgotPassword">
+            <Button fluid size="large" style={{ marginTop: '1em' }}>
+              Forgot your Password?
+            </Button>
+          </Link>
         </Grid.Column>
       </Grid>
     );

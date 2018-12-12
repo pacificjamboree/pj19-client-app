@@ -10,7 +10,6 @@ const FlashMessages = ({ client }) => {
   return (
     <Query query={GET_FLASH_MESSAGES}>
       {({ data: { messages } }) => {
-        console.log(messages);
         const items = messages.map(({ message, kind, id, error }, i) => {
           switch (kind) {
             case 'success':
@@ -27,7 +26,6 @@ const FlashMessages = ({ client }) => {
               );
 
             case 'error':
-              console.log({ ERROR: error });
               return (
                 <Message
                   error

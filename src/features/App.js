@@ -5,6 +5,8 @@ import { Container } from 'semantic-ui-react';
 import FlashMessages from '../components/FlashMessages';
 import Home from './Home';
 import Login from './Login';
+import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
 import Logout from './Logout';
 import Adventures from './Adventures';
 import AdventureDetail from './AdventureDetail';
@@ -45,6 +47,8 @@ class App extends Component {
                     <Home path="/" />
                     <Login path="/login" />
                     <Logout path="/logout" />
+                    <ForgotPassword path="/forgotPassword" />
+                    <ResetPassword path="/resetPassword/:passwordResetToken" />
                     <Adventures path="/adventures" />
                     <AdventureDetail path="/adventures/:id" />
                     <AuthorizedRoute

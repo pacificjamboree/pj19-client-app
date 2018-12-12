@@ -70,6 +70,25 @@ const UPDATE_LOGIN_STATE = gql`
   }
 `;
 
+const SEND_PASSWORD_RESET_EMAIL_MUTATION = gql`
+  mutation sendPasswordResetEmail($username: String!) {
+    sendPasswordResetEmail(input: { username: $username }) {
+      status
+      error
+    }
+  }
+`;
+
+const RESET_PASSWORD_MUTATION = gql`
+  mutation resetPassword($passwordResetToken: String!, $password: String!) {
+    resetPassword(
+      input: { passwordResetToken: $passwordResetToken, password: $password }
+    ) {
+      status
+    }
+  }
+`;
+
 const GET_ADVENTURE_LIST = gql`
   query adventures($workflowState: WorkflowState) {
     adventures(filters: { workflowState: [$workflowState] }) {
@@ -396,6 +415,8 @@ export {
   LOGIN_MUTATION,
   GET_LOGIN_STATE,
   UPDATE_LOGIN_STATE,
+  SEND_PASSWORD_RESET_EMAIL_MUTATION,
+  RESET_PASSWORD_MUTATION,
   GET_NAVBAR_VISIBILITY_STATE,
   UPDATE_NAVBAR_VISIBILITY_STATE,
   GET_FLASH_MESSAGES,
