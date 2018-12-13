@@ -30,7 +30,6 @@ const OOSDetail = ({ oosNumber }) => (
       variables={{ oosNumber }}
     >
       {({ data: { offerOfService } }) => {
-        console.log({ offerOfService });
         const {
           id,
           _id,
