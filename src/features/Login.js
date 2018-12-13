@@ -9,8 +9,8 @@ const { REACT_APP_JWT_NAME } = process.env;
 const Login = ({ client, location, ...rest }) => {
   const params = new URLSearchParams(location.search);
   const redirectTo = params.get('redirectTo') || '/';
-  const { loggedIn } = client.readQuery({ query: GET_LOGIN_STATE });
-  if (loggedIn) {
+  const data = client.readQuery({ query: GET_LOGIN_STATE });
+  if (data.loggedIn) {
     return <Redirect to={redirectTo} noThrow />;
   }
   return (

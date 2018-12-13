@@ -5,9 +5,9 @@ import { withApollo } from 'react-apollo';
 import { GET_VIEWER_USERNAME } from '../../graphql/queries';
 
 const UserMenu = ({ client }) => {
-  const { viewer } = client.readQuery({ query: GET_VIEWER_USERNAME });
-  return viewer ? (
-    <Dropdown item text={viewer.username}>
+  const data = client.readQuery({ query: GET_VIEWER_USERNAME });
+  return data.viewer ? (
+    <Dropdown item text={data.viewer.username}>
       <Dropdown.Menu>
         <Dropdown.Item
           as="a"
@@ -17,7 +17,8 @@ const UserMenu = ({ client }) => {
             navigate('/logout');
           }}
         >
-          Logout<i className="icon sign out" />
+          Logout
+          <i className="icon sign out" />
         </Dropdown.Item>
 
         <Dropdown.Item>List Item</Dropdown.Item>

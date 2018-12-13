@@ -19,10 +19,10 @@ import { GET_ADVENTURE_BY_ID } from '../graphql/queries';
 const AdventureDetail = ({ id }) => (
   <Container>
     <Query query={GET_ADVENTURE_BY_ID} variables={{ id }}>
-      {({ data: { adventure }, loading, error }) => {
+      {({ data, loading, error }) => {
         if (loading) return <Loader active />;
         if (error) return <p>Error</p>;
-
+        const { adventure } = data;
         return (
           <Fragment>
             <Grid columns={2}>

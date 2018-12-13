@@ -14,9 +14,10 @@ const AdventureEdit = ({ id }) => (
     variables={{ id }}
     fetchPolicy="network-only"
   >
-    {({ data: { adventure }, loading, error }) => {
+    {({ data, loading, error }) => {
       if (loading) return <Loader active />;
       if (error) return <p>Error</p>;
+      const { adventure } = data;
       return (
         <Fragment>
           <Header as="h1">Edit Adventure</Header>

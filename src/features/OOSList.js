@@ -7,9 +7,10 @@ import OOSTable from '../components/OOSTable';
 const OOSList = () => (
   <Container>
     <Query query={GET_OFFERS_OF_SERVICE}>
-      {({ data: { offersOfService }, loading, error }) => {
+      {({ data, loading, error }) => {
         if (error) return <p>Error</p>;
         if (loading) return <Loader />;
+        const { offersOfService } = data;
         return (
           <Fragment>
             <Header as="h1">Offers of Service</Header>

@@ -15,9 +15,11 @@ const OOSEdit = ({ oosNumber }) => (
     variables={{ oosNumber }}
     fetchPolicy="network-only"
   >
-    {({ data: { adventures, offerOfService }, loading, error }) => {
+    {({ data, loading, error }) => {
       if (loading) return <Loader active />;
       if (error) return <p>Error</p>;
+
+      const { adventures, offerOfService } = data;
 
       return (
         <Fragment>
