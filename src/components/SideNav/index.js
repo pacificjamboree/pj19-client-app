@@ -42,13 +42,6 @@ const SideNav = props => {
         inverted
       >
         <Menu.Item>
-          {!loggedIn ? (
-            <ToggleLink to="/login">Login</ToggleLink>
-          ) : (
-            <ToggleLink to="/logout">Logout</ToggleLink>
-          )}
-        </Menu.Item>
-        <Menu.Item>
           <ToggleLink to="/">Home</ToggleLink>
         </Menu.Item>
         <Menu.Item>
@@ -62,6 +55,13 @@ const SideNav = props => {
         </Menu.Item>
         <Menu.Item>
           <ToggleLink to="/Contact">Contact</ToggleLink>
+        </Menu.Item>
+        <Menu.Item>
+          {!loggedIn ? (
+            <ToggleLink to="/login">Login</ToggleLink>
+          ) : (
+            <ToggleLink to="/logout">Logout</ToggleLink>
+          )}
         </Menu.Item>
       </Sidebar>
       <Sidebar.Pusher
