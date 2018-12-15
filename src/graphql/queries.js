@@ -428,6 +428,18 @@ const CREATE_USER = gql`
   }
 `;
 
+const ADMIN_DASHBOARD = gql`
+  query {
+    # Count of OOS
+    offerOfServiceCount {
+      total
+      assigned
+      unassigned
+    }
+    # Count of Patrols
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -455,4 +467,5 @@ export {
   ASSIGN_MANAGER_TO_ADVENTURE,
   REMOVE_MANAGER_FROM_ADVENTURE,
   CREATE_USER,
+  ADMIN_DASHBOARD,
 };
