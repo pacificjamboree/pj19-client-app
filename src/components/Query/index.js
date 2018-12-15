@@ -7,7 +7,7 @@ const Query = ({ children, notFoundIfFalsy, ...props }) => {
   return (
     <ApolloQuery {...props}>
       {({ data, loading, error }) => {
-        if (loading) return <Loader active />;
+        if (loading || !data) return <Loader active />;
         if (notFoundIfFalsy && !data[notFoundIfFalsy]) {
           return (
             <NotFound>
