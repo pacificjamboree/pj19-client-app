@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Header, Loader } from 'semantic-ui-react';
-import { navigate } from '@reach/router';
 import {
   GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
   OOS_EDIT_QUERY_WITH_ADVENTURE_NAMES,
@@ -9,7 +8,7 @@ import {
 } from '../graphql/queries';
 import OOSEditForm from '../components/OOSEditForm';
 
-const OOSEdit = ({ oosNumber }) => (
+const OOSEdit = ({ oosNumber, navigate }) => (
   <Query
     query={OOS_EDIT_QUERY_WITH_ADVENTURE_NAMES}
     variables={{ oosNumber }}
@@ -30,9 +29,7 @@ const OOSEdit = ({ oosNumber }) => (
               console.log('MUTATION ERROR', error);
             }}
             onCompleted={data => {
-              navigate(
-                `/oos/${data.updateOfferOfService.OfferOfService.oosNumber}`
-              );
+              navigate(`..`);
             }}
             update={(cache, mutationResult) => {
               const cacheData =

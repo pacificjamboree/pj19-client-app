@@ -41,7 +41,6 @@ class OOSEditForm extends Component {
       ...this.state,
       isYouth: this.state.isYouth === 'yes' ? true : false,
     };
-    console.log(payload);
     for (const key in payload) {
       if (payload.hasOwnProperty(key)) {
         const element = payload[key];
@@ -159,10 +158,10 @@ class OOSEditForm extends Component {
             onChange={this.handleChange}
           />
           <Form.Input
-            name="phone"
-            id="phone"
+            name="phone2"
+            id="phone2"
             label="Secondary Phone Number"
-            value={this.state.phone}
+            value={this.state.phone2}
             fluid
             onChange={this.handleChange}
           />

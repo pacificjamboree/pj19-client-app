@@ -8,7 +8,7 @@ const itemStyles = {
 
 const AdventureListItem = ({ adventure }) => (
   <List.Item style={itemStyles}>
-    <Link to={`/adventures/${adventure.id}`}>
+    <Link to={`${adventure.id}`}>
       <List.Header as="h3">
         {adventure.themeName} ({adventure.name}){' '}
         <Icon name="arrow circle right" />

@@ -56,7 +56,7 @@ const OOSDetail = ({ oosNumber }) => (
 
         return (
           <>
-            <Link to="/oos" style={styles.backLink}>
+            <Link to=".." style={styles.backLink}>
               <Icon name="chevron left" />
               Offers of Service
             </Link>

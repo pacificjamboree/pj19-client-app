@@ -4,6 +4,7 @@ import { Router } from '@reach/router';
 import { Container } from 'semantic-ui-react';
 import FlashMessages from '../components/FlashMessages';
 import Home from './Home';
+import Dashboard from './Dashboard';
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
@@ -11,10 +12,6 @@ import Logout from './Logout';
 import Adventures from './Adventures';
 import AdventureDetail from './AdventureDetail';
 import AdventureEdit from './AdventureEdit';
-import OOSList from './OOSList';
-import OOSDetail from './OOSDetail';
-import OOSEdit from './OOSEdit';
-import OOSImport from './OOSImport';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import SideNav from '../components/SideNav';
@@ -23,6 +20,7 @@ import AuthorizedRoute from '../components/AuthorizedRoute';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 import { GET_VIEWER_USERNAME } from '../graphql/queries';
+import LoggedInRoute from '../components/LoggedInRoute/index';
 
 class App extends Component {
   render() {
@@ -45,6 +43,7 @@ class App extends Component {
                   <FlashMessages />
                   <Router>
                     <Home path="/" />
+                    <LoggedInRoute path="dashboard/*" component={Dashboard} />
                     <Login path="/login" />
                     <Logout path="/logout" />
                     <ForgotPassword path="/forgotPassword" />
@@ -55,26 +54,6 @@ class App extends Component {
                       userRoles={['adventureManager', 'admin']}
                       path="/adventures/:id/edit"
                       component={AdventureEdit}
-                    />
-                    <AuthorizedRoute
-                      userRoles={['adventureManager', 'admin']}
-                      path="/oos"
-                      component={OOSList}
-                    />
-                    <AuthorizedRoute
-                      userRoles={['adventureManager', 'admin']}
-                      path="/oos/:oosNumber"
-                      component={OOSDetail}
-                    />
-                    <AuthorizedRoute
-                      userRoles={['admin']}
-                      path="/oos/:oosNumber/edit"
-                      component={OOSEdit}
-                    />
-                    <AuthorizedRoute
-                      userRoles={['admin']}
-                      path="/oos/import"
-                      component={OOSImport}
                     />
                     <NotFound default />
                   </Router>

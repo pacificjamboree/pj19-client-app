@@ -76,7 +76,7 @@ class OOSList extends Component {
             return (
               <Table.Row key={oos.id}>
                 <Table.Cell>
-                  <Link to={`/oos/${oos.oosNumber}`}>
+                  <Link to={`${oos.oosNumber}`}>
                     <Icon name="address card" /> {oos.oosNumber}
                   </Link>
                 </Table.Cell>
