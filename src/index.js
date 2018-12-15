@@ -13,7 +13,8 @@ const { REACT_APP_GRAPHQL_ENDPOINT, REACT_APP_JWT_NAME } = process.env;
 const client = new ApolloClient({
   uri: REACT_APP_GRAPHQL_ENDPOINT,
   onError: ({ graphQLErrors, networkError }) => {
-    if (networkError) {
+    if (networkError && networkError.statusCode === 401) {
+      console.log({ networkError });
       localStorage.removeItem(process.env.REACT_APP_JWT_NAME);
       client.resetStore();
       navigate('/login');
