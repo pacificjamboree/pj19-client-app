@@ -19,6 +19,24 @@ const GET_LOGGED_IN_VIEWER = gql`
   }
 `;
 
+const GET_DASHBOARD_VIEWER = gql`
+  query getFullViewer {
+    viewer {
+      id
+      username
+      roles
+      OfferOfService {
+        id
+        firstName
+        preferredName
+      }
+      PatrolScouter {
+        id
+        firstName
+      }
+    }
+  }
+`;
 const GET_NAVBAR_VISIBILITY_STATE = gql`
   query getNavbarVisibilityState {
     navbarVisible @client
@@ -424,6 +442,7 @@ export {
   GET_ADVENTURE_BY_ID,
   UPDATE_ADVENTURE_BY_ID,
   GET_LOGGED_IN_VIEWER,
+  GET_DASHBOARD_VIEWER,
   OFFERS_OF_SERVICE_FOR_ADVENTURE,
   GET_OFFERS_OF_SERVICE,
   GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
