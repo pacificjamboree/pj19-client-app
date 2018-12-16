@@ -12,21 +12,15 @@ import Adventures from '../Adventures';
 import AdventureDetail from '../AdventureDetail';
 
 const AdminDashboard = ({ user }) => {
-  const { username, OfferOfService } = user;
-  const name = OfferOfService
-    ? OfferOfService.preferredName || OfferOfService.firstName
-    : username;
-
   return (
     <Container>
-      <Header as="h1">Hello, {name}</Header>
       <Grid>
         <Grid.Column width={3}>
           <Nav />
         </Grid.Column>
         <Grid.Column width={13}>
           <Router>
-            <Stats path="/" />
+            <Home user={user} path="/" />
 
             <OOSList path="oos" />
             <OOSImport path="oos/import" />
@@ -40,6 +34,20 @@ const AdminDashboard = ({ user }) => {
         </Grid.Column>
       </Grid>
     </Container>
+  );
+};
+
+const Home = ({ user }) => {
+  const { username, OfferOfService } = user;
+  const name = OfferOfService
+    ? OfferOfService.preferredName || OfferOfService.firstName
+    : username;
+
+  return (
+    <>
+      <Header as="h1">Hello, {name}</Header>
+      <Stats />
+    </>
   );
 };
 export default AdminDashboard;
