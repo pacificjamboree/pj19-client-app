@@ -100,7 +100,7 @@ class OOSImport extends Component {
             <Header as="h2">Import Complete</Header>
             <p>
               Offer of Service import is complete.{' '}
-              <Link to="/oos">Go to Offer of Service listing</Link>
+              <Link to="..">Go to Offer of Service listing</Link>
             </p>
           </>
         );

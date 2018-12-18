@@ -12,6 +12,7 @@ export default class extends Component {
     super(props);
     this.handleSort = this.handleSort.bind(this);
     this.handleEmailToggle = this.handleEmailToggle.bind(this);
+    this.toggleSendEmail = this.toggleSendEmail.bind(this);
   }
   static propTypes = {
     data: PropTypes.array.isRequired,
@@ -27,6 +28,7 @@ export default class extends Component {
       ? sortBy(this.props.data, [this.props.defaultSortColumn])
       : this.props.data,
     pendingWelcomeMessages: this.props.data.map(x => x.id),
+    sendEmailToggle: 'on',
   };
 
   handleSort = clickedColumn => () => {
@@ -42,6 +44,24 @@ export default class extends Component {
     }
     this.setState({ pendingWelcomeMessages: newArr });
   };
+
+  toggleSendEmail() {
+    let pendingWelcomeMessages;
+    switch (this.state.sendEmailToggle) {
+      case 'on':
+        pendingWelcomeMessages = [];
+        break;
+
+      case 'off':
+        pendingWelcomeMessages = this.props.data.map(x => x.id);
+        break;
+
+      default:
+        break;
+    }
+    const sendEmailToggle = this.state.sendEmailToggle === 'on' ? 'off' : 'on';
+    this.setState({ pendingWelcomeMessages, sendEmailToggle });
+  }
 
   render() {
     const { column, data, direction } = this.state;
@@ -91,7 +111,9 @@ export default class extends Component {
               >
                 Assignment
               </Table.HeaderCell>
-              <Table.HeaderCell>Send Welcome Message?</Table.HeaderCell>
+              <Table.HeaderCell onClick={this.toggleSendEmail}>
+                Send Welcome Message?
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
