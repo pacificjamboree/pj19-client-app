@@ -8,7 +8,8 @@ import {
   Message,
 } from 'semantic-ui-react';
 import { Link } from '@reach/router';
-import './LoginForm.css';
+import styles from './LoginForm.module.css';
+
 class LoginForm extends Component {
   state = {
     username: '',
@@ -60,6 +61,7 @@ class LoginForm extends Component {
           <Form size="large" onSubmit={this.handleSubmit} noValidate>
             <Segment>
               <Form.Input
+                className={styles.login}
                 autoFocus
                 name="username"
                 type="email"
@@ -72,6 +74,7 @@ class LoginForm extends Component {
                 value={this.state.username}
               />
               <Form.Input
+                className={styles.login}
                 name="password"
                 fluid
                 icon="lock"

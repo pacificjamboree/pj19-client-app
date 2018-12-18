@@ -1,0 +1,8 @@
+.login input[type='text'],
+.login input[type='number'],
+.login input[type='search'],
+.login input[type='email'],
+.login input[type='password'],
+.login input[type='tel'] {
+  font-size: 16px !important;
+}
