@@ -5,6 +5,7 @@ import {
   Icon,
   Input,
   Label,
+  Popup,
   Select,
   Table,
 } from 'semantic-ui-react';
@@ -16,8 +17,8 @@ import SendWelcomeEmail from '../../components/SendWelcomeEmail';
 import SendAssignmentEmail from '../../components/SendAssignmentEmail';
 import handleSort from '../../lib/handleSort';
 
-const SendEmailMenu = ({ oos }) => (
-  <Dropdown inline icon="envelope outline">
+const SendEmailMenu = ({ oos, ...rest }) => (
+  <Dropdown {...rest} inline icon="envelope outline">
     <Dropdown.Menu>
       <SendWelcomeEmail id={oos.id}>
         <Dropdown.Item>Send Welcome Message</Dropdown.Item>
@@ -218,7 +219,12 @@ class OOSList extends Component {
                   <Table.Cell>{oos.lastName}</Table.Cell>
                   <Table.Cell>{oos.firstName}</Table.Cell>
                   <Table.Cell>
-                    <SendEmailMenu oos={oos} />
+                    <Popup
+                      inverted
+                      position="left center"
+                      content="Send Emails to OOS"
+                      trigger={<SendEmailMenu oos={oos} />}
+                    />
                     {oos.email}
                   </Table.Cell>
                   <Table.Cell>
