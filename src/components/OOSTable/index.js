@@ -1,112 +1,231 @@
 import React, { Component } from 'react';
-import { Table, Label, Icon } from 'semantic-ui-react';
+import {
+  Checkbox,
+  Form,
+  Icon,
+  Input,
+  Label,
+  Select,
+  Table,
+} from 'semantic-ui-react';
 import sortBy from 'lodash.sortby';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
+import matchSorter from 'match-sorter';
 import handleSort from '../../lib/handleSort';
 
 class OOSList extends Component {
+  constructor(props) {
+    super(props);
+    // this.handleSort = this.handleSort.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
+    this.filterData = this.filterData.bind(this);
+  }
+
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    offersOfService: PropTypes.array.isRequired,
+    adventures: PropTypes.array.isRequired,
     defaultSortColumn: PropTypes.string,
   };
 
   state = {
-    column: this.props.defaultSortColumn || null,
+    filters: {
+      textFilter: '',
+      adventureFilter: 'all',
+      isYouthFilter: 'all',
+    },
+    sort: {
+      column: this.props.defaultSortColumn || null,
+      direction: this.props.defaultSortColumn ? 'ascending' : null,
+    },
     data: this.props.defaultSortColumn
-      ? sortBy(this.props.data, [this.props.defaultSortColumn])
-      : this.props.data,
-    direction: this.props.defaultSortColumn ? 'ascending' : null,
+      ? sortBy(this.props.offersOfService, [this.props.defaultSortColumn])
+      : this.props.offersOfService,
   };
 
   handleSort = clickedColumn => () => {
     this.setState(handleSort(clickedColumn));
   };
 
+  handleFilter(e, data) {
+    const { name, value } = data ? data : e.target;
+
+    this.setState(
+      {
+        filters: {
+          ...this.state.filters,
+          [name]: value,
+        },
+      },
+      () => {
+        this.filterData();
+      }
+    );
+  }
+
+  filterData() {
+    const { textFilter, adventureFilter, isYouthFilter } = this.state.filters;
+    let data = [...this.props.offersOfService];
+
+    if (textFilter) {
+      data = matchSorter(data, textFilter, {
+        keys: ['fullName', 'oosNumber', 'email'],
+      });
+    }
+
+    switch (adventureFilter) {
+      case 'all':
+        break;
+
+      case 'unassigned':
+        data = data.filter(a => !a.assigned);
+        break;
+
+      default:
+        data = data.filter(a => a.assignment._id === adventureFilter);
+        break;
+    }
+
+    switch (isYouthFilter) {
+      case 'youth':
+        data = data.filter(a => a.isYouth);
+        break;
+
+      case 'adult':
+        data = data.filter(a => !a.isYouth);
+        break;
+
+      default:
+        break;
+    }
+
+    this.setState({
+      data: sortBy(data, this.state.sort.column),
+    });
+  }
+
   render() {
-    const { column, data, direction } = this.state;
+    const { data } = this.state;
+    const { column, direction } = this.state.sort;
     return (
-      <Table celled selectable sortable striped>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell
-              sorted={column === 'oosNumber' ? direction : null}
-              onClick={this.handleSort('oosNumber')}
-            >
-              OOS Number
-            </Table.HeaderCell>
+      <>
+        <div>
+          <Input action type="text" placeholder="Filter">
+            <input name="textFilter" onChange={this.handleFilter} />
+            <Form.Field
+              style={{ borderRadius: '0' }}
+              control={Select}
+              name="adventureFilter"
+              id="adventureFilter"
+              options={[
+                { value: 'all', text: 'All Adventures' },
+                { value: 'unassigned', text: 'Unassigned' },
+                ...this.props.adventures.map(a => ({
+                  value: a._id,
+                  text: a.name,
+                })),
+              ]}
+              onChange={this.handleFilter}
+              value={this.state.filters.adventureFilter}
+            />
+            <Form.Field
+              style={{ borderRadius: '0' }}
+              control={Select}
+              name="isYouthFilter"
+              id="isYouthFilter"
+              options={[
+                { value: 'all', text: 'All Ages' },
+                { value: 'youth', text: 'Youth Members Only' },
+                { value: 'adult', text: 'Adult Members Only' },
+              ]}
+              onChange={this.handleFilter}
+              value={this.state.filters.isYouthFilter}
+            />
+          </Input>
+        </div>
 
-            <Table.HeaderCell
-              sorted={column === 'lastName' ? direction : null}
-              onClick={this.handleSort('lastName')}
-            >
-              Last Name
-            </Table.HeaderCell>
+        <Table celled selectable sortable striped>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell
+                sorted={column === 'oosNumber' ? direction : null}
+                onClick={this.handleSort('oosNumber')}
+              >
+                OOS Number
+              </Table.HeaderCell>
 
-            <Table.HeaderCell
-              sorted={column === 'firstName' ? direction : null}
-              onClick={this.handleSort('firstName')}
-            >
-              First Name
-            </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'lastName' ? direction : null}
+                onClick={this.handleSort('lastName')}
+              >
+                Last Name
+              </Table.HeaderCell>
 
-            <Table.HeaderCell
-              sorted={column === 'email' ? direction : null}
-              onClick={this.handleSort('email')}
-            >
-              Email Address
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'assignment' ? direction : null}
-              onClick={this.handleSort('assignment')}
-            >
-              Assignment
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'isYouth' ? direction : null}
-              onClick={this.handleSort('isYouth')}
-            >
-              Is Youth?
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+              <Table.HeaderCell
+                sorted={column === 'firstName' ? direction : null}
+                onClick={this.handleSort('firstName')}
+              >
+                First Name
+              </Table.HeaderCell>
 
-        <Table.Body>
-          {data.map(oos => {
-            return (
-              <Table.Row key={oos.id}>
-                <Table.Cell>
-                  <Link to={`${oos.oosNumber}`}>
-                    <Icon name="address card" /> {oos.oosNumber}
-                  </Link>
-                </Table.Cell>
-                <Table.Cell>{oos.lastName}</Table.Cell>
-                <Table.Cell>{oos.firstName}</Table.Cell>
-                <Table.Cell>{oos.email}</Table.Cell>
-                <Table.Cell>
-                  {oos.assigned ? (
-                    oos.assignment.name
-                  ) : (
-                    <Label color="orange" horizontal>
-                      Unassigned
-                    </Label>
-                  )}
-                </Table.Cell>
-                <Table.Cell>
-                  {oos.isYouth ? (
-                    <Label color="red" horizontal>
-                      <Icon name="exclamation triangle" />
-                      Yes
-                    </Label>
-                  ) : (
-                    'No'
-                  )}
-                </Table.Cell>
-              </Table.Row>
-            );
-          })}
-        </Table.Body>
-      </Table>
+              <Table.HeaderCell
+                sorted={column === 'email' ? direction : null}
+                onClick={this.handleSort('email')}
+              >
+                Email Address
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'assignment' ? direction : null}
+                onClick={this.handleSort('assignment')}
+              >
+                Assignment
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'isYouth' ? direction : null}
+                onClick={this.handleSort('isYouth')}
+              >
+                Is Youth?
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {data.map(oos => {
+              return (
+                <Table.Row key={oos.id}>
+                  <Table.Cell>
+                    <Link to={`${oos.oosNumber}`}>
+                      <Icon name="address card" /> {oos.oosNumber}
+                    </Link>
+                  </Table.Cell>
+                  <Table.Cell>{oos.lastName}</Table.Cell>
+                  <Table.Cell>{oos.firstName}</Table.Cell>
+                  <Table.Cell>{oos.email}</Table.Cell>
+                  <Table.Cell>
+                    {oos.assigned ? (
+                      oos.assignment.name
+                    ) : (
+                      <Label color="orange" horizontal>
+                        Unassigned
+                      </Label>
+                    )}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {oos.isYouth ? (
+                      <Label color="red" horizontal>
+                        <Icon name="exclamation triangle" />
+                        Yes
+                      </Label>
+                    ) : (
+                      'No'
+                    )}
+                  </Table.Cell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table>
+      </>
     );
   }
 }

@@ -1,17 +1,23 @@
 import sortBy from 'lodash.sortby';
 
 export default clickedColumn => state => {
-  const { column, data, direction } = state;
+  const { data } = state;
+  const { column, direction } = state.sort;
   if (column !== clickedColumn) {
     return {
-      column: clickedColumn,
+      sort: {
+        column: clickedColumn,
+        direction: 'ascending',
+      },
       data: sortBy(data, [clickedColumn]),
-      direction: 'ascending',
     };
   }
 
   return {
     data: data.reverse(),
-    direction: direction === 'ascending' ? 'descending' : 'ascending',
+    sort: {
+      column: clickedColumn,
+      direction: direction === 'ascending' ? 'descending' : 'ascending',
+    },
   };
 };

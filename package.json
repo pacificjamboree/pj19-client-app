@@ -10,6 +10,7 @@
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
     "lodash.sortby": "^4.7.0",
+    "match-sorter": "^2.3.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-addons-css-transition-group": "^15.6.2",

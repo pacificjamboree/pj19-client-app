@@ -23,6 +23,7 @@ const OFFERS_OF_SERVICE_FRAGMENT = gql`
     assignment {
       name
       id
+      _id
     }
   }
 `;
@@ -30,6 +31,7 @@ const OFFERS_OF_SERVICE_FRAGMENT = gql`
 const ADVENTURE_NAME_ID_FRAGMENT = gql`
   fragment AdventureNameIdFragment on Adventure {
     _id
+    id
     name
   }
 `;
