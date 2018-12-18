@@ -1,10 +1,9 @@
 import { Mutation, withApollo } from 'react-apollo';
 import React from 'react';
-import { Button, Icon } from 'semantic-ui-react';
 import { pushFlashMessage } from '../../lib/flashMessage';
 import { SEND_OOS_WELCOME_EMAIL } from '../../graphql/queries';
 
-const SendWelcomeEmailButton = ({ client, id }) => (
+const SendWelcomeEmail = ({ client, id, children }) => (
   <Mutation
     mutation={SEND_OOS_WELCOME_EMAIL}
     update={() => {
@@ -22,21 +21,13 @@ const SendWelcomeEmailButton = ({ client, id }) => (
     }}
   >
     {(sendEmail, { data, error }) => {
-      return (
-        <Button
-          icon
-          labelPosition="left"
-          title="Send welcome email to OOS"
-          onClick={() => {
-            sendEmail({ variables: { id } });
-          }}
-        >
-          <Icon name="mail" />
-          Send Welcome Email
-        </Button>
-      );
+      return React.cloneElement(children, {
+        onClick: () => {
+          sendEmail({ variables: { id } });
+        },
+      });
     }}
   </Mutation>
 );
 
-export default withApollo(SendWelcomeEmailButton);
+export default withApollo(SendWelcomeEmail);

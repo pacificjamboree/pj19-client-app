@@ -18,8 +18,8 @@ import UserHasRole from '../../components/UserHasRole';
 import styles from './styles.module.css';
 import AddAdventureManagerButton from './AddAdventureManagerButton';
 import RemoveAdventureManagerButton from './RemoveAdventureManagerButton';
-import SendWelcomeEmailButton from './SendWelcomeEmailButton';
-import SendAssignmentEmailButton from './SendAssignmentEmailButton';
+import SendWelcomeEmail from '../../components/SendWelcomeEmail';
+import SendAssignmentEmail from '../../components/SendAssignmentEmail';
 import CreateLoginButton from './CreateUserButton';
 
 const OOSDetail = ({ oosNumber }) => (
@@ -208,8 +208,34 @@ const OOSDetail = ({ oosNumber }) => (
 
                   <Divider />
 
-                  <SendWelcomeEmailButton id={id} />
-                  <SendAssignmentEmailButton id={id} assigned={assigned} />
+                  {/* <SendWelcomeEmailButton id={id} /> */}
+                  <SendWelcomeEmail id={id}>
+                    <Button
+                      icon
+                      labelPosition="left"
+                      title="Send welcome email to OOS"
+                    >
+                      <Icon name="mail" />
+                      Send Welcome Email
+                    </Button>
+                  </SendWelcomeEmail>
+
+                  <SendAssignmentEmail id={id}>
+                    <Button
+                      icon
+                      labelPosition="left"
+                      disabled={!assigned}
+                      title={
+                        assigned
+                          ? 'Send assignment email to OOS'
+                          : 'OOS is not assigned to an Adventure'
+                      }
+                    >
+                      <Icon name="mail" />
+                      Send Assignment Email
+                    </Button>
+                  </SendAssignmentEmail>
+                  {/* <SendAssignmentEmailButton id={id} assigned={assigned} /> */}
 
                   <Divider />
 

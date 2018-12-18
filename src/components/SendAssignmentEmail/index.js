@@ -1,10 +1,9 @@
 import { Mutation, withApollo } from 'react-apollo';
 import React from 'react';
-import { Button, Icon } from 'semantic-ui-react';
 import { pushFlashMessage } from '../../lib/flashMessage';
 import { SEND_OOS_ASSIGNMENT_EMAIL } from '../../graphql/queries';
 
-const SendAssignmentEmailButton = ({ client, id, assigned }) => (
+const SendAssignmentEmail = ({ client, id, children }) => (
   <Mutation
     mutation={SEND_OOS_ASSIGNMENT_EMAIL}
     update={() => {
@@ -22,26 +21,13 @@ const SendAssignmentEmailButton = ({ client, id, assigned }) => (
     }}
   >
     {(sendEmail, { data, error }) => {
-      return (
-        <Button
-          icon
-          labelPosition="left"
-          disabled={!assigned}
-          title={
-            assigned
-              ? 'Send assignment email to OOS'
-              : 'OOS is not assigned to an Adventure'
-          }
-          onClick={() => {
-            sendEmail({ variables: { id } });
-          }}
-        >
-          <Icon name="mail" />
-          Send Assignment Email
-        </Button>
-      );
+      return React.cloneElement(children, {
+        onClick: () => {
+          sendEmail({ variables: { id } });
+        },
+      });
     }}
   </Mutation>
 );
 
-export default withApollo(SendAssignmentEmailButton);
+export default withApollo(SendAssignmentEmail);
