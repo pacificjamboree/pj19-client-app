@@ -19,11 +19,13 @@ export default class extends Component {
   };
 
   state = {
-    column: this.props.defaultSortColumn || null,
+    sort: {
+      direction: this.props.defaultSortColumn ? 'ascending' : null,
+      column: this.props.defaultSortColumn || null,
+    },
     data: this.props.defaultSortColumn
       ? sortBy(this.props.data, [this.props.defaultSortColumn])
       : this.props.data,
-    direction: this.props.defaultSortColumn ? 'ascending' : null,
     pendingWelcomeMessages: this.props.data.map(x => x.id),
   };
 
