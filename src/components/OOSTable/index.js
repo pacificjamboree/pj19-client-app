@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Checkbox,
+  Dropdown,
   Form,
   Icon,
   Input,
@@ -12,12 +12,29 @@ import sortBy from 'lodash.sortby';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import matchSorter from 'match-sorter';
+import SendWelcomeEmail from '../../components/SendWelcomeEmail';
+import SendAssignmentEmail from '../../components/SendAssignmentEmail';
 import handleSort from '../../lib/handleSort';
+
+const SendEmailMenu = ({ oos }) => (
+  <Dropdown inline icon="envelope outline">
+    <Dropdown.Menu>
+      <SendWelcomeEmail id={oos.id}>
+        <Dropdown.Item>Send Welcome Message</Dropdown.Item>
+      </SendWelcomeEmail>
+      <SendAssignmentEmail id={oos.id}>
+        <Dropdown.Item disabled={!oos.assigned}>
+          Send Assignment Message
+        </Dropdown.Item>
+      </SendAssignmentEmail>
+    </Dropdown.Menu>
+  </Dropdown>
+);
 
 class OOSList extends Component {
   constructor(props) {
     super(props);
-    // this.handleSort = this.handleSort.bind(this);
+    this.handleSort = this.handleSort.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.filterData = this.filterData.bind(this);
   }
@@ -200,7 +217,10 @@ class OOSList extends Component {
                   </Table.Cell>
                   <Table.Cell>{oos.lastName}</Table.Cell>
                   <Table.Cell>{oos.firstName}</Table.Cell>
-                  <Table.Cell>{oos.email}</Table.Cell>
+                  <Table.Cell>
+                    <SendEmailMenu oos={oos} />
+                    {oos.email}
+                  </Table.Cell>
                   <Table.Cell>
                     {oos.assigned ? (
                       oos.assignment.name
@@ -210,7 +230,7 @@ class OOSList extends Component {
                       </Label>
                     )}
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell textAlign="center">
                     {oos.isYouth ? (
                       <Label color="red" horizontal>
                         <Icon name="exclamation triangle" />
