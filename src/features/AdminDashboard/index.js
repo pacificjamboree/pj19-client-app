@@ -9,7 +9,9 @@ import OOSDetail from '../OOSDetail';
 import OOSEdit from '../OOSEdit';
 import OOSImport from '../OOSImport';
 import Adventures from '../Adventures';
+import AdventureCreate from '../AdventureCreate/index';
 import AdventureDetail from '../AdventureDetail';
+import AdventureEdit from '../AdventureEdit';
 
 const AdminDashboard = ({ user }) => {
   return (
@@ -28,7 +30,9 @@ const AdminDashboard = ({ user }) => {
             <OOSEdit path="oos/:oosNumber/edit" />
 
             <Adventures path="adventures" />
+            <AdventureCreate path="adventures/create" />
             <AdventureDetail path="adventures/:id" />
+            <AdventureEdit path="adventures/:id/edit" />
             <NotFound default />
           </Router>
         </Grid.Column>

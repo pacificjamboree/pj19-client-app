@@ -36,7 +36,9 @@ const Nav = () => (
         <Menu.Item>
           <Link to="adventures">Adventure List</Link>
         </Menu.Item>
-        <Menu.Item>Add new Adventure</Menu.Item>
+        <Menu.Item>
+          <Link to="adventures/create">Add New Adventure</Link>
+        </Menu.Item>
       </Menu.Menu>
     </Menu.Item>
 

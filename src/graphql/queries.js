@@ -148,6 +148,31 @@ const GET_ADVENTURE_BY_ID = gql`
   }
 `;
 
+const CREATE_ADVENTURE = gql`
+  mutation createAdventure($adventure: AdventureDraft) {
+    createAdventure(input: { Adventure: $adventure }) {
+      Adventure {
+        adventureCode
+        id
+        _id
+        name
+        themeName
+        description
+        fee
+        premiumAdventure
+        periodsRequired
+        location
+        capacityPerPeriod
+        periodsOffered
+        pdrPlan
+        pdrDo
+        pdrReview
+        pdrSafetyTips
+      }
+    }
+  }
+`;
+
 const UPDATE_ADVENTURE_BY_ID = gql`
   mutation updateAdventure($id: ID!, $adventure: AdventureUpdate) {
     updateAdventure(input: { id: $id, Adventure: $adventure }) {
@@ -452,6 +477,7 @@ export {
   GET_FLASH_MESSAGES,
   GET_ADVENTURE_LIST,
   GET_ADVENTURE_BY_ID,
+  CREATE_ADVENTURE,
   UPDATE_ADVENTURE_BY_ID,
   GET_LOGGED_IN_VIEWER,
   GET_DASHBOARD_VIEWER,
