@@ -55,14 +55,17 @@ class AdventureEditForm extends Component {
 
   handleAddMultiVariant = (type, e) => {
     e.preventDefault();
+    const id = btoa(`${type}-${Date.now()}`);
     const newState = [
       ...this.state[type],
       {
         text: '',
-        id: btoa(`${type}-${Date.now()}`),
+        id,
       },
     ];
-    this.setState({ [type]: newState });
+    this.setState({ [type]: newState }, () => {
+      document.getElementById(id).focus();
+    });
   };
 
   handleSubmit = async e => {
