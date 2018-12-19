@@ -3,6 +3,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { Loader } from 'semantic-ui-react';
 import AdminDashboard from '../AdminDashboard';
+import AdventureManagerDashboard from '../AdventureManagerDashboard';
 import { GET_DASHBOARD_VIEWER } from '../../graphql/queries';
 
 export default ({ client }) => (
@@ -16,7 +17,7 @@ export default ({ client }) => (
         } else if (roles.includes('patrolScouter')) {
           return <p>PatrolScouter Dashboard</p>;
         } else if (roles.includes('adventureManager')) {
-          return <p>AdventureManager Dashboard</p>;
+          return <AdventureManagerDashboard user={data.viewer} />;
         }
       }
     }}
