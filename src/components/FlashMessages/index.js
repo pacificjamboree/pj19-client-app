@@ -36,7 +36,14 @@ const FlashMessages = ({ client }) => {
                 >
                   <p>{message}</p>
                   {process.env.NODE_ENV === 'development' ? (
-                    <p>{error}</p>
+                    <pre
+                      style={{
+                        whiteSpace: 'pre-wrap',
+                        wordBreak: 'break-word',
+                      }}
+                    >
+                      {error}
+                    </pre>
                   ) : null}
                 </Message>
               );
