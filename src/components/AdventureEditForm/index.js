@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Header, Button, Icon } from 'semantic-ui-react';
 import UserHasRole from '../UserHasRole';
-import './AdventureEditForm.css';
+import styles from './AdventureEditForm.module.css';
 
 class AdventureEditForm extends Component {
   constructor(props) {
@@ -189,7 +189,7 @@ class AdventureEditForm extends Component {
 
         <Header as="h2">Plan, Do, Review</Header>
 
-        <div className="pdrBlock">
+        <div className={styles.pdrBlock}>
           <Header as="h3">Plan</Header>
           {this.state.pdrPlan.map(x => (
             <Form.Input
@@ -215,7 +215,7 @@ class AdventureEditForm extends Component {
           </Button>
         </div>
 
-        <div className="pdrBlock">
+        <div className={styles.pdrBlock}>
           <Header as="h3">Do</Header>
           {this.state.pdrDo.map(x => (
             <Form.Input
@@ -240,7 +240,7 @@ class AdventureEditForm extends Component {
           </Button>
         </div>
 
-        <div className="pdrBlock">
+        <div className={styles.pdrBlock}>
           <Header as="h3">Review</Header>
           {this.state.pdrReview.map(x => (
             <Form.Input
@@ -266,7 +266,7 @@ class AdventureEditForm extends Component {
           </Button>
         </div>
 
-        <div className="pdrBlock">
+        <div className={styles.pdrBlock}>
           <Header as="h3">Safety Tips</Header>
           {this.state.pdrSafetyTips.map(x => (
             <Form.Input
