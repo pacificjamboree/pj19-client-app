@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Mutation, withApollo } from 'react-apollo';
-import { navigate } from '@reach/router';
 import { UPDATE_LOGIN_STATE } from '../graphql/queries';
 
 class Logout extends Component {
@@ -19,7 +18,11 @@ class Logout extends Component {
           console.log(e);
         }}
         onCompleted={() => {
-          navigate('/');
+          // instead of navigating to /, we set window.locaiton
+          // in order to force a page refresh and hopefully
+          // actually, really, clear the APollo cache
+          window.location = '/';
+          // navigate('/');
         }}
       >
         {logout => {
