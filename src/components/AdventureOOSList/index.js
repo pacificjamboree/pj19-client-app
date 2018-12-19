@@ -35,7 +35,11 @@ class AdventureOOSList extends Component {
           return (
             <Fragment>
               <Header as="h2">Offers of Service</Header>
-              <AdventureOOSTable data={tableData} />
+              {tableData.length ? (
+                <AdventureOOSTable data={tableData} />
+              ) : (
+                <p>No Offers of Service are assigned to this adventure.</p>
+              )}
             </Fragment>
           );
         }}
