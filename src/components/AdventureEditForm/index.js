@@ -163,7 +163,9 @@ class AdventureEditForm extends Component {
               label="Periods Offered"
               type="number"
               value={this.state.periodsOffered}
-              onChange={this.handleChange}
+              onChange={(e, { name, value }) => {
+                this.handleChange(e, { name, value: parseInt(value) });
+              }}
             />
 
             <Form.Input
@@ -173,7 +175,9 @@ class AdventureEditForm extends Component {
               label="Capacity per Period"
               type="number"
               value={this.state.capacityPerPeriod}
-              onChange={this.handleChange}
+              onChange={(e, { name, value }) => {
+                this.handleChange(e, { name, value: parseInt(value) });
+              }}
             />
 
             <Form.Input
@@ -183,7 +187,9 @@ class AdventureEditForm extends Component {
               label="Fee"
               type="number"
               value={this.state.fee}
-              onChange={this.handleChange}
+              onChange={(e, { name, value }) => {
+                this.handleChange(e, { name, value: parseFloat(value) });
+              }}
               icon="dollar"
               iconPosition="left"
             />
