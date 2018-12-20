@@ -7,15 +7,14 @@ const Query = ({ children, notFoundIfFalsy, ...props }) => {
   return (
     <ApolloQuery {...props}>
       {({ data, loading, error }) => {
+        if (error) {
+          console.error(error);
+          throw error instanceof Error ? error : new Error(error);
+        }
+
         if (loading || !data) return <Loader active />;
+
         if (notFoundIfFalsy && !data[notFoundIfFalsy]) {
-          if (error) {
-            return (
-              <>
-                <p>An error occurred</p>
-              </>
-            );
-          }
           return (
             <NotFound>
               <p>
