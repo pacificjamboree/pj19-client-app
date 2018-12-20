@@ -13,11 +13,13 @@ class AdventureOOSTable extends Component {
   };
 
   state = {
-    column: this.props.defaultSortColumn || null,
+    sort: {
+      column: this.props.defaultSortColumn || null,
+      direction: this.props.defaultSortColumn ? 'ascending' : null,
+    },
     data: this.props.defaultSortColumn
       ? sortBy(this.props.data, [this.props.defaultSortColumn])
       : this.props.data,
-    direction: this.props.defaultSortColumn ? 'ascending' : null,
   };
 
   handleSort = clickedColumn => () => {
