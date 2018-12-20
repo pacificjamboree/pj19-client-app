@@ -44,7 +44,7 @@ class AdventureOOSTable extends Component {
               sorted={column === 'fullName' ? direction : null}
               onClick={this.handleSort('fullName')}
             >
-              Last Name
+              Name
             </Table.HeaderCell>
 
             <Table.HeaderCell
