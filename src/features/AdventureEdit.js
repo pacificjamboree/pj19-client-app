@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Header, Loader } from 'semantic-ui-react';
-import { navigate } from '@reach/router';
+
 import {
   GET_ADVENTURE_BY_ID,
   UPDATE_ADVENTURE_BY_ID,
 } from '../graphql/queries';
 import AdventureEditForm from '../components/AdventureEditForm';
 
-const AdventureEdit = ({ id }) => (
+const AdventureEdit = ({ id, navigate, navigateToAfterMutataion }) => (
   <Query
     query={GET_ADVENTURE_BY_ID}
     variables={{ id }}
@@ -24,7 +24,10 @@ const AdventureEdit = ({ id }) => (
           <Mutation
             mutation={UPDATE_ADVENTURE_BY_ID}
             onCompleted={data => {
-              navigate(`/adventures/${data.updateAdventure.Adventure.id}`);
+              navigate(
+                navigateToAfterMutataion ||
+                  `/adventures/${data.updateAdventure.Adventure.id}`
+              );
             }}
             update={(cache, mutationResult) => {
               const cacheData = mutationResult.data.updateAdventure.Adventure;
