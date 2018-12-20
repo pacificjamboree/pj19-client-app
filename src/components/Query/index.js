@@ -9,6 +9,13 @@ const Query = ({ children, notFoundIfFalsy, ...props }) => {
       {({ data, loading, error }) => {
         if (loading || !data) return <Loader active />;
         if (notFoundIfFalsy && !data[notFoundIfFalsy]) {
+          if (error) {
+            return (
+              <>
+                <p>An error occurred</p>
+              </>
+            );
+          }
           return (
             <NotFound>
               <p>
