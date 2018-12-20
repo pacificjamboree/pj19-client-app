@@ -56,7 +56,14 @@ const OOSDetail = ({ oosNumber }) => (
 
         return (
           <>
-            <Link to=".." style={styles.backLink}>
+            <Link
+              to=""
+              style={styles.backLink}
+              onClick={e => {
+                e.preventDefault();
+                window.history.go(-1);
+              }}
+            >
               <Icon name="chevron left" />
               Offers of Service
             </Link>
