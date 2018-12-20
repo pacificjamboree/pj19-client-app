@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { OFFERS_OF_SERVICE_FRAGMENT } from './fragments';
 
 const GET_VIEWER_USERNAME = gql`
   query {
@@ -26,9 +27,7 @@ const GET_DASHBOARD_VIEWER = gql`
       username
       roles
       OfferOfService {
-        id
-        firstName
-        preferredName
+        ...OffersOfServiceFragment
       }
       PatrolScouter {
         id
@@ -36,6 +35,7 @@ const GET_DASHBOARD_VIEWER = gql`
       }
     }
   }
+  ${OFFERS_OF_SERVICE_FRAGMENT}
 `;
 const GET_NAVBAR_VISIBILITY_STATE = gql`
   query getNavbarVisibilityState {
