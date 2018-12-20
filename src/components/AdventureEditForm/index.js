@@ -19,6 +19,7 @@ class AdventureEditForm extends Component {
       premiumAdventure: adventure.premiumAdventure,
       fee: adventure.fee,
       hidden: adventure.hidden,
+      oosRequired: adventure.oosRequired || 0,
       pdrPlan: adventure.pdrPlan.map(p => ({ text: p, id: btoa(p) })),
       pdrDo: adventure.pdrDo.map(p => ({ text: p, id: btoa(p) })),
       pdrReview: adventure.pdrReview.map(p => ({ text: p, id: btoa(p) })),
@@ -195,6 +196,20 @@ class AdventureEditForm extends Component {
             />
           </Form.Group>
         </UserHasRole>
+
+        <Form.Group>
+          <Form.Input
+            name="oosRequired"
+            id="oosRequired"
+            fluid
+            label="OOS Required"
+            type="number"
+            value={this.state.oosRequired}
+            onChange={(e, { name, value }) => {
+              this.handleChange(e, { name, value: parseInt(value) });
+            }}
+          />
+        </Form.Group>
 
         <Header as="h2">Plan, Do, Review</Header>
 
