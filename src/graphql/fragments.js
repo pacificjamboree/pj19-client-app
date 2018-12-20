@@ -22,6 +22,8 @@ const OFFERS_OF_SERVICE_FRAGMENT = gql`
     assigned
     assignment {
       name
+      themeName
+      fullName
       id
       _id
     }
