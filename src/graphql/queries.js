@@ -144,6 +144,7 @@ const GET_ADVENTURE_BY_ID = gql`
       pdrDo
       pdrReview
       pdrSafetyTips
+      oosRequired
     }
   }
 `;
@@ -465,6 +466,15 @@ const ADMIN_DASHBOARD = gql`
   }
 `;
 
+const ADVENTURE_MANAGER_DASHBOARD = gql`
+  query adventureManagerDashboard($adventureId: String!) {
+    adventure(search: { searchField: id, value: $adventureId }) {
+      oosRequired
+      oosAssignedCount
+    }
+  }
+`;
+
 export {
   GET_VIEWER_USERNAME,
   LOGIN_MUTATION,
@@ -494,4 +504,5 @@ export {
   REMOVE_MANAGER_FROM_ADVENTURE,
   CREATE_USER,
   ADMIN_DASHBOARD,
+  ADVENTURE_MANAGER_DASHBOARD,
 };
