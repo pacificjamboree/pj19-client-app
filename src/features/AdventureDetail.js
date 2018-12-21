@@ -57,6 +57,7 @@ const AdventureDetail = ({ id }) => (
               <AdventureOOSList
                 id={adventure.id}
                 oosRequired={adventure.oosRequired}
+                adventureName={adventure.name}
               />
             </UserHasRole>
           </Fragment>

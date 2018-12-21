@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import { Query } from 'react-apollo';
-import { Header, Label, Loader } from 'semantic-ui-react';
+import { Grid, Header, Label, Loader } from 'semantic-ui-react';
 
 import { OFFERS_OF_SERVICE_FOR_ADVENTURE } from '../../graphql/queries';
 import AdventureOOSTable from './table';
+import Export from './export';
 
 class AdventureOOSList extends Component {
   render() {
-    const { id, oosRequired } = this.props;
+    const { id, oosRequired, adventureName } = this.props;
     return (
       <Query
         query={OFFERS_OF_SERVICE_FOR_ADVENTURE}
@@ -24,16 +25,30 @@ class AdventureOOSList extends Component {
 
           return (
             <Fragment>
-              <Header as="h2">Offers of Service</Header>
+              <Grid columns={2}>
+                <Grid.Row>
+                  <Grid.Column>
+                    <Header as="h2">Offers of Service</Header>
+                  </Grid.Column>
+                  <Grid.Column textAlign="right">
+                    <Export
+                      adventureName={adventureName}
+                      data={offersOfServiceForAdventure}
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
               <div>
                 <Label>
                   OOS Required
                   <Label.Detail>{oosRequired}</Label.Detail>
                 </Label>
-                {tableData.length ? (
+                {offersOfServiceForAdventure.length ? (
                   <Label>
                     OOS Assigned
-                    <Label.Detail>{tableData.length}</Label.Detail>
+                    <Label.Detail>
+                      {offersOfServiceForAdventure.length}
+                    </Label.Detail>
                   </Label>
                 ) : null}
               </div>
