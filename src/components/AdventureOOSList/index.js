@@ -11,7 +11,7 @@ class AdventureOOSList extends Component {
     return (
       <Query
         query={OFFERS_OF_SERVICE_FOR_ADVENTURE}
-        variables={{ id }}
+        variables={{ adventureId: id }}
         fetchPolicy="no-cache"
       >
         {({ data, loading, error }) => {
@@ -20,17 +20,7 @@ class AdventureOOSList extends Component {
             return <p>Error</p>;
           }
 
-          const tableData = data.adventure.OffersOfServiceConnection
-            ? data.adventure.OffersOfServiceConnection.edges.map(
-                ({ node: { id, oosNumber, email, fullName, isYouth } }) => ({
-                  id,
-                  email,
-                  fullName,
-                  oosNumber,
-                  isYouth,
-                })
-              )
-            : [];
+          const { offersOfServiceForAdventure } = data;
 
           return (
             <Fragment>
@@ -47,8 +37,8 @@ class AdventureOOSList extends Component {
                   </Label>
                 ) : null}
               </div>
-              {tableData.length ? (
-                <AdventureOOSTable data={tableData} />
+              {offersOfServiceForAdventure.length ? (
+                <AdventureOOSTable data={offersOfServiceForAdventure} />
               ) : (
                 <p>No Offers of Service are assigned to this adventure.</p>
               )}

@@ -200,20 +200,27 @@ const UPDATE_ADVENTURE_BY_ID = gql`
 `;
 
 const OFFERS_OF_SERVICE_FOR_ADVENTURE = gql`
-  query oosForAdventure($id: String!) {
-    adventure(search: { searchField: id, value: $id }) {
-      OffersOfServiceConnection {
-        edges {
-          node {
-            id
-            _id
-            oosNumber
-            fullName
-            email
-            isYouth
-          }
-        }
-      }
+  query oosForAdventure($adventureId: String!) {
+    offersOfServiceForAdventure(
+      search: { searchField: id, value: $adventureId }
+    ) {
+      id
+      _id
+      oosNumber
+      firstName
+      lastName
+      preferredName
+      fullName
+      isYouth
+      email
+      parentEmail
+      phone1
+      phone2
+      prerecruited
+      prerecruitedBy
+      additionalInformation
+      previousExperience
+      specialSkills
     }
   }
 `;
