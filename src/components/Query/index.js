@@ -15,17 +15,8 @@ const Query = ({ children, notFoundIfFalsy, ...props }) => {
         if (loading || !data) return <Loader active />;
 
         if (notFoundIfFalsy && !data[notFoundIfFalsy]) {
-          return (
-            <NotFound>
-              <p>
-                There is no Offer of Service with OOS Number{' '}
-                {props.variables.oosNumber}
-              </p>
-            </NotFound>
-          );
+          return <NotFound />;
         }
-
-        console.log({ data });
 
         return children({ data });
       }}
