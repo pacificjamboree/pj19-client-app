@@ -56,17 +56,6 @@ const OOSDetail = ({ oosNumber }) => (
 
         return (
           <>
-            <Link
-              to=""
-              style={styles.backLink}
-              onClick={e => {
-                e.preventDefault();
-                window.history.go(-1);
-              }}
-            >
-              <Icon name="chevron left" />
-              Offers of Service
-            </Link>
             <Grid stackable divided columns={16} style={{ marginTop: '0' }}>
               <Grid.Column width={10}>
                 <Header as="h1">
