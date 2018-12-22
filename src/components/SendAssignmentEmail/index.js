@@ -4,7 +4,7 @@ import React from 'react';
 import { pushFlashMessage } from '../../lib/flashMessage';
 import { SEND_OOS_ASSIGNMENT_EMAIL } from '../../graphql/queries';
 
-const SendAssignmentEmail = ({ client, id, assigned }) => (
+const SendAssignmentEmail = ({ client, id, assigned, children }) => (
   <Mutation
     mutation={SEND_OOS_ASSIGNMENT_EMAIL}
     update={() => {
@@ -22,25 +22,15 @@ const SendAssignmentEmail = ({ client, id, assigned }) => (
       });
     }}
   >
-    {(sendEmail, { data, error, loading }) => (
-      <Button
-        icon
-        loading={loading}
-        labelPosition="left"
-        disabled={loading || !assigned}
-        title={
-          assigned
-            ? 'Send assignment email to OOS'
-            : 'OOS is not assigned to an Adventure'
-        }
-        onClick={() => {
+    {(sendEmail, { data, error, loading }) =>
+      React.cloneElement(children, {
+        onClick: () => {
           sendEmail({ variables: { id } });
-        }}
-      >
-        <Icon name="mail" />
-        Send Assignment Email
-      </Button>
-    )}
+        },
+        loading,
+        disabled: loading || !assigned,
+      })
+    }
   </Mutation>
 );
 

@@ -204,8 +204,31 @@ const OOSDetail = ({ oosNumber }) => (
 
                   <Divider />
 
-                  <SendWelcomeEmail id={id} />
-                  <SendAssignmentEmail id={id} assigned={assigned} />
+                  <SendWelcomeEmail id={id}>
+                    <Button
+                      icon
+                      labelPosition="left"
+                      title="Send welcome email to OOS"
+                    >
+                      <Icon name="mail" />
+                      Send Welcome Email
+                    </Button>
+                  </SendWelcomeEmail>
+
+                  <SendAssignmentEmail id={id} assigned={assigned}>
+                    <Button
+                      icon
+                      labelPosition="left"
+                      title={
+                        assigned
+                          ? 'Send assignment email to OOS'
+                          : 'OOS is not assigned to an Adventure'
+                      }
+                    >
+                      <Icon name="mail" />
+                      Send Assignment Email
+                    </Button>
+                  </SendAssignmentEmail>
 
                   <Divider />
 

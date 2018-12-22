@@ -4,7 +4,7 @@ import { Button, Icon } from 'semantic-ui-react';
 import { pushFlashMessage } from '../../lib/flashMessage';
 import { SEND_OOS_WELCOME_EMAIL } from '../../graphql/queries';
 
-const SendWelcomeEmail = ({ client, id }) => (
+const SendWelcomeEmail = ({ client, id, children }) => (
   <Mutation
     mutation={SEND_OOS_WELCOME_EMAIL}
     update={() => {
@@ -22,21 +22,14 @@ const SendWelcomeEmail = ({ client, id }) => (
       });
     }}
   >
-    {(sendEmail, { data, error, loading }) => (
-      <Button
-        icon
-        loading={loading}
-        disabled={loading}
-        labelPosition="left"
-        title="Send welcome email to OOS"
-        onClick={() => {
+    {(sendEmail, { data, error, loading }) =>
+      React.cloneElement(children, {
+        onClick: () => {
           sendEmail({ variables: { id } });
-        }}
-      >
-        <Icon name="mail" />
-        Send Welcome Email
-      </Button>
-    )}
+        },
+        loading,
+      })
+    }
   </Mutation>
 );
 

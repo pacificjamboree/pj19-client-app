@@ -23,7 +23,7 @@ const SendEmailMenu = ({ oos, ...rest }) => (
       <SendWelcomeEmail id={oos.id}>
         <Dropdown.Item>Send Welcome Message</Dropdown.Item>
       </SendWelcomeEmail>
-      <SendAssignmentEmail id={oos.id}>
+      <SendAssignmentEmail id={oos.id} assigned={oos.assigned}>
         <Dropdown.Item disabled={!oos.assigned}>
           Send Assignment Message
         </Dropdown.Item>
