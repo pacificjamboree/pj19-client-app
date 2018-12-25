@@ -22,6 +22,7 @@ class AdventureCreateForm extends Component {
     periodsOffered: 11,
     periodsRequired: 1,
     premiumAdventure: false,
+    oosRequired: 0,
     fee: 0,
     hidden: false,
     pdrPlan: [],
@@ -204,6 +205,20 @@ class AdventureCreateForm extends Component {
             />
           </Form.Group>
         </UserHasRole>
+
+        <Form.Group>
+          <Form.Input
+            name="oosRequired"
+            id="oosRequired"
+            fluid
+            label="OOS Required"
+            type="number"
+            value={this.state.oosRequired}
+            onChange={(e, { name, value }) => {
+              this.handleChange(e, { name, value: parseInt(value) });
+            }}
+          />
+        </Form.Group>
 
         <Header as="h2">Plan, Do, Review</Header>
 
