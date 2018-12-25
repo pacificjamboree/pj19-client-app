@@ -55,7 +55,9 @@ class AdventureOOSList extends Component {
               {offersOfServiceForAdventure.length ? (
                 <AdventureOOSTable data={offersOfServiceForAdventure} />
               ) : (
-                <p>No Offers of Service are assigned to this adventure.</p>
+                <p style={{ marginTop: '1em' }}>
+                  No Offers of Service are assigned to this adventure.
+                </p>
               )}
             </Fragment>
           );

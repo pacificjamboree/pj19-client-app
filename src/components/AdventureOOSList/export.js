@@ -70,6 +70,7 @@ const ExportOOS = ({ adventureName, data }) => (
     floating
     labeled
     button
+    disabled={!data.length}
     className="icon"
   >
     <Dropdown.Menu>
