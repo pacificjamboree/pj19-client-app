@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Header, Button, Icon } from 'semantic-ui-react';
+import { utoa } from '../../lib/base64';
 import UserHasRole from '../UserHasRole';
 import styles from './AdventureEditForm.module.css';
 
@@ -20,12 +21,12 @@ class AdventureEditForm extends Component {
       fee: adventure.fee,
       hidden: adventure.hidden,
       oosRequired: adventure.oosRequired || 0,
-      pdrPlan: adventure.pdrPlan.map(p => ({ text: p, id: btoa(p) })),
-      pdrDo: adventure.pdrDo.map(p => ({ text: p, id: btoa(p) })),
-      pdrReview: adventure.pdrReview.map(p => ({ text: p, id: btoa(p) })),
+      pdrPlan: adventure.pdrPlan.map(p => ({ text: p, id: utoa(p) })),
+      pdrDo: adventure.pdrDo.map(p => ({ text: p, id: utoa(p) })),
+      pdrReview: adventure.pdrReview.map(p => ({ text: p, id: utoa(p) })),
       pdrSafetyTips: adventure.pdrSafetyTips.map(p => ({
         text: p,
-        id: btoa(p),
+        id: utoa(p),
       })),
     };
     this.handleChange = this.handleChange.bind(this);
@@ -56,7 +57,7 @@ class AdventureEditForm extends Component {
 
   handleAddMultiVariant = (type, e) => {
     e.preventDefault();
-    const id = btoa(`${type}-${Date.now()}`);
+    const id = utoa(`${type}-${Date.now()}`);
     const newState = [
       ...this.state[type],
       {

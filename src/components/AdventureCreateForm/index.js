@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Header, Button, Icon } from 'semantic-ui-react';
+import { utoa } from '../../lib/base64';
 import UserHasRole from '../UserHasRole';
 import styles from './AdventureCreateForm.module.css';
 
@@ -53,7 +54,7 @@ class AdventureCreateForm extends Component {
 
   handleAddMultiVariant = (type, e) => {
     e.preventDefault();
-    const id = btoa(`${type}-${Date.now()}`);
+    const id = utoa(`${type}-${Date.now()}`);
     const newState = [
       ...this.state[type],
       {

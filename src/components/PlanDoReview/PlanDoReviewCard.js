@@ -1,5 +1,7 @@
 import React from 'react';
 import { Grid, Segment, Header } from 'semantic-ui-react';
+import { utoa } from '../../lib/base64';
+
 const TYPES = {
   PLAN: {
     title: 'Plan',
@@ -19,7 +21,7 @@ const TYPES = {
   },
 };
 
-const listItems = items => items.map(i => <li key={btoa(i)}>{i}</li>);
+const listItems = items => items.map(i => <li key={utoa(i)}>{i}</li>);
 
 const PlanDoReviewCard = ({ type, items }) => {
   const { title, color } = TYPES[type];

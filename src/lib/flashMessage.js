@@ -1,5 +1,5 @@
 import { GET_FLASH_MESSAGES } from '../graphql/queries';
-
+import { utoa } from './base64';
 const pushFlashMessage = (
   client,
   { message, kind, error = null, autoDismiss }
@@ -9,7 +9,7 @@ const pushFlashMessage = (
     query: GET_FLASH_MESSAGES,
   });
 
-  const id = btoa(`${Date.now()}:::${kind}:::${message}`);
+  const id = utoa(`${Date.now()}:::${kind}:::${message}`);
   const newMessages = [
     {
       id,

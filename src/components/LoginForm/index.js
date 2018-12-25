@@ -8,6 +8,7 @@ import {
   Message,
 } from 'semantic-ui-react';
 import { Link } from '@reach/router';
+import { utoa } from '../../lib/base64';
 import styles from './LoginForm.module.css';
 
 class LoginForm extends Component {
@@ -52,7 +53,7 @@ class LoginForm extends Component {
           </Header>
           {(error &&
             error.graphQLErrors.map(x => (
-              <Message key={btoa(x.message)} negative>
+              <Message key={utoa(x.message)} negative>
                 {x.message}
               </Message>
             ))) ||

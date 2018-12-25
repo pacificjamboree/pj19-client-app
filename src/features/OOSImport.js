@@ -5,8 +5,9 @@ import ExcelFileUploadReader from '../components/ExcelFileUploadReader';
 import OOSImporter from '../components/OOSImporter';
 import OOSImportReview from '../components/OOSImportReview';
 import parseOOSExcelFile from '../lib/parseOOSExcelFile';
+import { utoa } from '../lib/base64';
 
-const importId = () => btoa(`OOSImport:::${Date.now()}`);
+const importId = () => utoa(`OOSImport:::${Date.now()}`);
 
 class OOSImport extends Component {
   constructor() {

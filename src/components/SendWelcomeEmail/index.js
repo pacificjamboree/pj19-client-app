@@ -1,6 +1,5 @@
 import { Mutation, withApollo } from 'react-apollo';
 import React from 'react';
-import { Button, Icon } from 'semantic-ui-react';
 import { pushFlashMessage } from '../../lib/flashMessage';
 import { SEND_OOS_WELCOME_EMAIL } from '../../graphql/queries';
 
