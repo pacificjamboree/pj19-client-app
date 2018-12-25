@@ -115,6 +115,7 @@ const GET_ADVENTURE_LIST = gql`
       _id
       name
       themeName
+      fullName
       description
       fee
       premiumAdventure

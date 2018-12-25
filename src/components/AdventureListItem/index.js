@@ -10,8 +10,7 @@ const AdventureListItem = ({ adventure }) => (
   <List.Item style={itemStyles}>
     <Link to={`${adventure.id}`}>
       <List.Header as="h3">
-        {adventure.themeName} ({adventure.name}){' '}
-        <Icon name="arrow circle right" />
+        {adventure.fullName} <Icon name="arrow circle right" />
       </List.Header>
     </Link>
     <AdventureLabels adventure={adventure} />
