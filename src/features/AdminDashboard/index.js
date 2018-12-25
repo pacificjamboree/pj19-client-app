@@ -32,7 +32,10 @@ const AdminDashboard = ({ user }) => {
             <Adventures path="adventures" />
             <AdventureCreate path="adventures/create" />
             <AdventureDetail path="adventures/:id" />
-            <AdventureEdit path="adventures/:id/edit" />
+            <AdventureEdit
+              path="adventures/:id/edit"
+              navigateToAfterMutataion=".."
+            />
             <NotFound default />
           </Router>
         </Grid.Column>
