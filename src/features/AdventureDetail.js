@@ -23,13 +23,27 @@ const AdventureDetail = ({ id }) => (
         if (loading) return <Loader active />;
         if (error) return <p>Error</p>;
         const { adventure } = data;
+        const adventureNameHeaders = adventure => {
+          if (adventure.themeName) {
+            return (
+              <>
+                <Header as="h1" style={{ margin: 0 }}>
+                  {adventure.themeName}
+                </Header>
+                <Header as="h2" style={{ margin: 0 }}>
+                  ({adventure.name})
+                </Header>
+              </>
+            );
+          } else {
+            return <Header as="h1">{adventure.name}</Header>;
+          }
+        };
         return (
           <Fragment>
             <Grid columns={2}>
               <Grid.Row>
-                <Grid.Column>
-                  <Header as="h1">{adventure.themeName}</Header>
-                </Grid.Column>
+                <Grid.Column>{adventureNameHeaders(adventure)}</Grid.Column>
                 <UserHasRole userRoles={['adventureManager', 'admin']}>
                   <Grid.Column textAlign="right">
                     <Link to={`./edit`}>
@@ -43,7 +57,6 @@ const AdventureDetail = ({ id }) => (
               </Grid.Row>
             </Grid>
 
-            <p>{adventure.name}</p>
             <AdventureLabels location={true} adventure={adventure} />
             <p>{adventure.description}</p>
             <Header as="h2">Plan, Do, Review</Header>
