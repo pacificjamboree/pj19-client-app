@@ -217,7 +217,7 @@ class OOSList extends Component {
                     </Link>
                   </Table.Cell>
                   <Table.Cell>{oos.lastName}</Table.Cell>
-                  <Table.Cell>{oos.firstName}</Table.Cell>
+                  <Table.Cell>{oos.preferredName || oos.firstName}</Table.Cell>
                   <Table.Cell>
                     <Popup
                       inverted
