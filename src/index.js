@@ -4,7 +4,7 @@ import ApolloClient from 'apollo-boost';
 import ReactDOM from 'react-dom';
 import { navigate } from '@reach/router';
 import App from './features/App';
-import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 import { defaults, resolvers } from './graphql';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -54,4 +54,5 @@ class Root extends Component {
 }
 
 ReactDOM.render(<Root />, document.getElementById('root'));
-registerServiceWorker();
+// remove service worker
+unregister();
