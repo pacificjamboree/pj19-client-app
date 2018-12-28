@@ -10,21 +10,26 @@ const Adventures = ({ workflowState = 'active' }) => {
     <Container>
       <Header as="h1">Adventures</Header>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-        convallis felis consectetur quam condimentum ornare. Sed suscipit,
-        turpis eu consectetur placerat, massa velit fringilla massa, a sagittis
-        est velit non erat. Nunc rhoncus turpis ut magna faucibus malesuada.
-        Fusce et eros vitae neque dignissim venenatis. Mauris eu nisl id quam
-        semper pellentesque at vel dolor. Nunc lobortis lacus dolor. In
-        vestibulum cursus porttitor. Nunc porttitor ante vitae erat auctor
-        porta. Aliquam porta luctus eros nec euismod. Quisque at dui non leo
-        condimentum fringilla a sit amet massa. Donec dui dolor, porta et
-        pellentesque nec, egestas eu tortor. Quisque eu massa justo. Phasellus
-        nec ultrices libero. Vestibulum pretium magna eget nisi vestibulum
-        accumsan. Aenean risus elit, aliquam eu lobortis sed, adipiscing eu
-        mauris. Pellentesque pulvinar sodales tincidunt. Nam sed tellus in leo
-        ullamcorper tincidunt.
+        Adventures are the scheduled activities that your Patrol participates in
+        at the Jamboree. Each day has two Adventure periods, one in the morning
+        and one in the afternoon. Most Adventures are a half-day long, but some
+        take the full day and one, the Juan de Fuca Trail, is overnight.
       </p>
+      <p>
+        Many Adventures take place on-site at Camp Barnard, while others are
+        off-site at various locations throughout Greater Victoria.
+      </p>
+      <p>
+        Each Adventure has a Trail Card with a series of Plan, Do, and Review
+        questions, along with Safety Tips. You will be provided with the cards
+        for your assigned Adventures when you arrive at the Jamboree.
+      </p>
+      <p>
+        Most Adventures have no additional fees. SCUBA Diving has an additional
+        participant fee due to the cost of specalized equipment and instructors
+        required.
+      </p>
+
       <Divider />
       <Query
         query={GET_ADVENTURE_LIST}
