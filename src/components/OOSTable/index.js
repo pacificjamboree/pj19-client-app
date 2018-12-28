@@ -228,6 +228,9 @@ class OOSList extends Component {
                     {oos.email}
                   </Table.Cell>
                   <Table.Cell>
+                    {oos.isAdventureManager ? (
+                      <Icon name="star" color="yellow" />
+                    ) : null}
                     {oos.assigned ? (
                       oos.assignment.name
                     ) : (

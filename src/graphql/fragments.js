@@ -27,6 +27,7 @@ const OFFERS_OF_SERVICE_FRAGMENT = gql`
       id
       _id
     }
+    isAdventureManager
   }
 `;
 
