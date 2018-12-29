@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Header, List } from 'semantic-ui-react';
 import AdventureListItem from '../AdventureListItem';
 
 const AdventureList = ({ title, adventures, children }) => (
-  <Fragment>
+  <>
     <Header as="h2">{title}</Header>
     {children}
     <List>
@@ -11,7 +11,7 @@ const AdventureList = ({ title, adventures, children }) => (
         <AdventureListItem key={a.adventureCode} adventure={a} />
       ))}
     </List>
-  </Fragment>
+  </>
 );
 
 export default AdventureList;

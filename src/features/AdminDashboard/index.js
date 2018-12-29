@@ -8,7 +8,7 @@ import OOSList from '../OOSList';
 import OOSDetail from '../OOSDetail';
 import OOSEdit from '../OOSEdit';
 import OOSImport from '../OOSImport';
-import Adventures from '../Adventures';
+import AdventureList from '../AdventureList';
 import AdventureCreate from '../AdventureCreate/index';
 import AdventureDetail from '../AdventureDetail';
 import AdventureEdit from '../AdventureEdit';
@@ -29,7 +29,7 @@ const AdminDashboard = ({ user }) => {
             <OOSDetail path="oos/:oosNumber" />
             <OOSEdit path="oos/:oosNumber/edit" />
 
-            <Adventures path="adventures" />
+            <AdventureList path="adventures" />
             <AdventureCreate path="adventures/create" />
             <AdventureDetail path="adventures/:id" />
             <AdventureEdit
