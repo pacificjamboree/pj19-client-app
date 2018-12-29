@@ -122,6 +122,14 @@ const GET_ADVENTURE_LIST = gql`
       periodsRequired
       location
       capacityPerPeriod
+      hidden
+      OffersOfServiceConnection {
+        edges {
+          node {
+            id
+          }
+        }
+      }
     }
   }
 `;
