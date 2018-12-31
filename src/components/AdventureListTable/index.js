@@ -4,6 +4,7 @@ import { Link } from '@reach/router';
 import { Icon, Table } from 'semantic-ui-react';
 import sortBy from 'lodash.sortby';
 
+import styles from './styles.module.css';
 import handleSort from '../../lib/handleSort';
 
 const DurationLabel = duration => {
@@ -51,92 +52,104 @@ class AdventureTable extends Component {
     const { column, direction } = this.state.sort;
     const { data } = this.state;
     return (
-      <Table celled selectable sortable striped>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell
-              sorted={column === 'adventureCode' ? direction : null}
-              onClick={this.handleSort('adventureCode')}
-            >
-              Code
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'name' ? direction : null}
-              onClick={this.handleSort('name')}
-            >
-              Name
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'themeName' ? direction : null}
-              onClick={this.handleSort('themeName')}
-            >
-              Theme Name
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'location' ? direction : null}
-              onClick={this.handleSort('location')}
-            >
-              Location
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'periodsRequired' ? direction : null}
-              onClick={this.handleSort('periodsRequired')}
-            >
-              Duration
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'capacityPerPeriod' ? direction : null}
-              onClick={this.handleSort('capacityPerPeriod')}
-            >
-              Capacity
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'oosRequired' ? direction : null}
-              onClick={this.handleSort('oosRequired')}
-            >
-              OOS Required
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'oosAssignedCount' ? direction : null}
-              onClick={this.handleSort('oosAssignedCount')}
-            >
-              OOS Assigned
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'hidden' ? direction : null}
-              onClick={this.handleSort('hidden')}
-            >
-              Available
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              sorted={column === 'fee' ? direction : null}
-              onClick={this.handleSort('fee')}
-            >
-              Fee
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {data.map(a => (
-            <Table.Row key={a.id}>
-              <Table.Cell>
-                <Link to={a.id}>{a.adventureCode}</Link>
-              </Table.Cell>
-              <Table.Cell>{a.name}</Table.Cell>
-              <Table.Cell>{a.themeName}</Table.Cell>
-              <Table.Cell>{a.location}</Table.Cell>
-              <Table.Cell>{DurationLabel(a.periodsRequired)}</Table.Cell>
-              <Table.Cell>{a.capacityPerPeriod}</Table.Cell>
-              <Table.Cell>{a.oosRequired}</Table.Cell>
-              <Table.Cell>{a.oosAssignedCount}</Table.Cell>
-              <Table.Cell>
-                <Icon name={a.hidden ? 'x' : 'check'} />
-              </Table.Cell>
-              <Table.Cell>${a.fee}</Table.Cell>
+      <div className={styles.tableContainer}>
+        <Table celled selectable sortable stackable striped>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell
+                sorted={column === 'name' ? direction : null}
+                onClick={this.handleSort('name')}
+              >
+                Name
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'themeName' ? direction : null}
+                onClick={this.handleSort('themeName')}
+              >
+                Theme Name
+              </Table.HeaderCell>
+              <Table.HeaderCell>Managers</Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'location' ? direction : null}
+                onClick={this.handleSort('location')}
+              >
+                Location
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'periodsRequired' ? direction : null}
+                onClick={this.handleSort('periodsRequired')}
+              >
+                Duration
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'capacityPerPeriod' ? direction : null}
+                onClick={this.handleSort('capacityPerPeriod')}
+              >
+                Capacity
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'oosRequired' ? direction : null}
+                onClick={this.handleSort('oosRequired')}
+              >
+                OOS Required
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'oosAssignedCount' ? direction : null}
+                onClick={this.handleSort('oosAssignedCount')}
+              >
+                OOS Assigned
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'hidden' ? direction : null}
+                onClick={this.handleSort('hidden')}
+              >
+                Available
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'fee' ? direction : null}
+                onClick={this.handleSort('fee')}
+              >
+                Fee
+              </Table.HeaderCell>
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+          </Table.Header>
+          <Table.Body>
+            {data.map(
+              a =>
+                console.log(a) || (
+                  <Table.Row key={a.id}>
+                    <Table.Cell>
+                      <Link to={a.id}>{a.name}</Link>
+                    </Table.Cell>
+                    <Table.Cell>{a.themeName}</Table.Cell>
+                    <Table.Cell>
+                      <ul className={styles.adventureManagerList}>
+                        {a.ManagersConnection.edges.map(
+                          ({ node: { fullName, oosNumber } }) => (
+                            <li key={oosNumber}>
+                              <Link to={`/dashboard/oos/${oosNumber}`}>
+                                {fullName}
+                              </Link>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </Table.Cell>
+                    <Table.Cell>{a.location}</Table.Cell>
+                    <Table.Cell>{DurationLabel(a.periodsRequired)}</Table.Cell>
+                    <Table.Cell>{a.capacityPerPeriod}</Table.Cell>
+                    <Table.Cell>{a.oosRequired}</Table.Cell>
+                    <Table.Cell>{a.oosAssignedCount}</Table.Cell>
+                    <Table.Cell>
+                      <Icon name={a.hidden ? 'x' : 'check'} />
+                    </Table.Cell>
+                    <Table.Cell>${a.fee}</Table.Cell>
+                  </Table.Row>
+                )
+            )}
+          </Table.Body>
+        </Table>
+      </div>
     );
   }
 }

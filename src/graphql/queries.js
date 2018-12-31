@@ -107,6 +107,33 @@ const RESET_PASSWORD_MUTATION = gql`
   }
 `;
 
+const GET_ADVENTURE_TABLE = gql`
+  query adventures($workflowState: WorkflowState) {
+    adventures(filters: { workflowState: [$workflowState] }) {
+      id
+      name
+      themeName
+      fullName
+      fee
+      premiumAdventure
+      periodsRequired
+      location
+      capacityPerPeriod
+      hidden
+      oosRequired
+      oosAssignedCount
+      ManagersConnection {
+        edges {
+          node {
+            oosNumber
+            fullName
+          }
+        }
+      }
+    }
+  }
+`;
+
 const GET_ADVENTURE_LIST = gql`
   query adventures($workflowState: WorkflowState) {
     adventures(filters: { workflowState: [$workflowState] }) {
@@ -502,6 +529,7 @@ export {
   UPDATE_NAVBAR_VISIBILITY_STATE,
   GET_FLASH_MESSAGES,
   GET_ADVENTURE_LIST,
+  GET_ADVENTURE_TABLE,
   GET_ADVENTURE_BY_ID,
   CREATE_ADVENTURE,
   UPDATE_ADVENTURE_BY_ID,

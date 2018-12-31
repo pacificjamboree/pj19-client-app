@@ -1,0 +1,12 @@
+.tableContainer {
+  overflow: scroll;
+}
+
+.adventureManagerList {
+  list-style: none;
+  padding: 0;
+}
+
+.adventureManagerList li {
+  margin-bottom: 0.75em;
+}
