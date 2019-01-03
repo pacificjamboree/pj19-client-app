@@ -170,6 +170,7 @@ const GET_ADVENTURE_BY_ID = gql`
       name
       themeName
       description
+      oosDescription
       fee
       premiumAdventure
       periodsRequired
@@ -220,6 +221,7 @@ const UPDATE_ADVENTURE_BY_ID = gql`
         name
         themeName
         description
+        oosDescription
         fee
         premiumAdventure
         periodsRequired

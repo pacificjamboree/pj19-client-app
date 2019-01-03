@@ -16,6 +16,8 @@ import AdventureOOSList from '../components/AdventureOOSList';
 
 import { GET_ADVENTURE_BY_ID } from '../graphql/queries';
 
+const ADMIN_AND_MANAGER = ['adventureManager', 'admin'];
+
 const AdventureDetail = ({ id }) => (
   <Container>
     <Query query={GET_ADVENTURE_BY_ID} variables={{ id }}>
@@ -44,7 +46,7 @@ const AdventureDetail = ({ id }) => (
             <Grid columns={2}>
               <Grid.Row>
                 <Grid.Column>{adventureNameHeaders(adventure)}</Grid.Column>
-                <UserHasRole userRoles={['adventureManager', 'admin']}>
+                <UserHasRole userRoles={ADMIN_AND_MANAGER}>
                   <Grid.Column textAlign="right">
                     <Link to={`./edit`}>
                       <Button icon labelPosition="left" color="teal">
@@ -59,6 +61,17 @@ const AdventureDetail = ({ id }) => (
 
             <AdventureLabels location={true} adventure={adventure} />
             <p>{adventure.description}</p>
+
+            {adventure.oosDescription && (
+              <UserHasRole userRoles={ADMIN_AND_MANAGER}>
+                <p>
+                  <b>OOS Description for Welcome Message:</b>
+                  <br />
+                  {adventure.oosDescription}
+                </p>
+              </UserHasRole>
+            )}
+
             <Header as="h2">Plan, Do, Review</Header>
             <PlanDoReview
               plan={adventure.pdrPlan}
@@ -66,7 +79,7 @@ const AdventureDetail = ({ id }) => (
               review={adventure.pdrReview}
               safetyTips={adventure.pdrSafetyTips}
             />
-            <UserHasRole userRoles={['adventureManager', 'admin']}>
+            <UserHasRole userRoles={ADMIN_AND_MANAGER}>
               <AdventureOOSList
                 id={adventure.id}
                 oosRequired={adventure.oosRequired}

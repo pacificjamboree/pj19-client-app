@@ -13,6 +13,7 @@ class AdventureEditForm extends Component {
       name: adventure.name,
       themeName: adventure.themeName,
       description: adventure.description,
+      oosDescription: adventure.oosDescription,
       location: adventure.location,
       capacityPerPeriod: adventure.capacityPerPeriod,
       periodsOffered: adventure.periodsOffered,
@@ -124,6 +125,13 @@ class AdventureEditForm extends Component {
           id="description"
           label="Description"
           value={this.state.description}
+          onChange={this.handleChange}
+        />
+        <Form.TextArea
+          name="oosDescription"
+          id="oosDescription"
+          label="OOS Description (for welcome email)"
+          value={this.state.oosDescription}
           onChange={this.handleChange}
         />
 
