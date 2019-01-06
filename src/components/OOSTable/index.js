@@ -193,6 +193,18 @@ class OOSList extends Component {
                 Email Address
               </Table.HeaderCell>
               <Table.HeaderCell
+                sorted={column === 'welcomeEmailSentAt' ? direction : null}
+                onClick={this.handleSort('welcomeEmailSentAt')}
+              >
+                Welcome
+              </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'assignmentEmailSentAt' ? direction : null}
+                onClick={this.handleSort('assignmentEmailSentAt')}
+              >
+                Assignment
+              </Table.HeaderCell>
+              <Table.HeaderCell
                 sorted={column === 'assignment' ? direction : null}
                 onClick={this.handleSort('assignment')}
               >
@@ -233,6 +245,13 @@ class OOSList extends Component {
                     />
                     {oos.email}
                   </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <Icon name={oos.welcomeEmailSentAt ? 'check' : 'x'} />
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <Icon name={oos.assignmentEmailSentAt ? 'check' : 'x'} />
+                  </Table.Cell>
+
                   <Table.Cell>
                     {oos.isAdventureManager ? (
                       <Icon name="star" color="yellow" />

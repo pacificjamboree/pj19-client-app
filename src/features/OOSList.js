@@ -12,6 +12,8 @@ const QUERY = gql`
   query getOOSWithAdventureNamesIds {
     offersOfService: offersOfService {
       ...OffersOfServiceFragment
+      welcomeEmailSentAt
+      assignmentEmailSentAt
     }
     adventures: adventures {
       ...AdventureNameIdFragment
