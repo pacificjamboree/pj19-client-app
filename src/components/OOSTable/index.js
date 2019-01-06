@@ -204,6 +204,12 @@ class OOSList extends Component {
               >
                 Is Youth?
               </Table.HeaderCell>
+              <Table.HeaderCell
+                sorted={column === 'prerecruited' ? direction : null}
+                onClick={this.handleSort('prerecruited')}
+              >
+                Pre-Recruited?
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
 
@@ -248,6 +254,9 @@ class OOSList extends Component {
                     ) : (
                       'No'
                     )}
+                  </Table.Cell>
+                  <Table.Cell textAlign="center">
+                    <Icon name={oos.prerecruited ? 'check' : 'x'} />
                   </Table.Cell>
                 </Table.Row>
               );
