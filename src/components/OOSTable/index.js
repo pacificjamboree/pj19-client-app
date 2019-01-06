@@ -16,6 +16,7 @@ import matchSorter from 'match-sorter';
 import SendWelcomeEmail from '../../components/SendWelcomeEmail';
 import SendAssignmentEmail from '../../components/SendAssignmentEmail';
 import handleSort from '../../lib/handleSort';
+import styles from './styles.module.css';
 
 const SendEmailMenu = ({ oos, ...rest }) => (
   <Dropdown {...rest} inline icon="envelope outline">
@@ -161,127 +162,130 @@ class OOSList extends Component {
             />
           </Input>
         </div>
+        <div className={styles.tableContainer}>
+          <Table celled selectable sortable striped>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell
+                  sorted={column === 'oosNumber' ? direction : null}
+                  onClick={this.handleSort('oosNumber')}
+                >
+                  OOS Number
+                </Table.HeaderCell>
 
-        <Table celled selectable sortable striped>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell
-                sorted={column === 'oosNumber' ? direction : null}
-                onClick={this.handleSort('oosNumber')}
-              >
-                OOS Number
-              </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'lastName' ? direction : null}
+                  onClick={this.handleSort('lastName')}
+                >
+                  Last Name
+                </Table.HeaderCell>
 
-              <Table.HeaderCell
-                sorted={column === 'lastName' ? direction : null}
-                onClick={this.handleSort('lastName')}
-              >
-                Last Name
-              </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'firstName' ? direction : null}
+                  onClick={this.handleSort('firstName')}
+                >
+                  First Name
+                </Table.HeaderCell>
 
-              <Table.HeaderCell
-                sorted={column === 'firstName' ? direction : null}
-                onClick={this.handleSort('firstName')}
-              >
-                First Name
-              </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'email' ? direction : null}
+                  onClick={this.handleSort('email')}
+                >
+                  Email Address
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'welcomeEmailSentAt' ? direction : null}
+                  onClick={this.handleSort('welcomeEmailSentAt')}
+                >
+                  Welcome
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'assignmentEmailSentAt' ? direction : null}
+                  onClick={this.handleSort('assignmentEmailSentAt')}
+                >
+                  Assignment
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'assignment' ? direction : null}
+                  onClick={this.handleSort('assignment')}
+                >
+                  Assignment
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'isYouth' ? direction : null}
+                  onClick={this.handleSort('isYouth')}
+                >
+                  Is Youth?
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'prerecruited' ? direction : null}
+                  onClick={this.handleSort('prerecruited')}
+                >
+                  Pre-Recruited?
+                </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-              <Table.HeaderCell
-                sorted={column === 'email' ? direction : null}
-                onClick={this.handleSort('email')}
-              >
-                Email Address
-              </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'welcomeEmailSentAt' ? direction : null}
-                onClick={this.handleSort('welcomeEmailSentAt')}
-              >
-                Welcome
-              </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'assignmentEmailSentAt' ? direction : null}
-                onClick={this.handleSort('assignmentEmailSentAt')}
-              >
-                Assignment
-              </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'assignment' ? direction : null}
-                onClick={this.handleSort('assignment')}
-              >
-                Assignment
-              </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'isYouth' ? direction : null}
-                onClick={this.handleSort('isYouth')}
-              >
-                Is Youth?
-              </Table.HeaderCell>
-              <Table.HeaderCell
-                sorted={column === 'prerecruited' ? direction : null}
-                onClick={this.handleSort('prerecruited')}
-              >
-                Pre-Recruited?
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
+            <Table.Body>
+              {data.map(oos => {
+                return (
+                  <Table.Row key={oos.id}>
+                    <Table.Cell>
+                      <Link to={`${oos.oosNumber}`}>
+                        <Icon name="address card" /> {oos.oosNumber}
+                      </Link>
+                    </Table.Cell>
+                    <Table.Cell>{oos.lastName}</Table.Cell>
+                    <Table.Cell>
+                      {oos.preferredName || oos.firstName}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Popup
+                        inverted
+                        position="left center"
+                        content="Send Emails to OOS"
+                        trigger={<SendEmailMenu oos={oos} />}
+                      />
+                      {oos.email}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <Icon name={oos.welcomeEmailSentAt ? 'check' : 'x'} />
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <Icon name={oos.assignmentEmailSentAt ? 'check' : 'x'} />
+                    </Table.Cell>
 
-          <Table.Body>
-            {data.map(oos => {
-              return (
-                <Table.Row key={oos.id}>
-                  <Table.Cell>
-                    <Link to={`${oos.oosNumber}`}>
-                      <Icon name="address card" /> {oos.oosNumber}
-                    </Link>
-                  </Table.Cell>
-                  <Table.Cell>{oos.lastName}</Table.Cell>
-                  <Table.Cell>{oos.preferredName || oos.firstName}</Table.Cell>
-                  <Table.Cell>
-                    <Popup
-                      inverted
-                      position="left center"
-                      content="Send Emails to OOS"
-                      trigger={<SendEmailMenu oos={oos} />}
-                    />
-                    {oos.email}
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <Icon name={oos.welcomeEmailSentAt ? 'check' : 'x'} />
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <Icon name={oos.assignmentEmailSentAt ? 'check' : 'x'} />
-                  </Table.Cell>
-
-                  <Table.Cell>
-                    {oos.isAdventureManager ? (
-                      <Icon name="star" color="yellow" />
-                    ) : null}
-                    {oos.assigned ? (
-                      oos.assignment.name
-                    ) : (
-                      <Label color="orange" horizontal>
-                        Unassigned
-                      </Label>
-                    )}
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    {oos.isYouth ? (
-                      <Label color="red" horizontal>
-                        <Icon name="exclamation triangle" />
-                        Yes
-                      </Label>
-                    ) : (
-                      'No'
-                    )}
-                  </Table.Cell>
-                  <Table.Cell textAlign="center">
-                    <Icon name={oos.prerecruited ? 'check' : 'x'} />
-                  </Table.Cell>
-                </Table.Row>
-              );
-            })}
-          </Table.Body>
-        </Table>
+                    <Table.Cell>
+                      {oos.isAdventureManager ? (
+                        <Icon name="star" color="yellow" />
+                      ) : null}
+                      {oos.assigned ? (
+                        oos.assignment.name
+                      ) : (
+                        <Label color="orange" horizontal>
+                          Unassigned
+                        </Label>
+                      )}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {oos.isYouth ? (
+                        <Label color="red" horizontal>
+                          <Icon name="exclamation triangle" />
+                          Yes
+                        </Label>
+                      ) : (
+                        'No'
+                      )}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      <Icon name={oos.prerecruited ? 'check' : 'x'} />
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              })}
+            </Table.Body>
+          </Table>
+        </div>
       </>
     );
   }
