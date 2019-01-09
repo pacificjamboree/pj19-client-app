@@ -52,6 +52,8 @@ const OOSDetail = ({ oosNumber }) => (
           assignment,
           isAdventureManager,
           user,
+          welcomeEmailSentAt,
+          assignmentEmailSentAt,
         } = offerOfService;
 
         return (
@@ -204,8 +206,16 @@ const OOSDetail = ({ oosNumber }) => (
 
                   <Divider />
 
-                  <SendWelcomeEmail id={id}>
+                  <SendWelcomeEmail
+                    id={id}
+                    lastSentAt={welcomeEmailSentAt}
+                    refetch={{
+                      query: GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
+                      variables: { oosNumber },
+                    }}
+                  >
                     <Button
+                      className={styles.noPad}
                       icon
                       labelPosition="left"
                       title="Send welcome email to OOS"
@@ -215,8 +225,17 @@ const OOSDetail = ({ oosNumber }) => (
                     </Button>
                   </SendWelcomeEmail>
 
-                  <SendAssignmentEmail id={id} assigned={assigned}>
+                  <SendAssignmentEmail
+                    id={id}
+                    assigned={assigned}
+                    lastSentAt={assignmentEmailSentAt}
+                    refetch={{
+                      query: GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
+                      variables: { oosNumber },
+                    }}
+                  >
                     <Button
+                      className={styles.noPad}
                       icon
                       labelPosition="left"
                       title={

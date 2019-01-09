@@ -4,6 +4,10 @@
   margin-bottom: 0.75em !important;
 }
 
+.actionButtons button.noPad {
+  margin-bottom: 0 !important;
+}
+
 .label {
   font-weight: bold;
 }
@@ -12,4 +16,10 @@
   overflow-x: scroll;
   text-align: left;
   font-size: 0.8em;
+}
+
+.emailSentAtDate {
+  font-size: 0.8em;
+  text-align: left;
+  margin-bottom: 0.75em;
 }

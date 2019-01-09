@@ -1,11 +1,13 @@
 import { Mutation, withApollo } from 'react-apollo';
 import React from 'react';
+import formatDate from 'date-fns/format';
 import { pushFlashMessage } from '../../lib/flashMessage';
 import { SEND_OOS_WELCOME_EMAIL } from '../../graphql/queries';
 
-const SendWelcomeEmail = ({ client, id, children }) => (
+const SendWelcomeEmail = ({ client, id, children, lastSentAt, refetch }) => (
   <Mutation
     mutation={SEND_OOS_WELCOME_EMAIL}
+    refetchQueries={[refetch]}
     update={() => {
       pushFlashMessage(client, {
         kind: 'success',
@@ -21,14 +23,32 @@ const SendWelcomeEmail = ({ client, id, children }) => (
       });
     }}
   >
-    {(sendEmail, { data, error, loading }) =>
-      React.cloneElement(children, {
+    {(sendEmail, { data, error, loading }) => {
+      const button = React.cloneElement(children, {
         onClick: () => {
           sendEmail({ variables: { id } });
         },
         loading,
-      })
-    }
+      });
+      return (
+        <>
+          {button}
+          <div
+            style={{
+              marginBottom: '0.75em',
+              fontSize: 'smaller',
+              textAlign: 'left',
+            }}
+          >
+            {lastSentAt && (
+              <span>
+                Last sent: {formatDate(lastSentAt, 'YYYY-MM-DD HH:mm')}
+              </span>
+            )}
+          </div>
+        </>
+      );
+    }}
   </Mutation>
 );
 
