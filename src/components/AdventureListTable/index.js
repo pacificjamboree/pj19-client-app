@@ -138,8 +138,12 @@ class AdventureTable extends Component {
                     <Table.Cell>{a.location}</Table.Cell>
                     <Table.Cell>{DurationLabel(a.periodsRequired)}</Table.Cell>
                     <Table.Cell>{a.capacityPerPeriod}</Table.Cell>
-                    <Table.Cell>{a.oosRequired}</Table.Cell>
-                    <Table.Cell>{a.oosAssignedCount}</Table.Cell>
+                    <Table.Cell>
+                      {a.oosRequired} ({a.adultOOSRequired} Adults)
+                    </Table.Cell>
+                    <Table.Cell>
+                      {a.oosAssignedCount} ({a.adultOOSAssignedCount} Adults)
+                    </Table.Cell>
                     <Table.Cell>
                       <Icon name={a.hidden ? 'x' : 'check'} />
                     </Table.Cell>

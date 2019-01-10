@@ -8,7 +8,7 @@ import Export from './export';
 
 class AdventureOOSList extends Component {
   render() {
-    const { id, oosRequired, adventureName } = this.props;
+    const { id, oosRequired, adultOOSRequired, adventureName } = this.props;
     return (
       <Query
         query={OFFERS_OF_SERVICE_FOR_ADVENTURE}
@@ -22,6 +22,9 @@ class AdventureOOSList extends Component {
           }
 
           const { offersOfServiceForAdventure } = data;
+          const adultOOSCount = offersOfServiceForAdventure.filter(
+            o => !o.isYouth
+          ).length;
 
           return (
             <Fragment>
@@ -43,13 +46,23 @@ class AdventureOOSList extends Component {
                   OOS Required
                   <Label.Detail>{oosRequired}</Label.Detail>
                 </Label>
+                <Label>
+                  Adult OOS Required
+                  <Label.Detail>{adultOOSRequired}</Label.Detail>
+                </Label>
                 {offersOfServiceForAdventure.length ? (
-                  <Label>
-                    OOS Assigned
-                    <Label.Detail>
-                      {offersOfServiceForAdventure.length}
-                    </Label.Detail>
-                  </Label>
+                  <>
+                    <Label>
+                      OOS Assigned
+                      <Label.Detail>
+                        {offersOfServiceForAdventure.length}
+                      </Label.Detail>
+                    </Label>
+                    <Label>
+                      Adult OOS Assigned
+                      <Label.Detail>{adultOOSCount}</Label.Detail>
+                    </Label>
+                  </>
                 ) : null}
               </div>
               {offersOfServiceForAdventure.length ? (

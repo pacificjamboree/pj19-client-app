@@ -121,7 +121,9 @@ const GET_ADVENTURE_TABLE = gql`
       capacityPerPeriod
       hidden
       oosRequired
+      adultOOSRequired
       oosAssignedCount
+      adultOOSAssignedCount
       ManagersConnection {
         edges {
           node {
@@ -182,6 +184,7 @@ const GET_ADVENTURE_BY_ID = gql`
       pdrReview
       pdrSafetyTips
       oosRequired
+      adultOOSRequired
     }
   }
 `;
@@ -206,6 +209,8 @@ const CREATE_ADVENTURE = gql`
         pdrDo
         pdrReview
         pdrSafetyTips
+        oosRequired
+        adultOOSRequired
       }
     }
   }
@@ -232,6 +237,8 @@ const UPDATE_ADVENTURE_BY_ID = gql`
         pdrDo
         pdrReview
         pdrSafetyTips
+        oosRequired
+        adultOOSRequired
       }
     }
   }

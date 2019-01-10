@@ -83,6 +83,7 @@ const AdventureDetail = ({ id }) => (
               <AdventureOOSList
                 id={adventure.id}
                 oosRequired={adventure.oosRequired}
+                adultOOSRequired={adventure.adultOOSRequired}
                 adventureName={adventure.name}
               />
             </UserHasRole>

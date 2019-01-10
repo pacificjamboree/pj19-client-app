@@ -22,6 +22,7 @@ class AdventureEditForm extends Component {
       fee: adventure.fee,
       hidden: adventure.hidden,
       oosRequired: adventure.oosRequired || 0,
+      adultOOSRequired: adventure.adultOOSRequired || 0,
       pdrPlan: adventure.pdrPlan.map(p => ({ text: p, id: utoa(p) })),
       pdrDo: adventure.pdrDo.map(p => ({ text: p, id: utoa(p) })),
       pdrReview: adventure.pdrReview.map(p => ({ text: p, id: utoa(p) })),
@@ -124,14 +125,14 @@ class AdventureEditForm extends Component {
           name="description"
           id="description"
           label="Description"
-          value={this.state.description}
+          value={this.state.description || ''}
           onChange={this.handleChange}
         />
         <Form.TextArea
           name="oosDescription"
           id="oosDescription"
           label="OOS Description (for welcome email)"
-          value={this.state.oosDescription}
+          value={this.state.oosDescription || ''}
           onChange={this.handleChange}
         />
 
@@ -211,9 +212,20 @@ class AdventureEditForm extends Component {
             name="oosRequired"
             id="oosRequired"
             fluid
-            label="OOS Required"
+            label="Total OOS Required"
             type="number"
             value={this.state.oosRequired}
+            onChange={(e, { name, value }) => {
+              this.handleChange(e, { name, value: parseInt(value) });
+            }}
+          />
+          <Form.Input
+            name="adultOOSRequired"
+            id="adultOOSRequired"
+            fluid
+            label="Adult OOS Required"
+            type="number"
+            value={this.state.adultOOSRequired}
             onChange={(e, { name, value }) => {
               this.handleChange(e, { name, value: parseInt(value) });
             }}
