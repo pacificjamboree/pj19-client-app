@@ -512,7 +512,10 @@ const ADMIN_DASHBOARD = gql`
   query {
     # Count of OOS
     offerOfServiceCount {
-      total
+      required
+      adultRequired
+      allocated
+      adultAllocated
       assigned
       unassigned
     }
