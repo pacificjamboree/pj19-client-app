@@ -77,7 +77,7 @@ class ExcelFileUploadReader extends Component {
           </p>
 
           <p>
-            Drag OOS Excel File Here or{' '}
+            Drag Excel File Here or{' '}
             <span
               onClick={e =>
                 document.querySelector('input[type="file"]').click()
@@ -89,7 +89,7 @@ class ExcelFileUploadReader extends Component {
           </p>
         </div>
         <div className={styles.form}>
-          <label htmlFor="fileinput">Choose OOS File</label>
+          <label htmlFor="fileinput">Choose Excel File</label>
           <input
             type="file"
             name="fileinput"
