@@ -35,7 +35,7 @@ export const patrolFieldMap = {
   'Phone Number': 'phone',
   'Group Name as it appears in myscouts i.e. 1St Greenfield Scouts':
     'groupName',
-  'You have the option to assign a unique name to this patrol – could be the same as your Group name or it could be ‘Spicy Taco Patrol’, be as creative as you like.This will be important for Groups registering more than one patrol(non mandatory field).If you leave this field blank your patrol name will be the same as your Group name.':
+  'You have the option to assign a unique name to this patrol – could be the same as your Group name or it could be ‘Spicy Taco Patrol’, be as creative as you like.  This will be important for Groups registering more than one patrol (non mandatory field).  If you leave this field blank your patrol name will be the same as your Group name.':
     'patrolName',
   Scouts: 'numberOfScouts',
   Scouters: 'numberOfScouters',
