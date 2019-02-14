@@ -18,20 +18,32 @@ import SendAssignmentEmail from '../../components/SendAssignmentEmail';
 import handleSort from '../../lib/handleSort';
 import styles from './styles.module.css';
 
-const SendEmailMenu = ({ oos, ...rest }) => (
-  <Dropdown {...rest} inline icon="envelope outline">
-    <Dropdown.Menu>
-      <SendWelcomeEmail id={oos.id}>
-        <Dropdown.Item>Send Welcome Message</Dropdown.Item>
-      </SendWelcomeEmail>
-      <SendAssignmentEmail id={oos.id} assigned={oos.assigned}>
-        <Dropdown.Item disabled={!oos.assigned}>
-          Send Assignment Message
-        </Dropdown.Item>
-      </SendAssignmentEmail>
-    </Dropdown.Menu>
-  </Dropdown>
-);
+import { GET_OFFER_OF_SERVICE_BY_OOS_NUMBER } from '../../graphql/queries';
+
+const SendEmailMenu = ({ oos, ...rest }) => {
+  const refetch = {
+    query: GET_OFFER_OF_SERVICE_BY_OOS_NUMBER,
+    variables: { oosNumber: oos.oosNumber },
+  };
+  return (
+    <Dropdown {...rest} inline icon="envelope outline">
+      <Dropdown.Menu>
+        <SendWelcomeEmail id={oos.id} refetch={refetch}>
+          <Dropdown.Item>Send Welcome Message</Dropdown.Item>
+        </SendWelcomeEmail>
+        <SendAssignmentEmail
+          id={oos.id}
+          assigned={oos.assigned}
+          refetch={refetch}
+        >
+          <Dropdown.Item disabled={!oos.assigned}>
+            Send Assignment Message
+          </Dropdown.Item>
+        </SendAssignmentEmail>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
 
 class OOSList extends Component {
   constructor(props) {
