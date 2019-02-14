@@ -17,6 +17,9 @@ const Nav = () => (
         <Menu.Item>
           <Link to="oos/import">Import OOS</Link>
         </Menu.Item>
+        <Menu.Item>
+          <Link to="oos/reports/overdue_assignments">Overdue Assignments</Link>
+        </Menu.Item>
       </Menu.Menu>
     </Menu.Item>
 
