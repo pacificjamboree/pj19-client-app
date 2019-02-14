@@ -28,7 +28,7 @@ const SendWelcomeEmail = ({ client, id, children, lastSentAt, refetch }) => (
         onClick: () => {
           sendEmail({ variables: { id } });
         },
-        loading,
+        // loading,
       });
       return (
         <>
