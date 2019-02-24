@@ -243,7 +243,7 @@ class OOSList extends Component {
                 return (
                   <Table.Row key={oos.id}>
                     <Table.Cell>
-                      <Link to={`${oos.oosNumber}`}>
+                      <Link to={`/dashboard/oos/${oos.oosNumber}`}>
                         <Icon name="address card" /> {oos.oosNumber}
                       </Link>
                     </Table.Cell>
