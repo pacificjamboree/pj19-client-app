@@ -43,10 +43,10 @@ const Home = ({ user }) => {
   return (
     <>
       <Header as="h1">Hello, {name}</Header>
-      <Header as="h2">
+      <p>
         You are an Adventure Manager for{' '}
-        <Link to="adventures/mine">{OfferOfService.assignment.fullName}</Link>
-      </Header>
+        <Link to="adventures/mine">{OfferOfService.assignment.fullName}</Link>.
+      </p>
       <Stats adventureId={OfferOfService.assignment.id} />
     </>
   );
