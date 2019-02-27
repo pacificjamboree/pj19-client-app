@@ -13,6 +13,7 @@ import AdventureLabels from '../components/AdventureLabels';
 import PlanDoReview from '../components/PlanDoReview';
 import UserHasRole from '../components/UserHasRole';
 import AdventureOOSList from '../components/AdventureOOSList';
+import nl2br from '../lib/nl2br';
 
 import { GET_ADVENTURE_BY_ID } from '../graphql/queries';
 
@@ -60,7 +61,7 @@ const AdventureDetail = ({ id }) => (
             </Grid>
 
             <AdventureLabels location={true} adventure={adventure} />
-            <p>{adventure.description}</p>
+            <p>{nl2br(adventure.description)}</p>
 
             {adventure.oosDescription && (
               <UserHasRole userRoles={ADMIN_AND_MANAGER}>
