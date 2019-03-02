@@ -16,7 +16,12 @@ export default data => {
     range: `${rangeStart}:${rangeEnd}`,
   });
 
-  return dataObject.map(row => ({
-    ...renameKeys(patrolFieldMap, row),
-  }));
+  return dataObject
+    .map(row => ({
+      ...renameKeys(patrolFieldMap, row),
+    }))
+    .map(r => ({
+      ...r,
+      patrolNumber: r.patrolNumber.replace(/^\w-/, ''),
+    }));
 };
