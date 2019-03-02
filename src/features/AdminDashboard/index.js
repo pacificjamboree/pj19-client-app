@@ -13,6 +13,7 @@ import AdventureList from '../AdventureList';
 import AdventureCreate from '../AdventureCreate/index';
 import AdventureDetail from '../AdventureDetail';
 import AdventureEdit from '../AdventureEdit';
+import PatrolImport from '../PatrolImport';
 
 const AdminDashboard = ({ user }) => {
   return (
@@ -38,6 +39,9 @@ const AdminDashboard = ({ user }) => {
               path="adventures/:id/edit"
               navigateToAfterMutataion=".."
             />
+
+            <PatrolImport path="patrols/import" />
+
             <NotFound default />
           </Router>
         </Grid.Column>

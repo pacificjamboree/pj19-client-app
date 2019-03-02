@@ -28,7 +28,9 @@ const Nav = () => (
 
       <Menu.Menu>
         <Menu.Item>Patrol List</Menu.Item>
-        <Menu.Item>Import Patrols</Menu.Item>
+        <Menu.Item>
+          <Link to="patrols/import">Import Patrols</Link>
+        </Menu.Item>
       </Menu.Menu>
     </Menu.Item>
 
