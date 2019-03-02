@@ -205,32 +205,32 @@ class AdventureEditForm extends Component {
               iconPosition="left"
             />
           </Form.Group>
-        </UserHasRole>
 
-        <Form.Group>
-          <Form.Input
-            name="oosRequired"
-            id="oosRequired"
-            fluid
-            label="Total OOS Required"
-            type="number"
-            value={this.state.oosRequired}
-            onChange={(e, { name, value }) => {
-              this.handleChange(e, { name, value: parseInt(value) });
-            }}
-          />
-          <Form.Input
-            name="adultOOSRequired"
-            id="adultOOSRequired"
-            fluid
-            label="Adult OOS Required"
-            type="number"
-            value={this.state.adultOOSRequired}
-            onChange={(e, { name, value }) => {
-              this.handleChange(e, { name, value: parseInt(value) });
-            }}
-          />
-        </Form.Group>
+          <Form.Group>
+            <Form.Input
+              name="oosRequired"
+              id="oosRequired"
+              fluid
+              label="Total OOS Required"
+              type="number"
+              value={this.state.oosRequired}
+              onChange={(e, { name, value }) => {
+                this.handleChange(e, { name, value: parseInt(value) });
+              }}
+            />
+            <Form.Input
+              name="adultOOSRequired"
+              id="adultOOSRequired"
+              fluid
+              label="Adult OOS Required"
+              type="number"
+              value={this.state.adultOOSRequired}
+              onChange={(e, { name, value }) => {
+                this.handleChange(e, { name, value: parseInt(value) });
+              }}
+            />
+          </Form.Group>
+        </UserHasRole>
 
         <Header as="h2">Plan, Do, Review</Header>
 

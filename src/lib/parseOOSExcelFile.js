@@ -3,17 +3,16 @@ import XLSX from 'xlsx';
 import { oosFieldMap } from '../lib/excelFileFieldMaps';
 import renameKeys from '../lib/renameKeys';
 
-const DEFAULT_SHEET_NAME = 'Adventure (Program)';
+// const DEFAULT_SHEET_NAME = 'Adventure (Program)';
 const HEADER_ROW_HINT_FIELD = 'OOS Number';
 const EOF_HINT_FIELD = 'Grand Total';
 
 export default data => {
-  const sheet = data.Sheets[DEFAULT_SHEET_NAME];
+  // we assume that the first sheet is the one we want
+  const sheet = data.Sheets[data.SheetNames[0]];
 
   if (!sheet) {
-    throw new Error(
-      `Could not find sheet named ${DEFAULT_SHEET_NAME} in file ${data.name}`
-    );
+    throw new Error(`Could not find sheet in file ${data.name}`);
   }
 
   let [rangeStart, rangeEnd] = sheet['!ref'].split(':');

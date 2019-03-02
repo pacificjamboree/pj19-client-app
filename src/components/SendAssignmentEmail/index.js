@@ -35,7 +35,6 @@ const SendAssignmentEmail = ({
         onClick: () => {
           sendEmail({ variables: { id } });
         },
-        loading,
         disabled: loading || !assigned,
       });
       return (

@@ -121,6 +121,7 @@ class OOSImporter extends Component {
                             const { importOOS, ...data } = x;
                             return {
                               ...data,
+                              oosNumber: data.oosNumber.toString(),
                               importId,
                               assignedAdventureId:
                                 data.assignedAdventureId === 'unassigned'
