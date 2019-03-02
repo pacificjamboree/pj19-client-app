@@ -33,7 +33,7 @@ const Adventures = ({ workflowState = 'active' }) => {
       <Divider />
       <Query
         query={GET_ADVENTURE_LIST}
-        variables={{ workflowState }}
+        variables={{ workflowState, hidden: false }}
         errorPolicy="ignore"
         notifyOnNetworkStatusChange
       >
