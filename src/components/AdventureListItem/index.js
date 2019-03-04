@@ -1,8 +1,8 @@
 import React from 'react';
 import { List, Icon } from 'semantic-ui-react';
 import { Link } from '@reach/router';
+import ReactMarkdown from 'react-markdown';
 import AdventureLabels from '../AdventureLabels';
-import nl2br from '../../lib/nl2br';
 
 const itemStyles = {
   marginBottom: '1em',
@@ -16,7 +16,7 @@ const AdventureListItem = ({ adventure }) => (
       </List.Header>
     </Link>
     <AdventureLabels adventure={adventure} />
-    <p>{nl2br(adventure.description)}</p>
+    <ReactMarkdown source={adventure.description} />
   </List.Item>
 );
 
