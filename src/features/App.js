@@ -4,6 +4,7 @@ import { Router } from '@reach/router';
 import { Container } from 'semantic-ui-react';
 import FlashMessages from '../components/FlashMessages';
 import Home from './Home';
+import AdventureGuide from './AdventureGuide';
 import Dashboard from './Dashboard';
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
@@ -43,6 +44,7 @@ class App extends Component {
                   <FlashMessages />
                   <Router>
                     <Home path="/" />
+                    <AdventureGuide path="/guide" />
                     <LoggedInRoute path="dashboard/*" component={Dashboard} />
                     <Login path="/login" />
                     <Logout path="/logout" />
