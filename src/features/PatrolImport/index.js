@@ -3,11 +3,12 @@ import { Icon, Header, Segment, Step } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 import ExcelFileUploadReader from '../../components/ExcelFileUploadReader';
 import PatrolImporter from '../../components/PatrolImporter';
-import OOSImportReview from '../../components/OOSImportReview';
+import PatrolImporterUserCreator from '../../components/PatrolImporterUserCreator';
 import parsePatrolExcelFile from '../../lib/parsePatrolExcelFile';
 import { utoa } from '../../lib/base64';
+import { isNull } from 'util';
 
-const importId = () => utoa(`OOSImport:::${Date.now()}`);
+const importId = () => utoa(`PatrolImport:::${Date.now()}`);
 
 class PatrolImport extends Component {
   constructor() {
@@ -88,10 +89,18 @@ class PatrolImport extends Component {
         );
 
       case 3:
+        /* 
+        Step 3: create users for PatrolScouters
+        - get all the PatrolScouters that were just imoprted, along with 
+          any related User
+        - filter out any PatrolScouters that have a User
+        - show table of PatrolScouters with toggle
+        - mutation: create users for PatrolScouters 
+      */
         return (
-          <OOSImportReview
-            stepUpdater={this.stepUpdater}
+          <PatrolImporterUserCreator
             importId={this.state.importId}
+            stepUpdater={this.stepUpdater}
           />
         );
 
@@ -130,8 +139,8 @@ class PatrolImport extends Component {
             <Step.Content>Prepare Patrols for Import</Step.Content>
           </Step>
           <Step active={this.state.step === 3}>
-            <Icon name="mail" />
-            <Step.Content>Review Import Results and Send Emails</Step.Content>
+            <Icon name="user" />
+            <Step.Content>Review Import Results and Create Users</Step.Content>
           </Step>
           <Step active={this.state.step === 4}>
             <Icon name="check circle" />
