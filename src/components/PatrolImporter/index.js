@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import { Loader, Header, Button, Icon } from 'semantic-ui-react';
+import { Header, Button, Icon } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import pluralize from 'pluralize';
 import Query from '../Query';
@@ -40,9 +40,14 @@ const EXISTING_PATROLS = gql`
 `;
 
 const IMPORT_PATROLS_MUTATION = gql`
-  mutation batchImportPatrolsMutation($data: [PatrolImportDraft!]!) {
-    batchImportPatrols(input: { Patrols: $data }) {
-      newPatrols {
+  mutation batchImportPatrolsMutation(
+    $importPatrols: [PatrolImportDraft]!
+    $deletePatrols: [ID]!
+  ) {
+    batchPatrols(
+      input: { ImportPatrols: $importPatrols, DeletePatrols: $deletePatrols }
+    ) {
+      ImportedPatrols {
         id
         _id
         patrolNumber
@@ -70,9 +75,9 @@ class PatrolImporter extends Component {
     const {
       importData,
       importId,
-      changeHandler,
-      setpUpdater,
-      resetState,
+      // changeHandler,
+      stepUpdater,
+      // resetState,
     } = this.props;
     return (
       <Query query={EXISTING_PATROLS}>
@@ -107,6 +112,8 @@ class PatrolImporter extends Component {
             <TableWrapper
               newPatrols={newPatrols}
               deletedPatrols={deletedPatrols}
+              importId={importId}
+              stepUpdater={stepUpdater}
             />
           );
         }}
@@ -155,6 +162,7 @@ class TableWrapper extends Component {
 
   render() {
     const { newPatrols, deletedPatrols } = this.state;
+    const { importId, stepUpdater } = this.props;
     const toImportCount = newPatrols.filter(p => p.importPatrol).length;
     const toDeleteCount = deletedPatrols.filter(p => p.deletePatrol).length;
     return (
@@ -185,6 +193,41 @@ class TableWrapper extends Component {
           toggleFn={this.handleToggleDeletePatrol}
           toggleCheckedField="deletePatrol"
         />
+        <Mutation
+          mutation={IMPORT_PATROLS_MUTATION}
+          onError={error => {
+            console.log(error);
+          }}
+          onCompleted={() => {
+            stepUpdater(3);
+          }}
+        >
+          {(mutationFn, { data, error }) =>
+            console.log(newPatrols) || (
+              <Button
+                color="teal"
+                icon
+                labelPosition="left"
+                onClick={e => {
+                  e.preventDefault();
+                  const variables = {
+                    importPatrols: newPatrols.map(p => {
+                      const { importPatrol, ...patrol } = p;
+                      return { importId, ...patrol };
+                    }),
+                    deletePatrols: [],
+                  };
+                  mutationFn({
+                    variables,
+                  });
+                }}
+              >
+                <Icon name="check" />
+                Continue
+              </Button>
+            )
+          }
+        </Mutation>
       </>
     );
   }
