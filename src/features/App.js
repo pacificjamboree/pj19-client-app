@@ -15,7 +15,6 @@ import AdventureDetail from './AdventureDetail';
 import AdventureEdit from './AdventureEdit';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import SideNav from '../components/SideNav';
 import NotFound from './NotFound';
 import AuthorizedRoute from '../components/AuthorizedRoute';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -37,31 +36,30 @@ class App extends Component {
                 gridTemplateColumns: '100%',
               }}
             >
-              <SideNav>
-                <NavBar />
+              {/* <SideNav> */}
+              <NavBar />
 
-                <Container style={{ paddingTop: '6em', paddingBottom: '2em' }}>
-                  <FlashMessages />
-                  <Router>
-                    <Home path="/" />
-                    <AdventureGuide path="/guide" />
-                    <LoggedInRoute path="dashboard/*" component={Dashboard} />
-                    <Login path="/login" />
-                    <Logout path="/logout" />
-                    <ForgotPassword path="/forgotPassword" />
-                    <ResetPassword path="/resetPassword/:passwordResetToken" />
-                    <Adventures path="/adventures" />
-                    <AdventureDetail path="/adventures/:id" />
-                    <AuthorizedRoute
-                      userRoles={['adventureManager', 'admin']}
-                      path="/adventures/:id/edit"
-                      component={AdventureEdit}
-                    />
-                    <NotFound default />
-                  </Router>
-                </Container>
-                <Footer />
-              </SideNav>
+              <Container style={{ paddingTop: '6em', paddingBottom: '2em' }}>
+                <FlashMessages />
+                <Router>
+                  <Home path="/" />
+                  <AdventureGuide path="/guide" />
+                  <LoggedInRoute path="dashboard/*" component={Dashboard} />
+                  <Login path="/login" />
+                  <Logout path="/logout" />
+                  <ForgotPassword path="/forgotPassword" />
+                  <ResetPassword path="/resetPassword/:passwordResetToken" />
+                  <Adventures path="/adventures" />
+                  <AdventureDetail path="/adventures/:id" />
+                  <AuthorizedRoute
+                    userRoles={['adventureManager', 'admin']}
+                    path="/adventures/:id/edit"
+                    component={AdventureEdit}
+                  />
+                  <NotFound default />
+                </Router>
+              </Container>
+              <Footer />
             </div>
           )}
         </Query>
