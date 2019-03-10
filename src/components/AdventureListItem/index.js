@@ -14,7 +14,7 @@ const AdventureListItem = ({
   showCapacity = true,
 }) => (
   <List.Item style={itemStyles}>
-    <Link to={`${adventure.id}`}>
+    <Link to={`/adventures/${adventure.id}`}>
       <List.Header as="h3">
         {adventure.fullName} <Icon name="arrow circle right" />
       </List.Header>
