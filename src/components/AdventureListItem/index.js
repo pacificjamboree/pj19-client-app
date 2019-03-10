@@ -8,14 +8,22 @@ const itemStyles = {
   marginBottom: '1em',
 };
 
-const AdventureListItem = ({ adventure }) => (
+const AdventureListItem = ({
+  adventure,
+  showLocation = false,
+  showCapacity = true,
+}) => (
   <List.Item style={itemStyles}>
     <Link to={`${adventure.id}`}>
       <List.Header as="h3">
         {adventure.fullName} <Icon name="arrow circle right" />
       </List.Header>
     </Link>
-    <AdventureLabels adventure={adventure} />
+    <AdventureLabels
+      adventure={adventure}
+      location={showLocation}
+      showCapacity={showCapacity}
+    />
     <ReactMarkdown source={adventure.description} />
   </List.Item>
 );
