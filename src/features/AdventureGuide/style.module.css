@@ -1,0 +1,9 @@
+.toc > ul {
+  list-style: inside;
+  padding-left: 0px;
+}
+
+.tocHeader {
+  font-size: 1.2em;
+  font-weight: 700;
+}
