@@ -100,40 +100,6 @@ const AdventureGuide = () => (
         .replace(':::GROUP_B:::', GROUP_B)
         .replace(':::GROUP_C:::', GROUP_C);
 
-      const SemanticHeader = ({ level, children }) => {
-        if (level === 1) return null;
-        const text = children.reduce(flatten, '');
-        return (
-          <Header id={slugify(text).toLowerCase()} as={`h${level}`}>
-            {text}
-          </Header>
-        );
-      };
-
-      const SemanticTable = ({ children }) => (
-        <Table celled striped>
-          {children}
-        </Table>
-      );
-
-      const TableCell = ({ isHeader, align, children }) => {
-        switch (isHeader) {
-          case true:
-            return <Table.HeaderCell>{children}</Table.HeaderCell>;
-
-          default:
-            return <Table.Cell>{children}</Table.Cell>;
-        }
-      };
-
-      const TableRow = ({ children }) => <Table.Row>{children}</Table.Row>;
-
-      const TableHeader = ({ children }) => (
-        <Table.Header>{children}</Table.Header>
-      );
-
-      const TableBody = ({ children }) => <Table.Body>{children}</Table.Body>;
-
       return (
         <Grid stackable>
           <Grid.Row>
@@ -169,5 +135,37 @@ const AdventureGuide = () => (
     }}
   </Query>
 );
+
+const SemanticHeader = ({ level, children }) => {
+  if (level === 1) return null;
+  const text = children.reduce(flatten, '');
+  return (
+    <Header id={slugify(text).toLowerCase()} as={`h${level}`}>
+      {text}
+    </Header>
+  );
+};
+
+const SemanticTable = ({ children }) => (
+  <Table celled striped>
+    {children}
+  </Table>
+);
+
+const TableCell = ({ isHeader, align, children }) => {
+  switch (isHeader) {
+    case true:
+      return <Table.HeaderCell>{children}</Table.HeaderCell>;
+
+    default:
+      return <Table.Cell>{children}</Table.Cell>;
+  }
+};
+
+const TableRow = ({ children }) => <Table.Row>{children}</Table.Row>;
+
+const TableHeader = ({ children }) => <Table.Header>{children}</Table.Header>;
+
+const TableBody = ({ children }) => <Table.Body>{children}</Table.Body>;
 
 export default AdventureGuide;
