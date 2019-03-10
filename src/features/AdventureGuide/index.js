@@ -1,14 +1,31 @@
-import React, { Component } from 'react';
-import ReactMarkdown from 'react-markdown';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import ReactMarkdown from 'react-markdown/with-html';
 import { Grid, Header, Loader, Table } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import slugify from 'slugify';
+import AdventureListItem from '../../components/AdventureListItem';
 
 import styles from './style.module.css';
 
 const QUERY = gql`
   query {
+    adventures(filters: { workflowState: active }) {
+      adventureCode
+      id
+      _id
+      name
+      themeName
+      fullName
+      description
+      fee
+      premiumAdventure
+      periodsRequired
+      location
+      capacityPerPeriod
+      hidden
+    }
     textContent(search: { searchField: title, value: "adventure-guide" }) {
       body
       toc
@@ -17,6 +34,12 @@ const QUERY = gql`
   }
 `;
 
+const sortByName = (a, b) => {
+  if (a.fullName < b.fullName) return -1;
+  if (a.fullName > b.fullName) return 1;
+  return 0;
+};
+
 function flatten(text, child) {
   // https://github.com/rexxars/react-markdown/issues/69
   return typeof child === 'string'
@@ -24,96 +47,127 @@ function flatten(text, child) {
     : React.Children.toArray(child.props.children).reduce(flatten, text);
 }
 
-// const AdventureGuide = () => (
-class AdventureGuide extends Component {
-  state = {};
+const AdventureGuide = () => (
+  <Query query={QUERY}>
+    {({ data, error, loading }) => {
+      if (loading) return <Loader active />;
+      if (error) return <p>Error</p>;
 
-  handleContextRef = contextRef => this.setState({ contextRef });
+      const GROUP_A = data.adventures
+        .filter(a => a.premiumAdventure)
+        .sort(sortByName)
+        .map(a =>
+          renderToStaticMarkup(
+            <AdventureListItem
+              adventure={a}
+              showLocation={true}
+              showCapacity={false}
+            />
+          )
+        )
+        .join('\n\n');
 
-  render() {
-    const { contextRef } = this.state;
-    console.log(contextRef);
-    return (
-      <Query query={QUERY}>
-        {({ data, error, loading }) => {
-          if (loading) return <Loader active />;
-          if (error) return <p>Error</p>;
+      const GROUP_B = data.adventures
+        .filter(a => !a.premiumAdventure && a.fee === 0)
+        .sort(sortByName)
+        .map(a =>
+          renderToStaticMarkup(
+            <AdventureListItem
+              adventure={a}
+              showLocation={true}
+              showCapacity={false}
+            />
+          )
+        )
+        .join('\n\n');
 
-          const SemanticHeader = ({ level, children }) => {
-            if (level === 1) return null;
-            const text = children.reduce(flatten, '');
-            return (
-              <Header id={slugify(text).toLowerCase()} as={`h${level}`}>
-                {text}
-              </Header>
-            );
-          };
+      const GROUP_C = data.adventures
+        .filter(a => !a.premiumAdventure && a.fee)
+        .sort(sortByName)
+        .map(a =>
+          renderToStaticMarkup(
+            <AdventureListItem
+              adventure={a}
+              showLocation={true}
+              showCapacity={false}
+            />
+          )
+        )
+        .join('\n\n');
 
-          const SemanticTable = ({ children }) => (
-            <Table celled striped>
-              {children}
-            </Table>
-          );
+      const guide = data.textContent.body
+        .replace(':::GROUP_A:::', GROUP_A)
+        .replace(':::GROUP_B:::', GROUP_B)
+        .replace(':::GROUP_C:::', GROUP_C);
 
-          const TableCell = ({ isHeader, align, children }) => {
-            switch (isHeader) {
-              case true:
-                return <Table.HeaderCell>{children}</Table.HeaderCell>;
+      const SemanticHeader = ({ level, children }) => {
+        if (level === 1) return null;
+        const text = children.reduce(flatten, '');
+        return (
+          <Header id={slugify(text).toLowerCase()} as={`h${level}`}>
+            {text}
+          </Header>
+        );
+      };
 
-              default:
-                return <Table.Cell>{children}</Table.Cell>;
-            }
-          };
+      const SemanticTable = ({ children }) => (
+        <Table celled striped>
+          {children}
+        </Table>
+      );
 
-          const TableRow = ({ children }) => <Table.Row>{children}</Table.Row>;
+      const TableCell = ({ isHeader, align, children }) => {
+        switch (isHeader) {
+          case true:
+            return <Table.HeaderCell>{children}</Table.HeaderCell>;
 
-          const TableHeader = ({ children }) => (
-            <Table.Header>{children}</Table.Header>
-          );
+          default:
+            return <Table.Cell>{children}</Table.Cell>;
+        }
+      };
 
-          const TableBody = ({ children }) => (
-            <Table.Body>{children}</Table.Body>
-          );
+      const TableRow = ({ children }) => <Table.Row>{children}</Table.Row>;
 
-          return (
-            <div id="context" ref={this.handleContextRef}>
-              <Grid stackable>
-                <Grid.Row>
-                  <Grid.Column width={16}>
-                    <Header as="h1">
-                      Pacific Jamboree 2019 Adventure Guide
-                    </Header>
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column width={6}>
-                    <span className={styles.tocHeader}>Table of Contents</span>
-                    <ReactMarkdown
-                      source={data.textContent.toc}
-                      className={styles.toc}
-                    />
-                  </Grid.Column>
-                  <Grid.Column width={8}>
-                    <ReactMarkdown
-                      source={data.textContent.body}
-                      renderers={{
-                        heading: SemanticHeader,
-                        table: SemanticTable,
-                        tableHead: TableHeader,
-                        tableBody: TableBody,
-                        tableRow: TableRow,
-                        tableCell: TableCell,
-                      }}
-                    />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </div>
-          );
-        }}
-      </Query>
-    );
-  }
-}
+      const TableHeader = ({ children }) => (
+        <Table.Header>{children}</Table.Header>
+      );
+
+      const TableBody = ({ children }) => <Table.Body>{children}</Table.Body>;
+
+      return (
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={16}>
+              <Header as="h1">Pacific Jamboree 2019 Adventure Guide</Header>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={6}>
+              <span className={styles.tocHeader}>Table of Contents</span>
+              <ReactMarkdown
+                source={data.textContent.toc}
+                className={styles.toc}
+              />
+            </Grid.Column>
+            <Grid.Column width={8}>
+              <ReactMarkdown
+                escapeHtml={false}
+                source={guide}
+                renderers={{
+                  heading: SemanticHeader,
+                  table: SemanticTable,
+                  tableHead: TableHeader,
+                  tableBody: TableBody,
+                  tableRow: TableRow,
+                  tableCell: TableCell,
+                }}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      );
+    }}
+  </Query>
+);
 
 export default AdventureGuide;
