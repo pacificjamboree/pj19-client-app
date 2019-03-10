@@ -114,43 +114,40 @@ class AdventureTable extends Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {data.map(
-              a =>
-                console.log(a) || (
-                  <Table.Row key={a.id}>
-                    <Table.Cell>
-                      <Link to={a.id}>{a.name}</Link>
-                    </Table.Cell>
-                    <Table.Cell>{a.themeName}</Table.Cell>
-                    <Table.Cell>
-                      <ul className={styles.adventureManagerList}>
-                        {a.ManagersConnection.edges.map(
-                          ({ node: { fullName, oosNumber } }) => (
-                            <li key={oosNumber}>
-                              <Link to={`/dashboard/oos/${oosNumber}`}>
-                                {fullName}
-                              </Link>
-                            </li>
-                          )
-                        )}
-                      </ul>
-                    </Table.Cell>
-                    <Table.Cell>{a.location}</Table.Cell>
-                    <Table.Cell>{DurationLabel(a.periodsRequired)}</Table.Cell>
-                    <Table.Cell>{a.capacityPerPeriod}</Table.Cell>
-                    <Table.Cell>
-                      {a.oosRequired} ({a.adultOOSRequired} Adults)
-                    </Table.Cell>
-                    <Table.Cell>
-                      {a.oosAssignedCount} ({a.adultOOSAssignedCount} Adults)
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Icon name={a.hidden ? 'x' : 'check'} />
-                    </Table.Cell>
-                    <Table.Cell>${a.fee}</Table.Cell>
-                  </Table.Row>
-                )
-            )}
+            {data.map(a => (
+              <Table.Row key={a.id}>
+                <Table.Cell>
+                  <Link to={a.id}>{a.name}</Link>
+                </Table.Cell>
+                <Table.Cell>{a.themeName}</Table.Cell>
+                <Table.Cell>
+                  <ul className={styles.adventureManagerList}>
+                    {a.ManagersConnection.edges.map(
+                      ({ node: { fullName, oosNumber } }) => (
+                        <li key={oosNumber}>
+                          <Link to={`/dashboard/oos/${oosNumber}`}>
+                            {fullName}
+                          </Link>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </Table.Cell>
+                <Table.Cell>{a.location}</Table.Cell>
+                <Table.Cell>{DurationLabel(a.periodsRequired)}</Table.Cell>
+                <Table.Cell>{a.capacityPerPeriod}</Table.Cell>
+                <Table.Cell>
+                  {a.oosRequired} ({a.adultOOSRequired} Adults)
+                </Table.Cell>
+                <Table.Cell>
+                  {a.oosAssignedCount} ({a.adultOOSAssignedCount} Adults)
+                </Table.Cell>
+                <Table.Cell>
+                  <Icon name={a.hidden ? 'x' : 'check'} />
+                </Table.Cell>
+                <Table.Cell>${a.fee}</Table.Cell>
+              </Table.Row>
+            ))}
           </Table.Body>
         </Table>
       </div>
