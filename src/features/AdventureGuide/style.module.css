@@ -7,3 +7,15 @@
   font-size: 1.2em;
   font-weight: 700;
 }
+
+.suiHeader {
+  position: relative;
+}
+
+.suiHeader:before {
+  display: block;
+  content: ' ';
+  margin-top: -55px;
+  height: 55px;
+  visibility: hidden;
+}

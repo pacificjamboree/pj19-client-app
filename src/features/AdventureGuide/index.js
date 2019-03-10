@@ -140,7 +140,11 @@ const SemanticHeader = ({ level, children }) => {
   if (level === 1) return null;
   const text = children.reduce(flatten, '');
   return (
-    <Header id={slugify(text).toLowerCase()} as={`h${level}`}>
+    <Header
+      className={styles.suiHeader}
+      id={slugify(text).toLowerCase()}
+      as={`h${level}`}
+    >
       {text}
     </Header>
   );
