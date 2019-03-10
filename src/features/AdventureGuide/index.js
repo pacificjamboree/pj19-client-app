@@ -5,6 +5,7 @@ import { Grid, Header, Loader, Table } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import slugify from 'slugify';
+import formatDate from 'date-fns/format';
 import AdventureListItem from '../../components/AdventureListItem';
 
 import styles from './style.module.css';
@@ -105,6 +106,10 @@ const AdventureGuide = () => (
           <Grid.Row>
             <Grid.Column width={16}>
               <Header as="h1">Pacific Jamboree 2019 Adventure Guide</Header>
+              <span className={styles.lastUpdated}>
+                Last Updated{' '}
+                {formatDate(data.textContent.updatedAt, 'MMMM D, YYYY')}
+              </span>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

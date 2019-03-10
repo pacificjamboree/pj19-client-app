@@ -19,3 +19,8 @@
   height: 55px;
   visibility: hidden;
 }
+
+.lastUpdated {
+  font-size: 0.9em;
+  font-style: italic;
+}
