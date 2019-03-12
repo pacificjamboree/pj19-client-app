@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import ReactMarkdown from 'react-markdown/with-html';
-import { Grid, Header, Loader, Table } from 'semantic-ui-react';
+import { Button, Grid, Header, Icon, Loader, Table } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import slugify from 'slugify';
@@ -114,6 +114,14 @@ const AdventureGuide = () => (
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={6}>
+              <div style={{ marginBottom: '1em' }}>
+                <a href={`${process.env.REACT_APP_ADVENTURE_GUIDE_URL}`}>
+                  <Button icon labelPosition="left" color="blue">
+                    <Icon name="file pdf" />
+                    Download PDF
+                  </Button>
+                </a>
+              </div>
               <span className={styles.tocHeader}>Table of Contents</span>
               <ReactMarkdown
                 source={data.textContent.toc}
