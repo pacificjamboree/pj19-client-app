@@ -39,7 +39,10 @@ class App extends Component {
               {/* <SideNav> */}
               <NavBar />
 
-              <Container style={{ paddingTop: '6em', paddingBottom: '2em' }}>
+              <Container
+                id="main"
+                style={{ paddingTop: '6em', paddingBottom: '2em' }}
+              >
                 <FlashMessages />
                 <Router>
                   <Home path="/" />

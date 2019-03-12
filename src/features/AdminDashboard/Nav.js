@@ -52,6 +52,15 @@ const Nav = () => (
         <Menu.Item>User List</Menu.Item>
       </Menu.Menu>
     </Menu.Item>
+
+    <Menu.Item>
+      <Menu.Header>Misc</Menu.Header>
+      <Menu.Menu>
+        <Menu.Item>
+          <Link to="guide/edit">Edit Adventure Guide</Link>
+        </Menu.Item>
+      </Menu.Menu>
+    </Menu.Item>
   </Menu>
 );
 
