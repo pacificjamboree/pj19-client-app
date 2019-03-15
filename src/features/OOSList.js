@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -33,14 +33,14 @@ const OOSList = () => (
           if (loading) return <Loader />;
           const { offersOfService, adventures } = data;
           return (
-            <Fragment>
+            <>
               <Header as="h1">Offers of Service</Header>
               <OOSTable
                 defaultSortColumn="oosNumber"
                 offersOfService={offersOfService}
                 adventures={adventures}
               />
-            </Fragment>
+            </>
           );
         }}
       </Query>

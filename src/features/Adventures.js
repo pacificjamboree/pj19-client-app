@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Query } from 'react-apollo';
 import { Container, Header, Loader, Divider } from 'semantic-ui-react';
 import DocumentTitle from '../components/DocumentTitle';
@@ -52,7 +52,7 @@ const Adventures = ({ workflowState = 'active' }) => {
                 a => a.location === 'offsite'
               );
               return (
-                <Fragment>
+                <>
                   <AdventureList
                     title="On-Site Adventures"
                     adventures={onsiteAdventures}
@@ -72,7 +72,7 @@ const Adventures = ({ workflowState = 'active' }) => {
                       and involve a bus ride to the Adventure location.
                     </p>
                   </AdventureList>
-                </Fragment>
+                </>
               );
             }
           }}
