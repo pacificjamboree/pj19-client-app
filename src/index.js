@@ -1,3 +1,4 @@
+import './polyfills';
 import React, { Component } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';

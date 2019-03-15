@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import { Grid, Header, Label, Loader } from 'semantic-ui-react';
 
@@ -27,7 +27,7 @@ class AdventureOOSList extends Component {
           ).length;
 
           return (
-            <Fragment>
+            <>
               <Grid columns={2}>
                 <Grid.Row>
                   <Grid.Column>
@@ -72,7 +72,7 @@ class AdventureOOSList extends Component {
                   No Offers of Service are assigned to this adventure.
                 </p>
               )}
-            </Fragment>
+            </>
           );
         }}
       </Query>

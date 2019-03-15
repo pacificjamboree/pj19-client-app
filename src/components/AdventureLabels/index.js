@@ -5,15 +5,22 @@ import DurationLabel from '../DurationLabel';
 import PremiumAdventureLabel from '../PremiumAdventureLabel';
 import './AdventureLabels.css';
 
-const AdventureLabels = ({ adventure, location = false }) => (
+const AdventureLabels = ({
+  adventure,
+  location = false,
+  showCapacity = true,
+}) => (
   <div className="adventureLabels">
-    {location && (
-      <Label>{adventure.location.replace(/^\w/, c => c.toUpperCase())}</Label>
-    )}
     {adventure.fee ? <FeeLabel fee={adventure.fee} /> : null}
     {adventure.premiumAdventure ? <PremiumAdventureLabel /> : null}
     <DurationLabel duration={adventure.periodsRequired} />
-    <Label>{adventure.capacityPerPeriod} Participants per Period</Label>
+    {location && (
+      <Label>
+        {adventure.location
+          .replace(/^\w/, c => c.toUpperCase())
+          .replace('site', '-site')}
+      </Label>
+    )}
   </div>
 );
 

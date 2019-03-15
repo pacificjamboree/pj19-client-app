@@ -10,9 +10,10 @@ import OOSEdit from '../OOSEdit';
 import OOSImport from '../OOSImport';
 import OOSOverdueAssignmentReport from '../OOSOverdueAssignmentReport';
 import AdventureList from '../AdventureList';
-import AdventureCreate from '../AdventureCreate/index';
+import AdventureCreate from '../AdventureCreate';
 import AdventureDetail from '../AdventureDetail';
 import AdventureEdit from '../AdventureEdit';
+import AdventureGuideEdit from '../AdventureGuideEdit';
 import PatrolImport from '../PatrolImport';
 
 const AdminDashboard = ({ user }) => {
@@ -39,9 +40,13 @@ const AdminDashboard = ({ user }) => {
               path="adventures/:id/edit"
               navigateToAfterMutataion=".."
             />
+<<<<<<< HEAD
 
             <PatrolImport path="patrols/import" />
 
+=======
+            <AdventureGuideEdit path="guide/edit" />
+>>>>>>> master
             <NotFound default />
           </Router>
         </Grid.Column>

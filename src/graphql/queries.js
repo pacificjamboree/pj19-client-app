@@ -37,19 +37,6 @@ const GET_DASHBOARD_VIEWER = gql`
   }
   ${OFFERS_OF_SERVICE_FRAGMENT}
 `;
-const GET_NAVBAR_VISIBILITY_STATE = gql`
-  query getNavbarVisibilityState {
-    navbarVisible @client
-  }
-`;
-
-const UPDATE_NAVBAR_VISIBILITY_STATE = gql`
-  mutation updateNavbarVisibilityState($visible: Boolean!) {
-    updateNavbarVisibilityState(visible: $visible) @client {
-      navbarVisible
-    }
-  }
-`;
 
 const GET_FLASH_MESSAGES = gql`
   query {
@@ -171,6 +158,7 @@ const GET_ADVENTURE_BY_ID = gql`
       _id
       name
       themeName
+      fullName
       description
       oosDescription
       fee
@@ -539,8 +527,6 @@ export {
   UPDATE_LOGIN_STATE,
   SEND_PASSWORD_RESET_EMAIL_MUTATION,
   RESET_PASSWORD_MUTATION,
-  GET_NAVBAR_VISIBILITY_STATE,
-  UPDATE_NAVBAR_VISIBILITY_STATE,
   GET_FLASH_MESSAGES,
   GET_ADVENTURE_LIST,
   GET_ADVENTURE_TABLE,

@@ -38,6 +38,8 @@ class AdventureEditForm extends Component {
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
+  handleCheckbox = (e, { name, checked }) => this.setState({ [name]: checked });
+
   handleChangeMultiVariant = (e, { id, value, name }) => {
     const newState = [...this.state[name]];
     newState.forEach(i => {
@@ -152,6 +154,15 @@ class AdventureEditForm extends Component {
               value="offsite"
               checked={this.state.location === 'offsite'}
               onChange={this.handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group inline>
+            <Form.Checkbox
+              name="premiumAdventure"
+              onChange={this.handleCheckbox}
+              checked={this.state.premiumAdventure}
+              label="Premium Adventure"
             />
           </Form.Group>
 

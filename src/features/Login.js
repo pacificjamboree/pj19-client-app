@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mutation, withApollo } from 'react-apollo';
 import { Redirect } from '@reach/router';
+import DocumentTitle from '../components/DocumentTitle';
 import { GET_LOGIN_STATE, LOGIN_MUTATION } from '../graphql/queries';
 
 import LoginForm from '../components/LoginForm';
@@ -14,30 +15,32 @@ const Login = ({ client, location, ...rest }) => {
     return <Redirect to={redirectTo} noThrow />;
   }
   return (
-    <Mutation
-      mutation={LOGIN_MUTATION}
-      update={async (cache, { data }) => {
-        const {
-          createLoginToken: { token },
-        } = data;
-        const loggedIn = !!token;
-        cache.writeData({
-          data: {
-            loggedIn,
-            viewer: {
-              __typename: data.createLoginToken.viewer.__typename,
-              username: data.createLoginToken.viewer.username,
-              roles: data.createLoginToken.viewer.roles,
+    <DocumentTitle title="Login">
+      <Mutation
+        mutation={LOGIN_MUTATION}
+        update={async (cache, { data }) => {
+          const {
+            createLoginToken: { token },
+          } = data;
+          const loggedIn = !!token;
+          cache.writeData({
+            data: {
+              loggedIn,
+              viewer: {
+                __typename: data.createLoginToken.viewer.__typename,
+                username: data.createLoginToken.viewer.username,
+                roles: data.createLoginToken.viewer.roles,
+              },
             },
-          },
-        });
-        window.localStorage.setItem(REACT_APP_JWT_NAME, token);
-      }}
-    >
-      {(loginMutation, { data, error }) => {
-        return <LoginForm error={error} mutate={loginMutation} />;
-      }}
-    </Mutation>
+          });
+          window.localStorage.setItem(REACT_APP_JWT_NAME, token);
+        }}
+      >
+        {(loginMutation, { data, error }) => {
+          return <LoginForm error={error} mutate={loginMutation} />;
+        }}
+      </Mutation>
+    </DocumentTitle>
   );
 };
 
