@@ -5,6 +5,7 @@ import ExcelFileUploadReader from '../components/ExcelFileUploadReader';
 import OOSImporter from '../components/OOSImporter';
 import OOSImportReview from '../components/OOSImportReview';
 import parseOOSExcelFile from '../lib/parseOOSExcelFile';
+import DocumentTitle from '../components/DocumentTitle';
 import { utoa } from '../lib/base64';
 
 const importId = () => utoa(`OOSImport:::${Date.now()}`);
@@ -112,35 +113,37 @@ class OOSImport extends Component {
 
   render() {
     return (
-      <>
-        <Header as="h1">Import OOS</Header>
-        {this.state.error && (
-          <Segment inverted color="red">
-            <p>{this.state.error.message}</p>
-          </Segment>
-        )}
+      <DocumentTitle title="Import OOS">
+        <>
+          <Header as="h1">Import OOS</Header>
+          {this.state.error && (
+            <Segment inverted color="red">
+              <p>{this.state.error.message}</p>
+            </Segment>
+          )}
 
-        <Step.Group widths={4}>
-          <Step active={this.state.step === 1}>
-            <Icon name="file excel" />
-            <Step.Content>Upload OOS Excel File</Step.Content>
-          </Step>
-          <Step active={this.state.step === 2}>
-            <Icon name="edit" />
-            <Step.Content>Prepare OOS for Import</Step.Content>
-          </Step>
-          <Step active={this.state.step === 3}>
-            <Icon name="mail" />
-            <Step.Content>Review Import Results and Send Emails</Step.Content>
-          </Step>
-          <Step active={this.state.step === 4}>
-            <Icon name="check circle" />
-            <Step.Content>Done</Step.Content>
-          </Step>
-        </Step.Group>
+          <Step.Group widths={4}>
+            <Step active={this.state.step === 1}>
+              <Icon name="file excel" />
+              <Step.Content>Upload OOS Excel File</Step.Content>
+            </Step>
+            <Step active={this.state.step === 2}>
+              <Icon name="edit" />
+              <Step.Content>Prepare OOS for Import</Step.Content>
+            </Step>
+            <Step active={this.state.step === 3}>
+              <Icon name="mail" />
+              <Step.Content>Review Import Results and Send Emails</Step.Content>
+            </Step>
+            <Step active={this.state.step === 4}>
+              <Icon name="check circle" />
+              <Step.Content>Done</Step.Content>
+            </Step>
+          </Step.Group>
 
-        {this.stepRenderer(this.state.step)}
-      </>
+          {this.stepRenderer(this.state.step)}
+        </>
+      </DocumentTitle>
     );
   }
 }

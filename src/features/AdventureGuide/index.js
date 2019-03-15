@@ -6,6 +6,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import slugify from 'slugify';
 import formatDate from 'date-fns/format';
+import DocumentTitle from '../../components/DocumentTitle';
 import AdventureListItem from '../../components/AdventureListItem';
 
 import styles from './style.module.css';
@@ -49,104 +50,106 @@ function flatten(text, child) {
 }
 
 const AdventureGuide = () => (
-  <Query query={QUERY}>
-    {({ data, error, loading }) => {
-      if (loading) return <Loader active />;
-      if (error) return <p>Error</p>;
+  <DocumentTitle title="Adventure Guide">
+    <Query query={QUERY}>
+      {({ data, error, loading }) => {
+        if (loading) return <Loader active />;
+        if (error) return <p>Error</p>;
 
-      const GROUP_A = data.adventures
-        .filter(a => a.premiumAdventure)
-        .sort(sortByName)
-        .map(a =>
-          renderToStaticMarkup(
-            <AdventureListItem
-              adventure={a}
-              showLocation={true}
-              showCapacity={false}
-            />
-          )
-        )
-        .join('\n\n');
-
-      const GROUP_B = data.adventures
-        .filter(a => !a.premiumAdventure && a.fee === 0)
-        .sort(sortByName)
-        .map(a =>
-          renderToStaticMarkup(
-            <AdventureListItem
-              adventure={a}
-              showLocation={true}
-              showCapacity={false}
-            />
-          )
-        )
-        .join('\n\n');
-
-      const GROUP_C = data.adventures
-        .filter(a => !a.premiumAdventure && a.fee)
-        .sort(sortByName)
-        .map(a =>
-          renderToStaticMarkup(
-            <AdventureListItem
-              adventure={a}
-              showLocation={true}
-              showCapacity={false}
-            />
-          )
-        )
-        .join('\n\n');
-
-      const guide = data.textContent.body
-        .replace(':::GROUP_A:::', GROUP_A)
-        .replace(':::GROUP_B:::', GROUP_B)
-        .replace(':::GROUP_C:::', GROUP_C);
-
-      return (
-        <Grid stackable>
-          <Grid.Row>
-            <Grid.Column width={16}>
-              <Header as="h1">Pacific Jamboree 2019 Adventure Guide</Header>
-              <span className={styles.lastUpdated}>
-                Last Updated{' '}
-                {formatDate(data.textContent.updatedAt, 'MMMM D, YYYY')}
-              </span>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={6}>
-              <div style={{ marginBottom: '1em' }}>
-                <a href={`${process.env.REACT_APP_ADVENTURE_GUIDE_URL}`}>
-                  <Button icon labelPosition="left" color="blue">
-                    <Icon name="file pdf" />
-                    Download PDF
-                  </Button>
-                </a>
-              </div>
-              <span className={styles.tocHeader}>Table of Contents</span>
-              <ReactMarkdown
-                source={data.textContent.toc}
-                className={styles.toc}
+        const GROUP_A = data.adventures
+          .filter(a => a.premiumAdventure)
+          .sort(sortByName)
+          .map(a =>
+            renderToStaticMarkup(
+              <AdventureListItem
+                adventure={a}
+                showLocation={true}
+                showCapacity={false}
               />
-            </Grid.Column>
-            <Grid.Column width={8}>
-              <ReactMarkdown
-                escapeHtml={false}
-                source={guide}
-                renderers={{
-                  heading: SemanticHeader,
-                  table: SemanticTable,
-                  tableHead: TableHeader,
-                  tableBody: TableBody,
-                  tableRow: TableRow,
-                  tableCell: TableCell,
-                }}
+            )
+          )
+          .join('\n\n');
+
+        const GROUP_B = data.adventures
+          .filter(a => !a.premiumAdventure && a.fee === 0)
+          .sort(sortByName)
+          .map(a =>
+            renderToStaticMarkup(
+              <AdventureListItem
+                adventure={a}
+                showLocation={true}
+                showCapacity={false}
               />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      );
-    }}
-  </Query>
+            )
+          )
+          .join('\n\n');
+
+        const GROUP_C = data.adventures
+          .filter(a => !a.premiumAdventure && a.fee)
+          .sort(sortByName)
+          .map(a =>
+            renderToStaticMarkup(
+              <AdventureListItem
+                adventure={a}
+                showLocation={true}
+                showCapacity={false}
+              />
+            )
+          )
+          .join('\n\n');
+
+        const guide = data.textContent.body
+          .replace(':::GROUP_A:::', GROUP_A)
+          .replace(':::GROUP_B:::', GROUP_B)
+          .replace(':::GROUP_C:::', GROUP_C);
+
+        return (
+          <Grid stackable>
+            <Grid.Row>
+              <Grid.Column width={16}>
+                <Header as="h1">Pacific Jamboree 2019 Adventure Guide</Header>
+                <span className={styles.lastUpdated}>
+                  Last Updated{' '}
+                  {formatDate(data.textContent.updatedAt, 'MMMM D, YYYY')}
+                </span>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={6}>
+                <div style={{ marginBottom: '1em' }}>
+                  <a href={`${process.env.REACT_APP_ADVENTURE_GUIDE_URL}`}>
+                    <Button icon labelPosition="left" color="blue">
+                      <Icon name="file pdf" />
+                      Download PDF
+                    </Button>
+                  </a>
+                </div>
+                <span className={styles.tocHeader}>Table of Contents</span>
+                <ReactMarkdown
+                  source={data.textContent.toc}
+                  className={styles.toc}
+                />
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <ReactMarkdown
+                  escapeHtml={false}
+                  source={guide}
+                  renderers={{
+                    heading: SemanticHeader,
+                    table: SemanticTable,
+                    tableHead: TableHeader,
+                    tableBody: TableBody,
+                    tableRow: TableRow,
+                    tableCell: TableCell,
+                  }}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        );
+      }}
+    </Query>
+  </DocumentTitle>
 );
 
 const SemanticHeader = ({ level, children }) => {

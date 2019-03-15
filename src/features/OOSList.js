@@ -7,6 +7,7 @@ import {
   ADVENTURE_NAME_ID_FRAGMENT,
 } from '../graphql/fragments';
 import OOSTable from '../components/OOSTable';
+import DocumentTitle from '../components/DocumentTitle';
 
 const QUERY = gql`
   query getOOSWithAdventureNamesIds {
@@ -24,25 +25,27 @@ const QUERY = gql`
 `;
 
 const OOSList = () => (
-  <Container>
-    <Query query={QUERY}>
-      {({ data, loading, error }) => {
-        if (error) return <p>Error</p>;
-        if (loading) return <Loader />;
-        const { offersOfService, adventures } = data;
-        return (
-          <Fragment>
-            <Header as="h1">Offers of Service</Header>
-            <OOSTable
-              defaultSortColumn="oosNumber"
-              offersOfService={offersOfService}
-              adventures={adventures}
-            />
-          </Fragment>
-        );
-      }}
-    </Query>
-  </Container>
+  <DocumentTitle title="Offers of Service">
+    <Container>
+      <Query query={QUERY}>
+        {({ data, loading, error }) => {
+          if (error) return <p>Error</p>;
+          if (loading) return <Loader />;
+          const { offersOfService, adventures } = data;
+          return (
+            <Fragment>
+              <Header as="h1">Offers of Service</Header>
+              <OOSTable
+                defaultSortColumn="oosNumber"
+                offersOfService={offersOfService}
+                adventures={adventures}
+              />
+            </Fragment>
+          );
+        }}
+      </Query>
+    </Container>
+  </DocumentTitle>
 );
 
 export default OOSList;

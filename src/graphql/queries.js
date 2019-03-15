@@ -158,6 +158,7 @@ const GET_ADVENTURE_BY_ID = gql`
       _id
       name
       themeName
+      fullName
       description
       oosDescription
       fee

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Query } from 'react-apollo';
 import {
   Container,
@@ -14,6 +14,7 @@ import AdventureLabels from '../components/AdventureLabels';
 import PlanDoReview from '../components/PlanDoReview';
 import UserHasRole from '../components/UserHasRole';
 import AdventureOOSList from '../components/AdventureOOSList';
+import DocumentTitle from '../components/DocumentTitle';
 
 import { GET_ADVENTURE_BY_ID } from '../graphql/queries';
 
@@ -43,53 +44,55 @@ const AdventureDetail = ({ id }) => (
           }
         };
         return (
-          <Fragment>
-            <Grid columns={2}>
-              <Grid.Row>
-                <Grid.Column>{adventureNameHeaders(adventure)}</Grid.Column>
+          <DocumentTitle title={adventure.fullName}>
+            <>
+              <Grid columns={2}>
+                <Grid.Row>
+                  <Grid.Column>{adventureNameHeaders(adventure)}</Grid.Column>
+                  <UserHasRole userRoles={ADMIN_AND_MANAGER}>
+                    <Grid.Column textAlign="right">
+                      <Link to={`./edit`}>
+                        <Button icon labelPosition="left" color="teal">
+                          <Icon name="edit" />
+                          Edit
+                        </Button>
+                      </Link>
+                    </Grid.Column>
+                  </UserHasRole>
+                </Grid.Row>
+              </Grid>
+
+              <AdventureLabels location={true} adventure={adventure} />
+
+              <ReactMarkdown source={adventure.description} />
+
+              {adventure.oosDescription && (
                 <UserHasRole userRoles={ADMIN_AND_MANAGER}>
-                  <Grid.Column textAlign="right">
-                    <Link to={`./edit`}>
-                      <Button icon labelPosition="left" color="teal">
-                        <Icon name="edit" />
-                        Edit
-                      </Button>
-                    </Link>
-                  </Grid.Column>
+                  <p>
+                    <b>OOS Description for Welcome Message:</b>
+                    <br />
+                    {adventure.oosDescription}
+                  </p>
                 </UserHasRole>
-              </Grid.Row>
-            </Grid>
+              )}
 
-            <AdventureLabels location={true} adventure={adventure} />
-
-            <ReactMarkdown source={adventure.description} />
-
-            {adventure.oosDescription && (
-              <UserHasRole userRoles={ADMIN_AND_MANAGER}>
-                <p>
-                  <b>OOS Description for Welcome Message:</b>
-                  <br />
-                  {adventure.oosDescription}
-                </p>
-              </UserHasRole>
-            )}
-
-            <Header as="h2">Plan, Do, Review</Header>
-            <PlanDoReview
-              plan={adventure.pdrPlan}
-              do={adventure.pdrDo}
-              review={adventure.pdrReview}
-              safetyTips={adventure.pdrSafetyTips}
-            />
-            <UserHasRole userRoles={ADMIN_AND_MANAGER}>
-              <AdventureOOSList
-                id={adventure.id}
-                oosRequired={adventure.oosRequired}
-                adultOOSRequired={adventure.adultOOSRequired}
-                adventureName={adventure.name}
+              <Header as="h2">Plan, Do, Review</Header>
+              <PlanDoReview
+                plan={adventure.pdrPlan}
+                do={adventure.pdrDo}
+                review={adventure.pdrReview}
+                safetyTips={adventure.pdrSafetyTips}
               />
-            </UserHasRole>
-          </Fragment>
+              <UserHasRole userRoles={ADMIN_AND_MANAGER}>
+                <AdventureOOSList
+                  id={adventure.id}
+                  oosRequired={adventure.oosRequired}
+                  adultOOSRequired={adventure.adultOOSRequired}
+                  adventureName={adventure.name}
+                />
+              </UserHasRole>
+            </>
+          </DocumentTitle>
         );
       }}
     </Query>
