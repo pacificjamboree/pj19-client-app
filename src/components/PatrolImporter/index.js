@@ -69,7 +69,6 @@ const IMPORT_PATROLS_MUTATION = gql`
     }
   }
 `;
-
 class PatrolImporter extends Component {
   render() {
     const {
@@ -202,31 +201,29 @@ class TableWrapper extends Component {
             stepUpdater(3);
           }}
         >
-          {(mutationFn, { data, error }) =>
-            console.log(newPatrols) || (
-              <Button
-                color="teal"
-                icon
-                labelPosition="left"
-                onClick={e => {
-                  e.preventDefault();
-                  const variables = {
-                    importPatrols: newPatrols.map(p => {
-                      const { importPatrol, ...patrol } = p;
-                      return { importId, ...patrol };
-                    }),
-                    deletePatrols: [],
-                  };
-                  mutationFn({
-                    variables,
-                  });
-                }}
-              >
-                <Icon name="check" />
-                Continue
-              </Button>
-            )
-          }
+          {(mutationFn, { data, error }) => (
+            <Button
+              color="teal"
+              icon
+              labelPosition="left"
+              onClick={e => {
+                e.preventDefault();
+                const variables = {
+                  importPatrols: newPatrols.map(p => {
+                    const { importPatrol, ...patrol } = p;
+                    return { importId, ...patrol };
+                  }),
+                  deletePatrols: [],
+                };
+                mutationFn({
+                  variables,
+                });
+              }}
+            >
+              <Icon name="check" />
+              Continue
+            </Button>
+          )}
         </Mutation>
       </>
     );
