@@ -40,13 +40,10 @@ const AdminDashboard = ({ user }) => {
               path="adventures/:id/edit"
               navigateToAfterMutataion=".."
             />
-<<<<<<< HEAD
+            <AdventureGuideEdit path="guide/edit" />
 
             <PatrolImport path="patrols/import" />
 
-=======
-            <AdventureGuideEdit path="guide/edit" />
->>>>>>> master
             <NotFound default />
           </Router>
         </Grid.Column>
