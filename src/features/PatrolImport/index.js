@@ -6,7 +6,6 @@ import PatrolImporter from '../../components/PatrolImporter';
 import PatrolImporterUserCreator from '../../components/PatrolImporterUserCreator';
 import parsePatrolExcelFile from '../../lib/parsePatrolExcelFile';
 import { utoa } from '../../lib/base64';
-import { isNull } from 'util';
 
 const importId = () => utoa(`PatrolImport:::${Date.now()}`);
 

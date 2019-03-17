@@ -1,6 +1,4 @@
 import XLSX from 'xlsx';
-import { patrolFieldMap } from '../lib/excelFileFieldMaps';
-import renameKeys from '../lib/renameKeys';
 
 export default data => {
   // we assume that the first sheet is the one we want
@@ -16,12 +14,33 @@ export default data => {
     range: `${rangeStart}:${rangeEnd}`,
   });
 
-  return dataObject
-    .map(row => ({
-      ...renameKeys(patrolFieldMap, row),
-    }))
-    .map(r => ({
-      ...r,
+  const ALLOWED_KEYS = [
+    'patrolNumber',
+    'groupName',
+    'patrolName',
+    'subcamp',
+    'email',
+    'firstName',
+    'lastName',
+    'phone',
+    'numberOfScouts',
+    'numberOfScouters',
+    'importId',
+  ];
+
+  return dataObject.map(r => {
+    const filtered = Object.keys(r)
+      .filter(key => ALLOWED_KEYS.includes(key))
+      .reduce((obj, key) => {
+        return {
+          ...obj,
+          [key]: r[key],
+        };
+      }, {});
+
+    return {
+      ...filtered,
       patrolNumber: r.patrolNumber.replace(/^\w-/, ''),
-    }));
+    };
+  });
 };
