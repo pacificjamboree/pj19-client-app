@@ -47,7 +47,10 @@ const Adventures = ({ workflowState = 'active' }) => {
           notifyOnNetworkStatusChange
         >
           {({ error, data, loading }) => {
-            if (error) return <p>whoops</p>;
+            if (error) {
+              console.log(error);
+              return <p>Error</p>;
+            }
             if (loading) return <Loader active />;
             if (data) {
               const { adventures } = data;

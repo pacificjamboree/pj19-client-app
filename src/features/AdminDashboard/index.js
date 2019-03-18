@@ -11,7 +11,7 @@ import OOSImport from '../OOSImport';
 import OOSOverdueAssignmentReport from '../OOSOverdueAssignmentReport';
 import AdventureList from '../AdventureList';
 import AdventureCreate from '../AdventureCreate';
-import AdventureDetail from '../AdventureDetail';
+import AdventureDetail from '../AdventureDetailAdmin';
 import AdventureEdit from '../AdventureEdit';
 import AdventureGuideEdit from '../AdventureGuideEdit';
 

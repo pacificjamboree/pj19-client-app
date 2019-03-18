@@ -10,35 +10,13 @@ import {
 } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 import ReactMarkdown from 'react-markdown';
-import gql from 'graphql-tag';
 import AdventureLabels from '../components/AdventureLabels';
 import PlanDoReview from '../components/PlanDoReview';
 import UserHasRole from '../components/UserHasRole';
+import AdventureOOSList from '../components/AdventureOOSList';
 import DocumentTitle from '../components/DocumentTitle';
 
-const GET_ADVENTURE_BY_ID = gql`
-  query adventureById($id: String!) {
-    adventure(search: { searchField: id, value: $id }) {
-      adventureCode
-      id
-      _id
-      name
-      themeName
-      fullName
-      description
-      fee
-      premiumAdventure
-      periodsRequired
-      location
-      capacityPerPeriod
-      periodsOffered
-      pdrPlan
-      pdrDo
-      pdrReview
-      pdrSafetyTips
-    }
-  }
-`;
+import { GET_ADVENTURE_BY_ID } from '../graphql/queries';
 
 const ADMIN_AND_MANAGER = ['adventureManager', 'admin'];
 
@@ -88,6 +66,16 @@ const AdventureDetail = ({ id }) => (
 
               <ReactMarkdown source={adventure.description} />
 
+              {adventure.oosDescription && (
+                <UserHasRole userRoles={ADMIN_AND_MANAGER}>
+                  <p>
+                    <b>OOS Description for Welcome Message:</b>
+                    <br />
+                    {adventure.oosDescription}
+                  </p>
+                </UserHasRole>
+              )}
+
               <Header as="h2">Plan, Do, Review</Header>
               <PlanDoReview
                 plan={adventure.pdrPlan}
@@ -95,6 +83,14 @@ const AdventureDetail = ({ id }) => (
                 review={adventure.pdrReview}
                 safetyTips={adventure.pdrSafetyTips}
               />
+              <UserHasRole userRoles={ADMIN_AND_MANAGER}>
+                <AdventureOOSList
+                  id={adventure.id}
+                  oosRequired={adventure.oosRequired}
+                  adultOOSRequired={adventure.adultOOSRequired}
+                  adventureName={adventure.name}
+                />
+              </UserHasRole>
             </>
           </DocumentTitle>
         );
