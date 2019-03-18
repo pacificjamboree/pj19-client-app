@@ -16,6 +16,7 @@ import AdventureEdit from './AdventureEdit';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import NotFound from './NotFound';
+import FAQ from './FAQ';
 import AuthorizedRoute from '../components/AuthorizedRoute';
 import ErrorBoundary from '../components/ErrorBoundary';
 
@@ -59,6 +60,7 @@ class App extends Component {
                     path="/adventures/:id/edit"
                     component={AdventureEdit}
                   />
+                  <FAQ path="/faq" />
                   <NotFound default />
                 </Router>
               </Container>
