@@ -10,19 +10,48 @@ import {
 } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 import ReactMarkdown from 'react-markdown';
+import gql from 'graphql-tag';
 import AdventureLabels from '../components/AdventureLabels';
 import PlanDoReview from '../components/PlanDoReview';
 import UserHasRole from '../components/UserHasRole';
 import AdventureOOSList from '../components/AdventureOOSList';
 import DocumentTitle from '../components/DocumentTitle';
 
-import { GET_ADVENTURE_BY_ID } from '../graphql/queries';
+const GET_ADVENTURE_BY_ID = gql`
+  query adventureById($searchField: AdventureSearchFields!, $value: String!) {
+    adventure(search: { searchField: $searchField, value: $value }) {
+      adventureCode
+      id
+      _id
+      name
+      themeName
+      fullName
+      description
+      fee
+      premiumAdventure
+      periodsRequired
+      location
+      capacityPerPeriod
+      periodsOffered
+      pdrPlan
+      pdrDo
+      pdrReview
+      pdrSafetyTips
+    }
+  }
+`;
 
 const ADMIN_AND_MANAGER = ['adventureManager', 'admin'];
 
 const AdventureDetail = ({ id }) => (
   <Container>
-    <Query query={GET_ADVENTURE_BY_ID} variables={{ id }}>
+    <Query
+      query={GET_ADVENTURE_BY_ID}
+      variables={{
+        value: id,
+        searchField: id.length > 10 ? 'id' : 'adventureCode',
+      }}
+    >
       {({ data, loading, error }) => {
         if (loading) return <Loader active />;
         if (error) return <p>Error</p>;

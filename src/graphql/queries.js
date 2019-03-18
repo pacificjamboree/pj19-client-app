@@ -98,6 +98,7 @@ const GET_ADVENTURE_TABLE = gql`
   query adventures($workflowState: WorkflowState) {
     adventures(filters: { workflowState: [$workflowState] }) {
       id
+      adventureCode
       name
       themeName
       fullName

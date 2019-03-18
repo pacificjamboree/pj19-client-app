@@ -132,7 +132,7 @@ class AdventureTable extends Component {
             {data.map(a => (
               <Table.Row key={a.id}>
                 <Table.Cell>
-                  <Link to={a.id}>{a.name}</Link>
+                  <Link to={a.adventureCode}>{a.name}</Link>
                 </Table.Cell>
                 <Table.Cell>{a.themeName}</Table.Cell>
                 <Table.Cell>

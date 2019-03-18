@@ -15,10 +15,11 @@ import AdventureLabels from '../components/AdventureLabels';
 import PlanDoReview from '../components/PlanDoReview';
 import UserHasRole from '../components/UserHasRole';
 import DocumentTitle from '../components/DocumentTitle';
+import NotFound from '../features/NotFound';
 
 const GET_ADVENTURE_BY_ID = gql`
-  query adventureById($id: String!) {
-    adventure(search: { searchField: id, value: $id }) {
+  query adventureById($searchField: AdventureSearchFields!, $value: String!) {
+    adventure(search: { searchField: $searchField, value: $value }) {
       adventureCode
       id
       _id
@@ -44,7 +45,13 @@ const ADMIN_AND_MANAGER = ['adventureManager', 'admin'];
 
 const AdventureDetail = ({ id }) => (
   <Container>
-    <Query query={GET_ADVENTURE_BY_ID} variables={{ id }}>
+    <Query
+      query={GET_ADVENTURE_BY_ID}
+      variables={{
+        value: id,
+        searchField: id.length > 10 ? 'id' : 'adventureCode',
+      }}
+    >
       {({ data, loading, error }) => {
         if (loading) return <Loader active />;
         if (error) return <p>Error</p>;
