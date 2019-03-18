@@ -20,10 +20,32 @@ const DurationLabel = duration => {
   }
 };
 
+const percentage = (a, b) => {
+  const p = Math.round((a / b) * 100);
+  return isNaN(p) ? '-' : `${p}%`;
+};
+
 class AdventureTable extends Component {
   constructor(props) {
     super(props);
     this.handleSort = this.handleSort.bind(this);
+
+    const adventuresData = (this.props.defaultSortColumn
+      ? sortBy(this.props.adventures, [this.props.defaultSortColumn])
+      : this.props.adventures
+    ).map(a => ({
+      ...a,
+      percentAssigned: a.oosAssignedCount / a.oosRequired,
+      percentAssignedString: percentage(a.oosAssignedCount, a.oosRequired),
+    }));
+
+    this.state = {
+      data: adventuresData,
+      sort: {
+        column: 'name',
+        direction: 'ascending',
+      },
+    };
   }
 
   static propTypes = {
@@ -34,19 +56,6 @@ class AdventureTable extends Component {
   handleSort = clickedColumn => () => {
     this.setState(handleSort(clickedColumn));
   };
-
-  state = {
-    data: this.props.defaultSortColumn
-      ? sortBy(this.props.adventures, [this.props.defaultSortColumn])
-      : this.props.adventures,
-
-    sort: {
-      column: 'name',
-      direction: 'ascending',
-    },
-  };
-
-  handleSort() {}
 
   render() {
     const { column, direction } = this.state.sort;
@@ -100,6 +109,12 @@ class AdventureTable extends Component {
                 OOS Assigned
               </Table.HeaderCell>
               <Table.HeaderCell
+                sorted={column === 'percentAssigned' ? direction : null}
+                onClick={this.handleSort('percentAssigned')}
+              >
+                % Assigned
+              </Table.HeaderCell>
+              <Table.HeaderCell
                 sorted={column === 'hidden' ? direction : null}
                 onClick={this.handleSort('hidden')}
               >
@@ -142,6 +157,7 @@ class AdventureTable extends Component {
                 <Table.Cell>
                   {a.oosAssignedCount} ({a.adultOOSAssignedCount} Adults)
                 </Table.Cell>
+                <Table.Cell>{a.percentAssignedString}</Table.Cell>
                 <Table.Cell>
                   <Icon name={a.hidden ? 'x' : 'check'} />
                 </Table.Cell>
