@@ -48,7 +48,11 @@ const AdventureDetail = ({ id }) => (
       {({ data, loading, error }) => {
         if (loading) return <Loader active />;
         if (error) return <p>Error</p>;
+
         const { adventure } = data;
+
+        if (!adventure) return <NotFound />;
+
         const adventureNameHeaders = adventure => {
           if (adventure.themeName) {
             return (
