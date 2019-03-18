@@ -48,6 +48,7 @@ class App extends Component {
                 <FlashMessages />
                 <Router>
                   <Home path="/" />
+                  <Home path="/home" />
                   <AdventureGuide path="/guide" />
                   <LoggedInRoute path="dashboard/*" component={Dashboard} />
                   <Login path="/login" />

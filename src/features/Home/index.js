@@ -8,7 +8,7 @@ import { GET_LOGIN_STATE } from '../../graphql/queries';
 const Home = () => (
   <Query query={GET_LOGIN_STATE}>
     {({ data }) => {
-      if (data.loggedIn) {
+      if (data.loggedIn && window.location.pathname === '/') {
         return <Redirect noThrow to="/dashboard" />;
       }
       return (
