@@ -10,7 +10,7 @@ const itemStyles = {
 
 const AdventureListItem = ({
   adventure,
-  showLocation = false,
+  showLocation = true,
   showCapacity = true,
 }) => (
   <List.Item style={itemStyles}>
