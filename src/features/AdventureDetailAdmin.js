@@ -49,7 +49,7 @@ const AdventureDetail = ({ id }) => (
       query={GET_ADVENTURE_BY_ID}
       variables={{
         value: id,
-        searchField: id.length > 10 ? 'id' : 'adventureCode',
+        searchField: id.indexOf('==') >= 0 ? 'id' : 'adventureCode',
       }}
     >
       {({ data, loading, error }) => {
