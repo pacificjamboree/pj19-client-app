@@ -80,7 +80,7 @@ const AdventureDetail = ({ id }) => (
                   <Grid.Column>{adventureNameHeaders(adventure)}</Grid.Column>
                   <UserHasRole userRoles={ADMIN_AND_MANAGER}>
                     <Grid.Column textAlign="right">
-                      <Link to={`./edit`}>
+                      <Link to={`../${adventure.id}/edit`}>
                         <Button icon labelPosition="left" color="teal">
                           <Icon name="edit" />
                           Edit
