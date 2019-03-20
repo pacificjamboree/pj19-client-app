@@ -17,7 +17,12 @@ class NavBar extends Component {
         : 'PJ 2019 – Adventure';
     return (
       <Responsive as="header" fireOnMount onUpdate={this.handleOnUpdate}>
-        <Menu color="teal" inverted borderless fixed="top">
+        <Menu
+          color={process.env.NODE_ENV === 'production' ? 'teal' : 'violet'}
+          inverted
+          borderless
+          fixed="top"
+        >
           <Container style={{ width: '100%' }}>
             <Menu.Item header className="borderless">
               <Link to="/">{headerText}</Link>

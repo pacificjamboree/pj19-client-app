@@ -6,6 +6,12 @@ import AdventureList from '../components/AdveventureList';
 
 import { GET_ADVENTURE_LIST } from '../graphql/queries';
 
+const sortByName = (a, b) => {
+  if (a.fullName < b.fullName) return -1;
+  if (a.fullName > b.fullName) return 1;
+  return 0;
+};
+
 const Adventures = ({ workflowState = 'active' }) => {
   return (
     <DocumentTitle title="Adventure List">
@@ -27,10 +33,10 @@ const Adventures = ({ workflowState = 'active' }) => {
           questions, along with Safety Tips. You will be provided with the cards
           for your assigned Adventures when you arrive at the Jamboree.
         </p>
+
         <p>
-          Most Adventures have no additional fees. SCUBA Diving has an
-          additional participant fee due to the cost of specalized equipment and
-          instructors required.
+          Adventure activities at PJ 2019 are organized into three (3) groups:
+          A, B, and C.
         </p>
         <Divider />
         <Query
@@ -40,35 +46,75 @@ const Adventures = ({ workflowState = 'active' }) => {
           notifyOnNetworkStatusChange
         >
           {({ error, data, loading }) => {
-            if (error) return <p>whoops</p>;
+            if (error) {
+              console.log(error);
+              return <p>Error</p>;
+            }
             if (loading) return <Loader active />;
             if (data) {
               const { adventures } = data;
-              const onsiteAdventures = adventures.filter(
-                a => a.location === 'onsite'
-              );
-              const offsiteAdventures = adventures.filter(
-                a => a.location === 'offsite'
-              );
+
+              const GROUP_A = adventures
+                .filter(a => a.premiumAdventure)
+                .sort(sortByName);
+
+              const GROUP_B = adventures
+                .filter(a => !a.premiumAdventure && a.fee === 0)
+                .sort(sortByName);
+
+              const GROUP_C = adventures
+                .filter(a => !a.premiumAdventure && a.fee)
+                .sort(sortByName);
+
               return (
                 <>
                   <AdventureList
-                    title="On-Site Adventures"
-                    adventures={onsiteAdventures}
+                    title="Group A Adventures (Premium Adventures)"
+                    adventures={GROUP_A}
                   >
                     <p>
-                      On-site Adventures take place on the Jamboree site at Camp
-                      Barnard.
+                      Group A Adventures are those that tend to be very popular,
+                      have extra requirements in terms of equipment and
+                      logistics, or are limited in the number of participants.{' '}
+                      <strong>
+                        Your Patrol may receive one Group A Adventure on your
+                        final schedule; this is not guaranteed. Patrols may
+                        receive an additional Group A activity if space permits.
+                      </strong>
                     </p>
                   </AdventureList>
+
                   <Divider />
+
                   <AdventureList
-                    title="Off-Site Adventures"
-                    adventures={offsiteAdventures}
+                    title="Group B Adventures (Standard Adventures)"
+                    adventures={GROUP_B}
                   >
                     <p>
-                      Off-site adventures take place away from the Jamboree site
-                      and involve a bus ride to the Adventure location.
+                      Group B Adventures will fill the remaining slots on your
+                      Adventure schedule. Remember that if you choose an
+                      off-site overnight Adventure, it will consume four (4)
+                      Adventure periods (e.g. two full days). You will also be
+                      assigned one free time slot. If you want more than one
+                      free period, please make sure to check the appropriate box
+                      on the Adventure Selection form.
+                    </p>
+                  </AdventureList>
+
+                  <Divider />
+                  <AdventureList
+                    title="Group C Adventures (Buy-In Adventures)"
+                    adventures={GROUP_C}
+                  >
+                    <p>
+                      Group C Adventures are those that, due to the extreme
+                      costs and skills involved in this Adventure, carry an
+                      additional participant fee. You have the option to opt-out
+                      of these Adventures on the Adventure Selection form. If
+                      you receive a Group C Adventure, it counts as a Group B
+                      Adventure. Details regarding payment will be communicated
+                      to Patrol Scouters when final Adventure Schedules are
+                      distributed.
                     </p>
                   </AdventureList>
                 </>

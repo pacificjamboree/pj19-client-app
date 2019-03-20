@@ -14,8 +14,8 @@ import gql from 'graphql-tag';
 import AdventureLabels from '../components/AdventureLabels';
 import PlanDoReview from '../components/PlanDoReview';
 import UserHasRole from '../components/UserHasRole';
+import AdventureOOSList from '../components/AdventureOOSList';
 import DocumentTitle from '../components/DocumentTitle';
-import NotFound from '../features/NotFound';
 
 const GET_ADVENTURE_BY_ID = gql`
   query adventureById($searchField: AdventureSearchFields!, $value: String!) {
@@ -55,11 +55,7 @@ const AdventureDetail = ({ id }) => (
       {({ data, loading, error }) => {
         if (loading) return <Loader active />;
         if (error) return <p>Error</p>;
-
         const { adventure } = data;
-
-        if (!adventure) return <NotFound />;
-
         const adventureNameHeaders = adventure => {
           if (adventure.themeName) {
             return (
@@ -99,6 +95,16 @@ const AdventureDetail = ({ id }) => (
 
               <ReactMarkdown source={adventure.description} />
 
+              {adventure.oosDescription && (
+                <UserHasRole userRoles={ADMIN_AND_MANAGER}>
+                  <p>
+                    <b>OOS Description for Welcome Message:</b>
+                    <br />
+                    {adventure.oosDescription}
+                  </p>
+                </UserHasRole>
+              )}
+
               <Header as="h2">Plan, Do, Review</Header>
               <PlanDoReview
                 plan={adventure.pdrPlan}
@@ -106,6 +112,14 @@ const AdventureDetail = ({ id }) => (
                 review={adventure.pdrReview}
                 safetyTips={adventure.pdrSafetyTips}
               />
+              <UserHasRole userRoles={ADMIN_AND_MANAGER}>
+                <AdventureOOSList
+                  id={adventure.id}
+                  oosRequired={adventure.oosRequired}
+                  adultOOSRequired={adventure.adultOOSRequired}
+                  adventureName={adventure.name}
+                />
+              </UserHasRole>
             </>
           </DocumentTitle>
         );

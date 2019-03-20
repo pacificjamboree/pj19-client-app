@@ -10,11 +10,11 @@ const itemStyles = {
 
 const AdventureListItem = ({
   adventure,
-  showLocation = false,
+  showLocation = true,
   showCapacity = true,
 }) => (
   <List.Item style={itemStyles}>
-    <Link to={`/adventures/${adventure.id}`}>
+    <Link to={`/adventures/${adventure.adventureCode}`}>
       <List.Header as="h3">
         {adventure.fullName} <Icon name="arrow circle right" />
       </List.Header>
