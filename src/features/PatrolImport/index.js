@@ -3,7 +3,6 @@ import { Icon, Header, Segment, Step } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 import ExcelFileUploadReader from '../../components/ExcelFileUploadReader';
 import PatrolImporter from '../../components/PatrolImporter';
-import PatrolImporterUserCreator from '../../components/PatrolImporterUserCreator';
 import parsePatrolExcelFile from '../../lib/parsePatrolExcelFile';
 import { utoa } from '../../lib/base64';
 
@@ -88,28 +87,12 @@ class PatrolImport extends Component {
         );
 
       case 3:
-        /* 
-        Step 3: create users for PatrolScouters
-        - get all the PatrolScouters that were just imoprted, along with 
-          any related User
-        - filter out any PatrolScouters that have a User
-        - show table of PatrolScouters with toggle
-        - mutation: create users for PatrolScouters 
-      */
-        return (
-          <PatrolImporterUserCreator
-            importId={this.state.importId}
-            stepUpdater={this.stepUpdater}
-          />
-        );
-
-      case 4:
         return (
           <>
             <Header as="h2">Import Complete</Header>
             <p>
-              Offer of Service import is complete.{' '}
-              <Link to="..">Go to Offer of Service listing</Link>
+              Patrol import is complete.{' '}
+              <Link to="..">Go to Patrol listing</Link>
             </p>
           </>
         );
@@ -135,13 +118,9 @@ class PatrolImport extends Component {
           </Step>
           <Step active={this.state.step === 2}>
             <Icon name="edit" />
-            <Step.Content>Prepare Patrols for Import</Step.Content>
+            <Step.Content>Prepare Patrols and Import</Step.Content>
           </Step>
           <Step active={this.state.step === 3}>
-            <Icon name="user" />
-            <Step.Content>Review Import Results and Create Users</Step.Content>
-          </Step>
-          <Step active={this.state.step === 4}>
             <Icon name="check circle" />
             <Step.Content>Done</Step.Content>
           </Step>
