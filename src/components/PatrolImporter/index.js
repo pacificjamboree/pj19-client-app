@@ -66,6 +66,9 @@ const IMPORT_PATROLS_MUTATION = gql`
           phone
         }
       }
+      DeletedPatrols {
+        id
+      }
     }
   }
 `;
