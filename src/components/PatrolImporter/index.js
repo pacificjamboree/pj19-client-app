@@ -74,13 +74,7 @@ const IMPORT_PATROLS_MUTATION = gql`
 `;
 class PatrolImporter extends Component {
   render() {
-    const {
-      importData,
-      importId,
-      // changeHandler,
-      stepUpdater,
-      // resetState,
-    } = this.props;
+    const { client, importData, importId, stepUpdater } = this.props;
     return (
       <Query query={EXISTING_PATROLS}>
         {({ data, loading, error }) => {
