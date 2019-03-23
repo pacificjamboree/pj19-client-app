@@ -43,7 +43,11 @@ class App extends Component {
 
               <Container
                 id="main"
-                style={{ paddingTop: '6em', paddingBottom: '2em' }}
+                style={{
+                  paddingTop: '6em',
+                  paddingBottom: '2em',
+                  minHeight: '80vh',
+                }}
               >
                 <FlashMessages />
                 <Router>
