@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
-import { Header, Button, Icon } from 'semantic-ui-react';
+import { Mutation, withApollo } from 'react-apollo';
+import { Button, Header, Icon, Loader } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import pluralize from 'pluralize';
 import Query from '../Query';
 import PatrolImportTable from '../PatrolImportTable';
-
+import { pushFlashMessage } from '../../lib/flashMessage';
 /*
 - take the data parsed from the excel file
 - get all existing patrols
@@ -105,12 +105,34 @@ class PatrolImporter extends Component {
           // const unchangedPatrols
 
           return (
-            <TableWrapper
-              newPatrols={newPatrols}
-              deletedPatrols={deletedPatrols}
-              importId={importId}
-              stepUpdater={stepUpdater}
-            />
+            <Mutation
+              mutation={IMPORT_PATROLS_MUTATION}
+              onError={error => {
+                pushFlashMessage(client, {
+                  kind: 'error',
+                  message: 'An error occurred while importing patrols',
+                  error: error.message,
+                });
+              }}
+              onCompleted={() => {
+                stepUpdater(3);
+              }}
+            >
+              {(mutationFn, { data, error, loading }) =>
+                loading ? (
+                  window.scrollTo(0, 0) || (
+                    <Loader active>Importing Patrols…</Loader>
+                  )
+                ) : (
+                  <TableWrapper
+                    newPatrols={newPatrols}
+                    deletedPatrols={deletedPatrols}
+                    importId={importId}
+                    mutationFn={mutationFn}
+                  />
+                )
+              }
+            </Mutation>
           );
         }}
       </Query>
@@ -158,7 +180,7 @@ class TableWrapper extends Component {
 
   render() {
     const { newPatrols, deletedPatrols } = this.state;
-    const { importId, stepUpdater } = this.props;
+    const { importId, mutationFn } = this.props;
     const toImportCount = newPatrols.filter(p => p.importPatrol).length;
     const toDeleteCount = deletedPatrols.filter(p => p.deletePatrol).length;
     return (
@@ -189,42 +211,32 @@ class TableWrapper extends Component {
           toggleFn={this.handleToggleDeletePatrol}
           toggleCheckedField="deletePatrol"
         />
-        <Mutation
-          mutation={IMPORT_PATROLS_MUTATION}
-          onError={error => {
-            console.log(error);
-          }}
-          onCompleted={() => {
-            stepUpdater(3);
+        <Button
+          color="teal"
+          icon
+          labelPosition="left"
+          style={{ marginTop: '1em' }}
+          onClick={e => {
+            e.preventDefault();
+            const variables = {
+              importPatrols: newPatrols.map(p => {
+                const { importPatrol, ...patrol } = p;
+                return { importId, ...patrol };
+              }),
+              deletePatrols: deletedPatrols.map(p => p.id),
+            };
+            console.log(variables);
+            mutationFn({
+              variables,
+            });
           }}
         >
-          {(mutationFn, { data, error }) => (
-            <Button
-              color="teal"
-              icon
-              labelPosition="left"
-              onClick={e => {
-                e.preventDefault();
-                const variables = {
-                  importPatrols: newPatrols.map(p => {
-                    const { importPatrol, ...patrol } = p;
-                    return { importId, ...patrol };
-                  }),
-                  deletePatrols: [],
-                };
-                mutationFn({
-                  variables,
-                });
-              }}
-            >
-              <Icon name="check" />
-              Continue
-            </Button>
-          )}
-        </Mutation>
+          <Icon name="check" />
+          Continue
+        </Button>
       </>
     );
   }
 }
 
-export default PatrolImporter;
+export default withApollo(PatrolImporter);
