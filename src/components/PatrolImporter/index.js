@@ -3,16 +3,18 @@ import { Mutation, withApollo } from 'react-apollo';
 import { Button, Header, Icon, Loader } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import pluralize from 'pluralize';
+import { DeepDiff } from 'deep-diff';
 import Query from '../Query';
 import PatrolImportTable from '../PatrolImportTable';
 import { pushFlashMessage } from '../../lib/flashMessage';
+import DiffCard from './DiffCard';
+
 /*
 - take the data parsed from the excel file
 - get all existing patrols
-- four lists: 
+- three lists: 
   - new patrols (in excel file, not in db
   - deleted patrols (not in excel file, in db)
-  - unchanged patrols (in excel file, in db, no changes)
   - changed patrols (in excel file, in db, fields changed)
 */
 
@@ -27,6 +29,7 @@ const EXISTING_PATROLS = gql`
       numberOfScouts
       numberOfScouters
       totalUnitSize
+      subcamp
       patrolScouter {
         id
         _id
@@ -43,9 +46,14 @@ const IMPORT_PATROLS_MUTATION = gql`
   mutation batchImportPatrolsMutation(
     $importPatrols: [PatrolImportDraft]!
     $deletePatrols: [ID]!
+    $patchPatrols: [PatrolUpdate]!
   ) {
     batchPatrols(
-      input: { ImportPatrols: $importPatrols, DeletePatrols: $deletePatrols }
+      input: {
+        ImportPatrols: $importPatrols
+        DeletePatrols: $deletePatrols
+        PatchPatrols: $patchPatrols
+      }
     ) {
       ImportedPatrols {
         id
@@ -69,12 +77,21 @@ const IMPORT_PATROLS_MUTATION = gql`
       DeletedPatrols {
         id
       }
+      PatchedPatrols {
+        id
+      }
     }
   }
 `;
 class PatrolImporter extends Component {
   render() {
-    const { client, importData, importId, stepUpdater } = this.props;
+    const {
+      client,
+      importData,
+      importId,
+      stepUpdater,
+      setResults,
+    } = this.props;
     return (
       <Query query={EXISTING_PATROLS}>
         {({ data, loading, error }) => {
@@ -100,9 +117,49 @@ class PatrolImporter extends Component {
               deletePatrol: true,
             }));
 
-          // const changedPatrols
+          // changed patrols are ones that appear in the
+          // existingPatrols list but have diffs
+          // find patrols that exist in both existingPatrols and importData
+          const importedPatrolsThatExist = importData.filter(p =>
+            existingPatrolNumbers.includes(p.patrolNumber)
+          );
 
-          // const unchangedPatrols
+          const changedPatrols = importedPatrolsThatExist
+            .map(importedPatrol => {
+              // find the matching patrol in existingPatrols
+              const existingPatrol = existingPatrols.find(
+                p => p.patrolNumber === importedPatrol.patrolNumber
+              );
+              const lhs = {
+                patrolNumber: existingPatrol.patrolNumber,
+                subcamp: existingPatrol.subcamp,
+                patrolName: existingPatrol.patrolName,
+                groupName: existingPatrol.groupName,
+                numberOfScouts: existingPatrol.numberOfScouts,
+                numberOfScouters: existingPatrol.numberOfScouters,
+                // email: existingPatrol.patrolScouter.email,
+              };
+
+              const rhs = {
+                patrolNumber: importedPatrol.patrolNumber,
+                subcamp: importedPatrol.subcamp,
+                patrolName: importedPatrol.patrolName,
+                groupName: importedPatrol.groupName,
+                numberOfScouts: importedPatrol.numberOfScouts,
+                numberOfScouters: importedPatrol.numberOfScouters,
+                // email: importedPatrol.email,
+              };
+
+              const diff = DeepDiff(lhs, rhs);
+
+              return diff
+                ? {
+                    patrol: { ...existingPatrol, patchPatrol: true },
+                    diff,
+                  }
+                : null;
+            })
+            .filter(x => x);
 
           return (
             <Mutation
@@ -114,7 +171,12 @@ class PatrolImporter extends Component {
                   error: error.message,
                 });
               }}
-              onCompleted={() => {
+              onCompleted={data => {
+                setResults({
+                  created: data.batchPatrols.ImportedPatrols.length,
+                  updated: data.batchPatrols.PatchedPatrols.length,
+                  deleted: data.batchPatrols.DeletedPatrols.length,
+                });
                 stepUpdater(3);
               }}
             >
@@ -127,6 +189,7 @@ class PatrolImporter extends Component {
                   <TableWrapper
                     newPatrols={newPatrols}
                     deletedPatrols={deletedPatrols}
+                    changedPatrols={changedPatrols}
                     importId={importId}
                     mutationFn={mutationFn}
                   />
@@ -146,9 +209,11 @@ class TableWrapper extends Component {
     this.state = {
       newPatrols: props.newPatrols,
       deletedPatrols: props.deletedPatrols,
+      changedPatrols: props.changedPatrols,
     };
     this.handleToggleImportPatrol = this.handleToggleImportPatrol.bind(this);
     this.handleToggleDeletePatrol = this.handleToggleDeletePatrol.bind(this);
+    this.handleTogglePatchPatrol = this.handleTogglePatchPatrol.bind(this);
   }
 
   handleToggleImportPatrol(patrolNumber) {
@@ -168,7 +233,6 @@ class TableWrapper extends Component {
     const { deletedPatrols } = this.state;
     const newState = deletedPatrols.map(p => {
       if (p.patrolNumber === patrolNumber) {
-        console.log(`Got patrol number ${patrolNumber}`);
         p.deletePatrol = !p.deletePatrol;
       }
       return p;
@@ -178,18 +242,34 @@ class TableWrapper extends Component {
     });
   }
 
+  handleTogglePatchPatrol(patrolNumber) {
+    const { changedPatrols } = this.state;
+    const newState = changedPatrols.map(x => {
+      if (x.patrol.patrolNumber === patrolNumber) {
+        x.patrol.patchPatrol = !x.patrol.patchPatrol;
+      }
+      return x;
+    });
+    this.setState({
+      changedPatrols: newState,
+    });
+  }
+
   render() {
-    const { newPatrols, deletedPatrols } = this.state;
+    const { newPatrols, deletedPatrols, changedPatrols } = this.state;
     const { importId, mutationFn } = this.props;
     const toImportCount = newPatrols.filter(p => p.importPatrol).length;
     const toDeleteCount = deletedPatrols.filter(p => p.deletePatrol).length;
+    const toPatchCount = changedPatrols.filter(x => x.patrol.patchPatrol)
+      .length;
     return (
       <>
-        <Header as="h1">New Patrols</Header>
-        <span>
+        <Header as="h1">Patrol Import</Header>
+        <Header as="h2">New Patrols</Header>
+        <p>
           {toImportCount.toString()} new {pluralize('patrol', toImportCount)} to
-          import
-        </span>
+          import.
+        </p>
         <PatrolImportTable
           patrols={newPatrols}
           defaultSortColumn="patrolNumber"
@@ -197,13 +277,13 @@ class TableWrapper extends Component {
           toggleFn={this.handleToggleImportPatrol}
           toggleCheckedField="importPatrol"
         />
-        <Header as="h1">Deleted Patrols</Header>
-        <span>
+        <Header as="h2">Deleted Patrols</Header>
+        <p>
           {toDeleteCount.toString()} existing{' '}
           {pluralize('patrol', toDeleteCount)}{' '}
           {toDeleteCount.length === 1 ? 'does' : 'do'} not exist in the import
-          file and will be deleted
-        </span>
+          file and will be deleted.
+        </p>
         <PatrolImportTable
           patrols={deletedPatrols}
           defaultSortColumn="patrolNumber"
@@ -211,6 +291,20 @@ class TableWrapper extends Component {
           toggleFn={this.handleToggleDeletePatrol}
           toggleCheckedField="deletePatrol"
         />
+        <Header as="h2">Changed Patrols</Header>
+        <p>
+          {toPatchCount.toString()} existing {pluralize('patrol', toPatchCount)}{' '}
+          {pluralize('has', toPatchCount)} changed and{' '}
+          {toPatchCount === 1 ? 'requires' : 'require'} updating.
+        </p>
+        {changedPatrols.map(p => (
+          <DiffCard
+            key={p.patrol.id}
+            patrol={p.patrol}
+            diff={p.diff}
+            toggleFn={this.handleTogglePatchPatrol}
+          />
+        ))}
         <Button
           color="teal"
           icon
@@ -219,13 +313,25 @@ class TableWrapper extends Component {
           onClick={e => {
             e.preventDefault();
             const variables = {
-              importPatrols: newPatrols.map(p => {
-                const { importPatrol, ...patrol } = p;
-                return { importId, ...patrol };
-              }),
-              deletePatrols: deletedPatrols.map(p => p.id),
+              importPatrols: newPatrols
+                .filter(p => p.importPatrol)
+                .map(p => {
+                  const { importPatrol, ...patrol } = p;
+                  return { importId, ...patrol };
+                }),
+              deletePatrols: deletedPatrols
+                .filter(p => p.deletePatrol)
+                .map(p => p.id),
+              patchPatrols: changedPatrols
+                .filter(p => p.patrol.patchPatrol)
+                .map(({ patrol, diff }) => {
+                  const patch = {
+                    id: patrol.id,
+                  };
+                  diff.forEach(d => (patch[d.path[0]] = d.rhs));
+                  return patch;
+                }),
             };
-            console.log(variables);
             mutationFn({
               variables,
             });

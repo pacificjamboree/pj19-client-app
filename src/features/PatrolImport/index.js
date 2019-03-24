@@ -17,12 +17,13 @@ class PatrolImport extends Component {
       fileParsed: false,
       errors: [],
       importData: [],
+      results: null,
     };
     this.onReadFile = this.onReadFile.bind(this);
     this.onError = this.onError.bind(this);
-    this.onHandleImportDataChange = this.onHandleImportDataChange.bind(this);
     this.stepUpdater = this.stepUpdater.bind(this);
     this.resetState = this.resetState.bind(this);
+    this.setResults = this.setResults.bind(this);
   }
 
   onReadFile(data) {
@@ -44,15 +45,6 @@ class PatrolImport extends Component {
     this.setState({ error });
   }
 
-  onHandleImportDataChange(oos) {
-    const importData = this.state.importData.map(i =>
-      i.oosNumber === oos.oosNumber ? oos : i
-    );
-    this.setState({
-      importData,
-    });
-  }
-
   stepUpdater(step) {
     this.setState({ step });
   }
@@ -63,6 +55,12 @@ class PatrolImport extends Component {
       importData: [],
       step: 1,
       importId: importId(),
+    });
+  }
+
+  setResults(results) {
+    this.setState({
+      results,
     });
   }
 
@@ -80,9 +78,9 @@ class PatrolImport extends Component {
           <PatrolImporter
             importData={this.state.importData}
             importId={this.state.importId}
-            changeHandler={this.onHandleImportDataChange}
             stepUpdater={this.stepUpdater}
             resetState={this.resetState}
+            setResults={this.setResults}
           />
         );
 
@@ -90,8 +88,13 @@ class PatrolImport extends Component {
         return (
           <>
             <Header as="h2">Import Complete</Header>
+            <p>Patrol import is complete.</p>
+            <ul>
+              <li>Created patrols: {this.state.results.created}</li>
+              <li>Updated patrols: {this.state.results.updated}</li>
+              <li>Deleted patrols: {this.state.results.deleted}</li>
+            </ul>
             <p>
-              Patrol import is complete.{' '}
               <Link to="..">Go to Patrol listing</Link>
             </p>
           </>
