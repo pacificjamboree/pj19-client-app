@@ -90,9 +90,10 @@ class PatrolImport extends Component {
             <Header as="h2">Import Complete</Header>
             <p>Patrol import is complete.</p>
             <ul>
-              <li>Created patrols: {this.state.results.created}</li>
-              <li>Updated patrols: {this.state.results.updated}</li>
-              <li>Deleted patrols: {this.state.results.deleted}</li>
+              <li>Created Patrols: {this.state.results.created}</li>
+              <li>Deleted Patrols: {this.state.results.deleted}</li>
+              <li>Updated Patrols: {this.state.results.updated}</li>
+              <li>Updated Scouters: {this.state.results.scoutersUpdated}</li>
             </ul>
             <p>
               <Link to="..">Go to Patrol listing</Link>
