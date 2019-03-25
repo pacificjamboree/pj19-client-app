@@ -84,28 +84,10 @@ class PatrolImportTable extends Component {
                   Total
                 </Table.HeaderCell>
                 <Table.HeaderCell
-                  sorted={column === 'firstName' ? direction : null}
-                  onClick={this.handleSort('firstName')}
-                >
-                  Contact Scouter First Name
-                </Table.HeaderCell>
-                <Table.HeaderCell
-                  sorted={column === 'lastName' ? direction : null}
-                  onClick={this.handleSort('lastName')}
-                >
-                  Contact Scouter Last Name
-                </Table.HeaderCell>
-                <Table.HeaderCell
                   sorted={column === 'email' ? direction : null}
                   onClick={this.handleSort('email')}
                 >
                   Contact Scouter Email
-                </Table.HeaderCell>
-                <Table.HeaderCell
-                  sorted={column === 'phone' ? direction : null}
-                  onClick={this.handleSort('phone')}
-                >
-                  Contact Scouter Phone
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -133,10 +115,7 @@ class PatrolImportTable extends Component {
                   <Table.Cell>
                     {d.numberOfScouts + d.numberOfScouters}
                   </Table.Cell>
-                  <Table.Cell>{d.firstName}</Table.Cell>
-                  <Table.Cell>{d.lastName}</Table.Cell>
                   <Table.Cell>{d.email}</Table.Cell>
-                  <Table.Cell>{d.phone}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
