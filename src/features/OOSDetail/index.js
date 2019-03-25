@@ -82,9 +82,9 @@ const OOSDetail = ({ oosNumber }) => (
 
                   {isYouth ? (
                     <Segment inverted color="red">
-                      {fullName} is a youth member. To maintain
-                      two-deep, please CC safescouting.pj@scouts.ca on
-                      all email communications with this OOS.
+                      {fullName} is a youth member. To maintain two-deep, please
+                      CC safescouting.pj@scouts.ca on all email communications
+                      with this OOS.
                     </Segment>
                   ) : null}
 
@@ -115,15 +115,11 @@ const OOSDetail = ({ oosNumber }) => (
                         <Table.Cell className={styles.label}>
                           Is Youth Member
                         </Table.Cell>
-                        <Table.Cell>
-                          {isYouth ? 'Yes' : 'No'}
-                        </Table.Cell>
+                        <Table.Cell>{isYouth ? 'Yes' : 'No'}</Table.Cell>
                       </Table.Row>
 
                       <Table.Row>
-                        <Table.Cell className={styles.label}>
-                          Email
-                        </Table.Cell>
+                        <Table.Cell className={styles.label}>Email</Table.Cell>
                         <Table.Cell>
                           <a href={`mailto:${email}`}>{email}</a>
                         </Table.Cell>
@@ -135,9 +131,7 @@ const OOSDetail = ({ oosNumber }) => (
                             Parent/Guardian Email
                           </Table.Cell>
                           <Table.Cell>
-                            <a href="mailto:{parentEmail}">
-                              {parentEmail}
-                            </a>
+                            <a href="mailto:{parentEmail}">{parentEmail}</a>
                           </Table.Cell>
                         </Table.Row>
                       ) : null}
@@ -156,9 +150,7 @@ const OOSDetail = ({ oosNumber }) => (
                           Pre-recruited
                         </Table.Cell>
                         <Table.Cell>
-                          {!prerecruited
-                            ? 'No'
-                            : `Yes: ${prerecruitedBy}`}
+                          {!prerecruited ? 'No' : `Yes: ${prerecruitedBy}`}
                         </Table.Cell>
                       </Table.Row>
 

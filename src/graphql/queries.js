@@ -324,6 +324,7 @@ const GET_OFFER_OF_SERVICE_BY_OOS_NUMBER = gql`
       }
       welcomeEmailSentAt
       assignmentEmailSentAt
+      workflowState
     }
   }
 `;
