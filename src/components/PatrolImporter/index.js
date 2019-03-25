@@ -43,7 +43,7 @@ const IMPORT_PATROLS_MUTATION = gql`
   mutation batchImportPatrolsMutation(
     $importPatrols: [PatrolImportDraft]!
     $deletePatrols: [ID]!
-    $patchPatrols: [PatrolUpdate]!
+    $patchPatrols: [PatrolPatch]!
   ) {
     batchPatrols(
       input: {
@@ -72,6 +72,9 @@ const IMPORT_PATROLS_MUTATION = gql`
         id
       }
       PatchedPatrols {
+        id
+      }
+      PatchedScouters {
         id
       }
     }
@@ -131,7 +134,7 @@ class PatrolImporter extends Component {
                 groupName: existingPatrol.groupName,
                 numberOfScouts: existingPatrol.numberOfScouts,
                 numberOfScouters: existingPatrol.numberOfScouters,
-                // email: existingPatrol.patrolScouter.email,
+                email: existingPatrol.patrolScouter.email,
               };
 
               const rhs = {
@@ -141,7 +144,7 @@ class PatrolImporter extends Component {
                 groupName: importedPatrol.groupName,
                 numberOfScouts: importedPatrol.numberOfScouts,
                 numberOfScouters: importedPatrol.numberOfScouters,
-                // email: importedPatrol.email,
+                email: importedPatrol.email,
               };
 
               const diff = DeepDiff(lhs, rhs);
@@ -170,6 +173,7 @@ class PatrolImporter extends Component {
                   created: data.batchPatrols.ImportedPatrols.length,
                   updated: data.batchPatrols.PatchedPatrols.length,
                   deleted: data.batchPatrols.DeletedPatrols.length,
+                  scoutersUpdated: data.batchPatrols.PatchedScouters.length,
                 });
                 stepUpdater(3);
               }}
@@ -321,6 +325,7 @@ class TableWrapper extends Component {
                 .map(({ patrol, diff }) => {
                   const patch = {
                     id: patrol.id,
+                    patrolScouterId: patrol.patrolScouter.id,
                   };
                   diff.forEach(d => (patch[d.path[0]] = d.rhs));
                   return patch;
