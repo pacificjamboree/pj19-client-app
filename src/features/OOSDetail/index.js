@@ -22,6 +22,7 @@ import RemoveAdventureManagerButton from './RemoveAdventureManagerButton';
 import SendWelcomeEmail from '../../components/SendWelcomeEmail';
 import SendAssignmentEmail from '../../components/SendAssignmentEmail';
 import CreateLoginButton from './CreateUserButton';
+import ToggleOOSWorkflowStateButton from './ToggleOOSWorkflowStateButton';
 
 const OOSDetail = ({ oosNumber }) => (
   <Container>
@@ -53,6 +54,7 @@ const OOSDetail = ({ oosNumber }) => (
           assignment,
           isAdventureManager,
           user,
+          workflowState,
           welcomeEmailSentAt,
           assignmentEmailSentAt,
         } = offerOfService;
@@ -60,13 +62,14 @@ const OOSDetail = ({ oosNumber }) => (
         return (
           <DocumentTitle title={fullName}>
             <>
-              <Grid
-                stackable
-                divided
-                columns={16}
-                style={{ marginTop: '0' }}
-              >
+              <Grid stackable divided columns={16} style={{ marginTop: '0' }}>
                 <Grid.Column width={10}>
+                  {workflowState === 'deleted' ? (
+                    <Label color="red" size="big" horizontal>
+                      <Icon name="x" />
+                      Deleted
+                    </Label>
+                  ) : null}
                   <Header as="h1">
                     {fullName} ({oosNumber})
                   </Header>
@@ -258,6 +261,12 @@ const OOSDetail = ({ oosNumber }) => (
 
                     <Divider />
 
+                    <ToggleOOSWorkflowStateButton
+                      offerOfService={offerOfService}
+                    />
+
+                    <Divider />
+
                     <div className={styles.userMetadata}>
                       <p>
                         OOS ID:
@@ -279,6 +288,7 @@ const OOSDetail = ({ oosNumber }) => (
                         <br />
                         {user && user.id ? user.id : 'N/A'}
                       </p>
+                      <p>Workflow State: {workflowState}</p>
                     </div>
                   </UserHasRole>
                 </Grid.Column>
