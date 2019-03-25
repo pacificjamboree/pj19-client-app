@@ -31,7 +31,7 @@ const GET_DASHBOARD_VIEWER = gql`
       }
       PatrolScouter {
         id
-        firstName
+        email
       }
     }
   }

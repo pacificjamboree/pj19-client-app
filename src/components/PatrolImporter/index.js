@@ -33,10 +33,7 @@ const EXISTING_PATROLS = gql`
       patrolScouter {
         id
         _id
-        firstName
-        lastName
         email
-        phone
       }
     }
   }
@@ -68,10 +65,7 @@ const IMPORT_PATROLS_MUTATION = gql`
         patrolScouter {
           id
           _id
-          firstName
-          lastName
           email
-          phone
         }
       }
       DeletedPatrols {
