@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import ReactDOM from 'react-dom';
-import { navigate } from '@reach/router';
 import App from './features/App';
 import { unregister } from './registerServiceWorker';
 import { defaults, resolvers } from './graphql';
@@ -15,10 +14,9 @@ const client = new ApolloClient({
   uri: REACT_APP_GRAPHQL_ENDPOINT,
   onError: ({ graphQLErrors, networkError }) => {
     if (networkError && networkError.statusCode === 401) {
-      console.log({ networkError });
       localStorage.removeItem(process.env.REACT_APP_JWT_NAME);
       client.resetStore();
-      navigate('/login');
+      window.location = '/login';
     }
   },
   request: operation => {

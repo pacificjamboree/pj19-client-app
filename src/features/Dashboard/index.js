@@ -25,6 +25,8 @@ export default ({ client }) => (
           } else if (roles.includes('adventureManager')) {
             return <AdventureManagerDashboard user={data.viewer} />;
           }
+        } else {
+          return <p>You are not logged in.</p>;
         }
       }}
     </Query>
