@@ -15,6 +15,7 @@ import AdventureDetail from '../AdventureDetailAdmin';
 import AdventureEdit from '../AdventureEdit';
 import AdventureGuideEdit from '../AdventureGuideEdit';
 import PatrolList from '../PatrolList';
+import PatrolDetail from '../PatrolDetail';
 import PatrolImport from '../PatrolImport';
 
 const AdminDashboard = ({ user }) => {
@@ -44,6 +45,7 @@ const AdminDashboard = ({ user }) => {
             <AdventureGuideEdit path="guide/edit" />
 
             <PatrolList path="patrols" />
+            <PatrolDetail path="patrols/:patrolNumber" />
             <PatrolImport path="patrols/import" />
 
             <NotFound default />
