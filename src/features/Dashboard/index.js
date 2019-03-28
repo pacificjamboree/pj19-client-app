@@ -5,6 +5,8 @@ import { Loader } from 'semantic-ui-react';
 import DocumentTitle from '../../components/DocumentTitle';
 import AdminDashboard from '../AdminDashboard';
 import AdventureManagerDashboard from '../AdventureManagerDashboard';
+import PatrolScouterDashboard from '../PatrolScouterDashboard';
+
 import { GET_DASHBOARD_VIEWER } from '../../graphql/queries';
 
 export default ({ client }) => (
@@ -21,7 +23,7 @@ export default ({ client }) => (
           if (roles.includes('admin')) {
             return <AdminDashboard user={data.viewer} />;
           } else if (roles.includes('patrolScouter')) {
-            return <p>PatrolScouter Dashboard</p>;
+            return <PatrolScouterDashboard user={data.viewer} />;
           } else if (roles.includes('adventureManager')) {
             return <AdventureManagerDashboard user={data.viewer} />;
           }
