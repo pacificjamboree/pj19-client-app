@@ -32,6 +32,28 @@ const GET_DASHBOARD_VIEWER = gql`
       PatrolScouter {
         id
         email
+        Patrols {
+          id
+          _id
+          groupName
+          patrolName
+          patrolNumber
+          fullyPaid
+          numberOfScouts
+          numberOfScouters
+          totalUnitSize
+          subcamp
+          adventureSelection {
+            id
+            wantScuba
+            wantExtraFreePeriod
+            selectionOrder {
+              id
+              fullName
+            }
+            workflowState
+          }
+        }
       }
     }
   }
