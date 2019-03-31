@@ -24,6 +24,7 @@ const OFFERS_OF_SERVICE_FRAGMENT = gql`
       name
       themeName
       fullName
+      adventureCode
       id
       _id
     }

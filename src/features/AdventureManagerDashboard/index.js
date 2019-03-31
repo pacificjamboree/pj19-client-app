@@ -3,27 +3,31 @@ import { Router, Link } from '@reach/router';
 import { Container, Grid, Header } from 'semantic-ui-react';
 import Nav from './Nav';
 import NotFound from '../NotFound';
-import AdventureDetail from '../AdventureDetail';
+import AdventureDetailAdmin from '../AdventureDetailAdmin';
 import AdventureEdit from '../AdventureEdit';
 import OOSDetail from '../OOSDetail';
 import Stats from './Stats';
 
 const AdventureManagerDashboard = ({ user }) => {
   const adventureId = user.OfferOfService.assignment.id;
+  const adventureSlug = user.OfferOfService.assignment.adventureCode;
   return (
     <Container>
       <Grid>
         <Grid.Column width={3}>
-          <Nav />
+          <Nav adventureSlug={adventureSlug} />
         </Grid.Column>
         <Grid.Column width={13}>
           <Router>
             <Home user={user} path="/" />
-            <AdventureDetail id={adventureId} path="adventures/mine" />
+            <AdventureDetailAdmin
+              id={adventureId}
+              path={`adventures/${adventureSlug}`}
+            />
             <AdventureEdit
               id={adventureId}
-              path="adventures/mine/edit"
-              navigateToAfterMutataion=".."
+              path="adventures/:id/edit"
+              navigateToAfterMutataion={`/dashboard/adventures/${adventureSlug}`}
             />
             <OOSDetail path="oos/:oosNumber" />
             <NotFound default />
@@ -45,7 +49,10 @@ const Home = ({ user }) => {
       <Header as="h1">Hello, {name}</Header>
       <p>
         You are an Adventure Manager for{' '}
-        <Link to="adventures/mine">{OfferOfService.assignment.fullName}</Link>.
+        <Link to={`adventures/${user.OfferOfService.assignment.adventureCode}`}>
+          {OfferOfService.assignment.fullName}
+        </Link>
+        .
       </p>
       <Stats adventureId={OfferOfService.assignment.id} />
     </>
