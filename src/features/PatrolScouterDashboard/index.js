@@ -4,6 +4,7 @@ import { Container, Grid } from 'semantic-ui-react';
 import Nav from './Nav';
 import NotFound from '../NotFound';
 import Home from './Home';
+import AdventureSelectionEdit from '../AdventureSelectionEdit';
 
 const PatrolScouterDashbaord = ({ user }) => {
   return (
@@ -15,7 +16,10 @@ const PatrolScouterDashbaord = ({ user }) => {
         <Grid.Column width={13}>
           <Router>
             <Home user={user} path="/" />
-
+            <AdventureSelectionEdit
+              user={user}
+              path="/adventureSelection/:id/edit"
+            />
             <NotFound default />
           </Router>
         </Grid.Column>
