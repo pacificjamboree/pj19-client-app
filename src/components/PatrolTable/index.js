@@ -56,12 +56,17 @@ class PatrolTable extends Component {
 
   filterData() {
     const { textFilter, subcampFilter, paidFilter } = this.state.filters;
-
     let data = [...this.props.patrols];
 
     if (textFilter) {
       data = matchSorter(data, textFilter, {
-        keys: ['patrolNumber', 'groupName', 'patrolName'],
+        keys: [
+          'patrolNumber',
+          'groupName',
+          'patrolName',
+          'patrolScouter.email',
+        ],
+        threshold: matchSorter.rankings.CONTAINS,
       });
     }
 
@@ -175,6 +180,7 @@ class PatrolTable extends Component {
                 >
                   Total
                 </Table.HeaderCell>
+                <Table.HeaderCell>Contact Email</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -192,6 +198,7 @@ class PatrolTable extends Component {
                   <Table.Cell>{p.numberOfScouts}</Table.Cell>
                   <Table.Cell>{p.numberOfScouters}</Table.Cell>
                   <Table.Cell>{p.totalUnitSize}</Table.Cell>
+                  <Table.Cell>{p.patrolScouter.email}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
