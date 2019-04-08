@@ -13,6 +13,7 @@ import sortBy from 'lodash.sortby';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import matchSorter from 'match-sorter';
+import debounce from 'lodash.debounce';
 import SendWelcomeEmail from '../../components/SendWelcomeEmail';
 import SendAssignmentEmail from '../../components/SendAssignmentEmail';
 import handleSort from '../../lib/handleSort';
@@ -50,7 +51,7 @@ class OOSList extends Component {
     super(props);
     this.handleSort = this.handleSort.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
-    this.filterData = this.filterData.bind(this);
+    this.filterData = debounce(this.filterData.bind(this), 300);
   }
 
   static propTypes = {
