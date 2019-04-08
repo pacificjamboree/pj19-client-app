@@ -127,7 +127,7 @@ class PatrolTable extends Component {
               id="subcampFilter"
               options={[
                 { value: 'all', text: 'All Subcamps' },
-                { value: 'O', text: 'Odyssey' },
+                { value: 'O', text: 'Olympus' },
                 { value: 'S', text: 'Saga' },
                 { value: 'V', text: 'Valley of the Kings' },
               ]}

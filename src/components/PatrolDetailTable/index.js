@@ -6,7 +6,7 @@ import formatDate from 'date-fns/format';
 import styles from './styles.module.css';
 
 const SUBCAMPS = {
-  O: 'Odyssey',
+  O: 'Olympus',
   S: 'Saga',
   V: 'Valley of Kings',
 };
