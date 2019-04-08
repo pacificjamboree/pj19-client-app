@@ -41,7 +41,7 @@ class ForgotPasswordForm extends Component {
               fluid
               icon="user"
               iconPosition="left"
-              placeholder="Username"
+              placeholder="Email address"
               autoCapitalize="none"
               onChange={this.handleChange}
             />

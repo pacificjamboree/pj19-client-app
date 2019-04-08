@@ -69,7 +69,7 @@ class LoginForm extends Component {
                 fluid
                 icon="user"
                 iconPosition="left"
-                placeholder="Username"
+                placeholder="Email Address"
                 autoCapitalize="none"
                 onChange={this.handleChange}
                 value={this.state.username}
