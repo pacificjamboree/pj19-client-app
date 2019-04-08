@@ -24,6 +24,7 @@ class PatrolTable extends Component {
     filters: {
       textFilter: '',
       subcampFilter: 'all',
+      paidFilter: 'all',
     },
     sort: {
       column: this.props.defaultSortColumn || null,
@@ -124,7 +125,7 @@ class PatrolTable extends Component {
                 { value: false, text: 'Not Fully Paid' },
               ]}
               onChange={this.handleFilter}
-              value={this.state.filters.subcampFilter}
+              value={this.state.filters.paidFilter}
             />
           </Input>
         </div>
