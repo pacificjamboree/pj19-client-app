@@ -2,6 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import {
   Button,
+  Grid,
   Header,
   Icon,
   Loader,
@@ -11,6 +12,7 @@ import {
 import { Link } from '@reach/router';
 import gql from 'graphql-tag';
 import DocumentTitle from '../../components/DocumentTitle';
+import UserHasRole from '../../components/UserHasRole';
 
 const GET_ADVENTURE_SELECTION = gql`
   query getAdventureSelection($id: ID!) {
@@ -96,7 +98,27 @@ const AdventureSelectionView = ({ id }) => (
       return (
         <DocumentTitle title={`Adventure Selection - Patrol ${patrolNumber}`}>
           <>
-            <Header as="h1">Adventure Selection - Patrol {patrolNumber}</Header>
+            <Grid columns={2}>
+              <Grid.Row>
+                <Grid.Column>
+                  {' '}
+                  <Header as="h1">
+                    Adventure Selection - Patrol {patrolNumber}
+                  </Header>
+                </Grid.Column>
+                <UserHasRole userRoles={['admin']}>
+                  <Grid.Column textAlign="right">
+                    <Link to={`edit`}>
+                      <Button icon labelPosition="left" color="teal">
+                        <Icon name="edit" />
+                        Edit
+                      </Button>
+                    </Link>
+                  </Grid.Column>
+                </UserHasRole>
+              </Grid.Row>
+            </Grid>
+
             <AdventureSelectionStatus
               adventureSelection={patrolAdventureSelection}
             />
