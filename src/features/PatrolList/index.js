@@ -21,6 +21,9 @@ const GET_PATROLS = gql`
         id
         email
       }
+      adventureSelection {
+        workflowState
+      }
     }
   }
 `;

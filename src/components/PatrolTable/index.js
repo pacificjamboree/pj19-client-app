@@ -27,6 +27,7 @@ class PatrolTable extends Component {
       textFilter: '',
       subcampFilter: 'all',
       paidFilter: 'all',
+      adventureSelectionStatusFilter: 'all',
     },
     sort: {
       column: this.props.defaultSortColumn || null,
@@ -58,7 +59,12 @@ class PatrolTable extends Component {
   }
 
   filterData() {
-    const { textFilter, subcampFilter, paidFilter } = this.state.filters;
+    const {
+      textFilter,
+      subcampFilter,
+      paidFilter,
+      adventureSelectionStatusFilter,
+    } = this.state.filters;
     let data = [...this.props.patrols];
 
     if (textFilter) {
@@ -87,6 +93,17 @@ class PatrolTable extends Component {
         break;
       default:
         data = data.filter(p => p.fullyPaid === paidFilter);
+    }
+
+    switch (adventureSelectionStatusFilter) {
+      case 'all':
+        break;
+      default:
+        data = data.filter(
+          p =>
+            p.adventureSelection.workflowState ===
+            adventureSelectionStatusFilter
+        );
     }
 
     this.setState({
@@ -128,6 +145,21 @@ class PatrolTable extends Component {
               ]}
               onChange={this.handleFilter}
               value={this.state.filters.paidFilter}
+            />
+            <Form.Field
+              style={{ borderRadius: '0' }}
+              control={Select}
+              name="adventureSelectionStatusFilter"
+              id="adventureSelectionStatusFilter"
+              options={[
+                { value: 'all', text: 'All Adventure Selection States' },
+                { value: 'defined', text: 'Not Started' },
+                { value: 'draft', text: 'Draft' },
+                { value: 'saved', text: 'Saved' },
+                { value: 'locked', text: 'Locked' },
+              ]}
+              onChange={this.handleFilter}
+              value={this.state.filters.adventureSelectionStatusFilter}
             />
           </Input>
         </div>
@@ -183,7 +215,22 @@ class PatrolTable extends Component {
                 >
                   Total
                 </Table.HeaderCell>
-                <Table.HeaderCell>Contact Email</Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'patrolScouter.email' ? direction : null}
+                  onClick={this.handleSort('patrolScouter.email')}
+                >
+                  Contact Email
+                </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={
+                    column === 'adventureSelection.workflowState'
+                      ? direction
+                      : null
+                  }
+                  onClick={this.handleSort('adventureSelection.workflowState')}
+                >
+                  Adventure Selection
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -202,6 +249,7 @@ class PatrolTable extends Component {
                   <Table.Cell>{p.numberOfScouters}</Table.Cell>
                   <Table.Cell>{p.totalUnitSize}</Table.Cell>
                   <Table.Cell>{p.patrolScouter.email}</Table.Cell>
+                  <Table.Cell>{p.adventureSelection.workflowState}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
