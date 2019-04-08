@@ -59,7 +59,7 @@ const PatrolDetail = ({ patrolNumber }) => (
             <Grid stackable divided columns={16}>
               <Grid.Column width={10}>
                 <Header as="h1">Patrol {patrolNumber}</Header>
-                <PatrolDetailTable patrol={data.patrol} />
+                <PatrolDetailTable admin={true} patrol={data.patrol} />
               </Grid.Column>
               <Grid.Column width={6}>
                 <div className={styles.metadata}>

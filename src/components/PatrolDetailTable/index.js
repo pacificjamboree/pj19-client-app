@@ -49,7 +49,20 @@ const AdventureSelectionStatus = ({
   }
 };
 
-const PatrolDetailTable = ({ patrol }) => {
+const AdventureSelectionAdminLink = ({
+  adventureSelection: { id, workflowState },
+}) => {
+  if (workflowState === 'defined') {
+    return <p>Adventure Selection has not been started</p>;
+  }
+  return (
+    <Link to={`/dashboard/adventureSelection/${id}`}>
+      View Adventure Selection
+    </Link>
+  );
+};
+
+const PatrolDetailTable = ({ admin, patrol }) => {
   const {
     groupName,
     patrolName,
@@ -69,7 +82,15 @@ const PatrolDetailTable = ({ patrol }) => {
             Adventure Selection
           </Table.Cell>
           <Table.Cell>
-            <AdventureSelectionStatus adventureSelection={adventureSelection} />
+            {admin ? (
+              <AdventureSelectionAdminLink
+                adventureSelection={adventureSelection}
+              />
+            ) : (
+              <AdventureSelectionStatus
+                adventureSelection={adventureSelection}
+              />
+            )}
           </Table.Cell>
         </Table.Row>
 
