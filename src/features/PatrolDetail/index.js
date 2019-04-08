@@ -31,6 +31,11 @@ const GET_PATROL = gql`
           username
         }
       }
+      adventureSelection {
+        id
+        _id
+        workflowState
+      }
     }
   }
 `;
