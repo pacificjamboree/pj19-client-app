@@ -49,8 +49,14 @@ const AdminDashboard = ({ user }) => {
             <PatrolList path="patrols" />
             <PatrolDetail path="patrols/:patrolNumber" />
             <PatrolImport path="patrols/import" />
-            <AdventureSelectionView path="/adventureSelection/:id" />
-            <AdventureSelectionEdit path="/adventureSelection/:id/edit" />
+            <AdventureSelectionView
+              user={user}
+              path="/adventureSelection/:id"
+            />
+            <AdventureSelectionEdit
+              user={user}
+              path="/adventureSelection/:id/edit"
+            />
 
             <NotFound default />
           </Router>
