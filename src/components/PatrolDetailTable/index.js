@@ -136,7 +136,7 @@ const PatrolDetailTable = ({ admin, patrol }) => {
           <Table.Cell>{totalUnitSize}</Table.Cell>
         </Table.Row>
 
-        <Table.Row>
+        {/* <Table.Row>
           <Table.Cell width={4} className={styles.label}>
             Final Payment Date
           </Table.Cell>
@@ -145,7 +145,7 @@ const PatrolDetailTable = ({ admin, patrol }) => {
               ? formatDate(finalPaymentReceived, 'YYYY-MM-DD')
               : 'n/a'}
           </Table.Cell>
-        </Table.Row>
+        </Table.Row> */}
 
         <Table.Row>
           <Table.Cell width={4} className={styles.label}>
