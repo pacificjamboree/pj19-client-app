@@ -37,6 +37,8 @@ const ADVENTURE_NAME_ID_FRAGMENT = gql`
     _id
     id
     name
+    themeName
+    fullName
   }
 `;
 

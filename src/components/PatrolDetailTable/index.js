@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'semantic-ui-react';
+import { Button, Table } from 'semantic-ui-react';
+import { Link } from '@reach/router';
 import formatDate from 'date-fns/format';
 import styles from './styles.module.css';
 
@@ -8,6 +9,44 @@ const SUBCAMPS = {
   O: 'Odyssey',
   S: 'Saga',
   V: 'Valley of Kings',
+};
+
+const AdventureSelectionStatus = ({
+  adventureSelection: { id, workflowState },
+}) => {
+  switch (workflowState) {
+    case 'defined':
+      return (
+        <>
+          <p>You have not submitted your Adventure Selection.</p>
+          <Button as={Link} to={`adventureSelection/${id}/edit`}>
+            Start Now
+          </Button>
+        </>
+      );
+
+    case 'draft':
+      return (
+        <>
+          <p>
+            Your Adventure Selection is in progress but has not been submitted.
+          </p>
+          <Button as={Link} to={`adventureSelection/${id}/edit`}>
+            Resume
+          </Button>
+        </>
+      );
+
+    default:
+      return (
+        <>
+          <p>Your Adventure Selection has been submitted.</p>
+          <Button as={Link} to={`adventureSelection/${id}/`}>
+            Review
+          </Button>
+        </>
+      );
+  }
 };
 
 const PatrolDetailTable = ({ patrol }) => {
@@ -20,10 +59,20 @@ const PatrolDetailTable = ({ patrol }) => {
     totalUnitSize,
     patrolScouter,
     finalPaymentReceived,
+    adventureSelection,
   } = patrol;
   return (
     <Table basic="very">
       <Table.Body>
+        <Table.Row>
+          <Table.Cell width={4} className={styles.label}>
+            Adventure Selection
+          </Table.Cell>
+          <Table.Cell>
+            <AdventureSelectionStatus adventureSelection={adventureSelection} />
+          </Table.Cell>
+        </Table.Row>
+
         <Table.Row>
           <Table.Cell width={4} className={styles.label}>
             Patrol Name
