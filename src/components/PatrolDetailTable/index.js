@@ -56,9 +56,12 @@ const AdventureSelectionAdminLink = ({
     return <p>Adventure Selection has not been started</p>;
   }
   return (
-    <Link to={`/dashboard/adventureSelection/${id}`}>
-      View Adventure Selection
-    </Link>
+    <span>
+      <Link to={`/dashboard/adventureSelection/${id}`}>
+        View Adventure Selection
+      </Link>{' '}
+      ({workflowState})
+    </span>
   );
 };
 
