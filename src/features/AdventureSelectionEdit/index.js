@@ -36,7 +36,7 @@ const GET_ADVENTURE_SELECTION = gql`
   }
 `;
 
-const Wrapper = ({ id }) => (
+const Wrapper = ({ id, user }) => (
   <Query query={GET_ADVENTURE_SELECTION} variables={{ id }}>
     {({ error, loading, data, client }) => {
       if (error) {
@@ -49,7 +49,10 @@ const Wrapper = ({ id }) => (
       const { patrolNumber } = data.patrolAdventureSelection.patrol;
       const { workflowState } = patrolAdventureSelection;
 
-      if (workflowState === 'saved' || workflowState === 'locked') {
+      if (
+        (workflowState === 'saved' || workflowState === 'locked') &&
+        !user.roles.includes('admin')
+      ) {
         return <Redirect noThrow to={`/dashboard/adventureSelection/${id}`} />;
       }
 
