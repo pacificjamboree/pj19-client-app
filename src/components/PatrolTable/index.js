@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import matchSorter from 'match-sorter';
 import debounce from 'lodash.debounce';
+import pluralize from 'pluralize';
 
 import handleSort from '../../lib/handleSort';
 import styles from './styles.module.css';
@@ -164,6 +165,9 @@ class PatrolTable extends Component {
           </Input>
         </div>
         <div className={styles.tableContainer}>
+          <p style={{ size: '1.5em', fontWeight: 'bold' }}>
+            {data.length} {pluralize('result', data.length)} found
+          </p>
           <Table celled selectable sortable striped>
             <Table.Header>
               <Table.Row>
