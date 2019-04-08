@@ -2,6 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Header, Loader, Segment } from 'semantic-ui-react';
+import { Redirect } from '@reach/router';
 import DocumentTitle from '../../components/DocumentTitle';
 import AdventureSelectionEditForm from '../../components/AdventureSelectionEditForm';
 
@@ -46,6 +47,11 @@ const Wrapper = ({ id }) => (
 
       const { adventures, patrolAdventureSelection } = data;
       const { patrolNumber } = data.patrolAdventureSelection.patrol;
+      const { workflowState } = patrolAdventureSelection;
+
+      if (workflowState === 'saved' || workflowState === 'locked') {
+        return <Redirect noThrow to={`/dashboard/adventureSelection/${id}`} />;
+      }
 
       return (
         <DocumentTitle title={`Adventure Selection - Patrol ${patrolNumber}`}>
