@@ -1,59 +1,110 @@
 import React from 'react';
-import { Statistic } from 'semantic-ui-react';
+import { Header, Table } from 'semantic-ui-react';
 import Query from '../../components/Query';
 import { ADMIN_DASHBOARD } from '../../graphql/queries';
+
+import styles from './styles.module.css';
 
 const Stats = () => {
   return (
     <Query query={ADMIN_DASHBOARD}>
       {({ data }) => {
-        const { offerOfServiceCount } = data;
+        const { offerOfServiceCount, patrolStats } = data;
         return (
           <>
-            <Statistic.Group widths={2}>
-              <Statistic>
-                <Statistic.Value>
-                  {offerOfServiceCount.required}
-                </Statistic.Value>
-                <Statistic.Label>Total OOS Required</Statistic.Label>
-              </Statistic>
-              <Statistic>
-                <Statistic.Value>
-                  {offerOfServiceCount.allocated}
-                </Statistic.Value>
-                <Statistic.Label>Total OOS Allocated</Statistic.Label>
-              </Statistic>
-            </Statistic.Group>
+            <Header as="h2">Offers of Service Stats</Header>
+            <Table basic="very">
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell width={4} className={styles.label}>
+                    Total Required
+                  </Table.Cell>
+                  <Table.Cell>{offerOfServiceCount.required}</Table.Cell>
+                </Table.Row>
 
-            <Statistic.Group widths={2}>
-              <Statistic>
-                <Statistic.Value>
-                  {offerOfServiceCount.adultRequired}
-                </Statistic.Value>
-                <Statistic.Label>Adult OOS Required</Statistic.Label>
-              </Statistic>
-              <Statistic>
-                <Statistic.Value>
-                  {offerOfServiceCount.adultAllocated}
-                </Statistic.Value>
-                <Statistic.Label>Adult OOS Allocated</Statistic.Label>
-              </Statistic>
-            </Statistic.Group>
+                <Table.Row>
+                  <Table.Cell width={4} className={styles.label}>
+                    Total Allocated
+                  </Table.Cell>
+                  <Table.Cell>{offerOfServiceCount.allocated}</Table.Cell>
+                </Table.Row>
 
-            <Statistic.Group widths={2}>
-              <Statistic>
-                <Statistic.Value>
-                  {offerOfServiceCount.assigned}
-                </Statistic.Value>
-                <Statistic.Label>Assigned OOS</Statistic.Label>
-              </Statistic>
-              <Statistic>
-                <Statistic.Value>
-                  {offerOfServiceCount.unassigned}
-                </Statistic.Value>
-                <Statistic.Label>Unassigned OOS</Statistic.Label>
-              </Statistic>
-            </Statistic.Group>
+                <Table.Row>
+                  <Table.Cell width={4} className={styles.label}>
+                    Percent Staffed
+                  </Table.Cell>
+                  <Table.Cell>
+                    {Math.floor(
+                      (offerOfServiceCount.allocated /
+                        offerOfServiceCount.required) *
+                        100
+                    )}
+                    %
+                  </Table.Cell>
+                </Table.Row>
+
+                <Table.Row>
+                  <Table.Cell width={4} className={styles.label}>
+                    Assigned to Adventures
+                  </Table.Cell>
+                  <Table.Cell>{offerOfServiceCount.assigned}</Table.Cell>
+                </Table.Row>
+
+                <Table.Row>
+                  <Table.Cell width={4} className={styles.label}>
+                    Unassigned
+                  </Table.Cell>
+                  <Table.Cell>{offerOfServiceCount.unassigned}</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+
+            <Header as="h2">Patrol Stats</Header>
+            <Table basic="very">
+              <Table.Row>
+                <Table.Cell width={4} className={styles.label}>
+                  Total Patrols
+                </Table.Cell>
+                <Table.Cell>{patrolStats.numberOfPatrols}</Table.Cell>
+              </Table.Row>
+
+              <Table.Row>
+                <Table.Cell width={4} className={styles.label}>
+                  Patrols with Three Scouters
+                </Table.Cell>
+                <Table.Cell>{patrolStats.patrolsWithThreeScouters}</Table.Cell>
+              </Table.Row>
+
+              <Table.Row>
+                <Table.Cell width={4} className={styles.label}>
+                  Total Scouts
+                </Table.Cell>
+                <Table.Cell>{patrolStats.totalScouts}</Table.Cell>
+              </Table.Row>
+
+              <Table.Row>
+                <Table.Cell width={4} className={styles.label}>
+                  Total Scouters
+                </Table.Cell>
+                <Table.Cell>{patrolStats.totalScouters}</Table.Cell>
+              </Table.Row>
+
+              <Table.Row>
+                <Table.Cell width={4} className={styles.label}>
+                  Total Adventure Participants
+                </Table.Cell>
+                <Table.Cell>
+                  {patrolStats.totalAdventureParticipants}
+                </Table.Cell>
+              </Table.Row>
+
+              <Table.Row>
+                <Table.Cell width={4} className={styles.label}>
+                  Total Overall Participants (incl 3rd Scouter)
+                </Table.Cell>
+                <Table.Cell>{patrolStats.totalParticipants}</Table.Cell>
+              </Table.Row>
+            </Table>
           </>
         );
       }}

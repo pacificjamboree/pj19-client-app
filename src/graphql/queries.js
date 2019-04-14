@@ -532,6 +532,14 @@ const ADMIN_DASHBOARD = gql`
       unassigned
     }
     # Count of Patrols
+    patrolStats {
+      numberOfPatrols
+      totalScouts
+      totalScouters
+      patrolsWithThreeScouters
+      totalParticipants
+      totalAdventureParticipants
+    }
   }
 `;
 
