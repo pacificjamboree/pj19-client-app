@@ -522,7 +522,6 @@ const CREATE_USER = gql`
 
 const ADMIN_DASHBOARD = gql`
   query {
-    # Count of OOS
     offerOfServiceCount {
       required
       adultRequired
@@ -531,7 +530,7 @@ const ADMIN_DASHBOARD = gql`
       assigned
       unassigned
     }
-    # Count of Patrols
+
     patrolStats {
       numberOfPatrols
       totalScouts
@@ -539,6 +538,13 @@ const ADMIN_DASHBOARD = gql`
       patrolsWithThreeScouters
       totalParticipants
       totalAdventureParticipants
+    }
+
+    patrolAdventureSelectionStats {
+      defined
+      draft
+      saved
+      total
     }
   }
 `;
