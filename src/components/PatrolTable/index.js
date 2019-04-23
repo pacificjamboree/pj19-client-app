@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Select, Table } from 'semantic-ui-react';
+import { Form, Grid, Input, Select, Table } from 'semantic-ui-react';
 import sortBy from 'lodash.sortby';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
@@ -117,9 +117,16 @@ class PatrolTable extends Component {
     const { column, direction } = this.state.sort;
     return (
       <>
-        <div>
-          <Input action type="text" placeholder="Filter Patrols">
-            <input name="textFilter" onChange={this.handleFilter} />
+        <Grid columns="equal" stackable>
+          <Grid.Column stretched>
+            <Input
+              type="text"
+              placeholder="Filter Patrols"
+              name="textFilter"
+              onChange={this.handleFilter}
+            />
+          </Grid.Column>
+          <Grid.Column stretched>
             <Form.Field
               style={{ borderRadius: '0' }}
               control={Select}
@@ -133,7 +140,9 @@ class PatrolTable extends Component {
               ]}
               onChange={this.handleFilter}
               value={this.state.filters.subcampFilter}
-            />{' '}
+            />
+          </Grid.Column>
+          <Grid.Column stretched>
             <Form.Field
               style={{ borderRadius: '0' }}
               control={Select}
@@ -147,13 +156,15 @@ class PatrolTable extends Component {
               onChange={this.handleFilter}
               value={this.state.filters.paidFilter}
             />
+          </Grid.Column>
+          <Grid.Column stretched>
             <Form.Field
               style={{ borderRadius: '0' }}
               control={Select}
               name="adventureSelectionStatusFilter"
               id="adventureSelectionStatusFilter"
               options={[
-                { value: 'all', text: 'All Adventure Selection States' },
+                { value: 'all', text: 'All Adventure Selections' },
                 { value: 'defined', text: 'Not Started' },
                 { value: 'draft', text: 'Draft' },
                 { value: 'saved', text: 'Saved' },
@@ -162,8 +173,8 @@ class PatrolTable extends Component {
               onChange={this.handleFilter}
               value={this.state.filters.adventureSelectionStatusFilter}
             />
-          </Input>
-        </div>
+          </Grid.Column>
+        </Grid>
         <div className={styles.tableContainer}>
           <p style={{ size: '1.5em', fontWeight: 'bold' }}>
             {data.length} {pluralize('result', data.length)} found

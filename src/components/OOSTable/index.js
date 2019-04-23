@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Dropdown,
   Form,
+  Grid,
   Icon,
   Input,
   Label,
@@ -142,9 +143,16 @@ class OOSList extends Component {
     const { column, direction } = this.state.sort;
     return (
       <>
-        <div>
-          <Input action type="text" placeholder="Filter">
-            <input name="textFilter" onChange={this.handleFilter} />
+        <Grid columns={3} stackable>
+          <Grid.Column stretched>
+            <Input
+              type="text"
+              placeholder="Filter"
+              name="textFilter"
+              onChange={this.handleFilter}
+            />
+          </Grid.Column>
+          <Grid.Column stretched>
             <Form.Field
               style={{ borderRadius: '0' }}
               control={Select}
@@ -161,6 +169,8 @@ class OOSList extends Component {
               onChange={this.handleFilter}
               value={this.state.filters.adventureFilter}
             />
+          </Grid.Column>
+          <Grid.Column stretched>
             <Form.Field
               style={{ borderRadius: '0' }}
               control={Select}
@@ -174,8 +184,8 @@ class OOSList extends Component {
               onChange={this.handleFilter}
               value={this.state.filters.isYouthFilter}
             />
-          </Input>
-        </div>
+          </Grid.Column>
+        </Grid>
         <div className={styles.tableContainer}>
           <p style={{ size: '1.5em', fontWeight: 'bold' }}>
             {data.length} {pluralize('result', data.length)} found
