@@ -13,7 +13,7 @@ const AdventureManagerDashboard = ({ user }) => {
   const adventureSlug = user.OfferOfService.assignment.adventureCode;
   return (
     <Container>
-      <Grid>
+      <Grid stackable>
         <Grid.Column width={3}>
           <Nav adventureSlug={adventureSlug} />
         </Grid.Column>

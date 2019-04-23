@@ -10,7 +10,7 @@ import AdventureSelectionView from '../AdventureSelectionView';
 const PatrolScouterDashbaord = ({ user }) => {
   return (
     <Container>
-      <Grid>
+      <Grid stackable>
         <Grid.Column width={3}>
           <Nav />
         </Grid.Column>
