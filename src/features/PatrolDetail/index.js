@@ -46,7 +46,7 @@ const PatrolDetail = ({ patrolNumber }) => (
       <Query query={GET_PATROL} variables={{ patrolNumber }}>
         {({ error, loading, data }) => {
           if (error) return <p>Error</p>;
-          if (loading) return <Loader content="Loading Patrol" />;
+          if (loading) return <Loader active content="Loading Patrol" />;
           if (!data.patrol) return <NotFound />;
           const {
             id,

@@ -21,7 +21,6 @@ import AdventureSelectionView from '../AdventureSelectionView';
 import AdventureSelectionEdit from '../AdventureSelectionEdit';
 
 const AdminDashboard = ({ user }) => {
-  console.log(React.version);
   return (
     <Container>
       <Grid stackable>

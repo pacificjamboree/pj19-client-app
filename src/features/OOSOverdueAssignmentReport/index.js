@@ -32,7 +32,7 @@ const OverdueOOSAssignmentReport = () => (
       {({ data, loading, error }) => {
         console.log({ data });
         if (error) return <p>Error</p>;
-        if (loading) return <Loader />;
+        if (loading) return <Loader active />;
 
         return (
           <>

@@ -39,7 +39,7 @@ const PatrolList = () => (
           }
 
           if (loading) {
-            return <Loader content="Loading Patrols" />;
+            return <Loader active content="Loading Patrols" />;
           }
 
           return (

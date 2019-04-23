@@ -27,20 +27,18 @@ const QUERY = gql`
 const OOSList = () => (
   <DocumentTitle title="Offers of Service">
     <Container>
+      <Header as="h1">Offers of Service</Header>
       <Query query={QUERY}>
         {({ data, loading, error }) => {
           if (error) return <p>Error</p>;
-          if (loading) return <Loader />;
+          if (loading) return <Loader active content="Loading OOS" />;
           const { offersOfService, adventures } = data;
           return (
-            <>
-              <Header as="h1">Offers of Service</Header>
-              <OOSTable
-                defaultSortColumn="oosNumber"
-                offersOfService={offersOfService}
-                adventures={adventures}
-              />
-            </>
+            <OOSTable
+              defaultSortColumn="oosNumber"
+              offersOfService={offersOfService}
+              adventures={adventures}
+            />
           );
         }}
       </Query>

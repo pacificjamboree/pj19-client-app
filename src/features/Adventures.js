@@ -50,8 +50,9 @@ const Adventures = ({ workflowState = 'active' }) => {
               console.log(error);
               return <p>Error</p>;
             }
-            if (loading) return <Loader active />;
             if (data) {
+              if (loading)
+                return <Loader active content="Loading Adventures" />;
               const { adventures } = data;
 
               const GROUP_A = adventures
