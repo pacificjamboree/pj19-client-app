@@ -38,6 +38,7 @@ export default data => {
     return {
       ...filtered,
       patrolNumber: r.patrolNumber.replace(/^\w-/, ''),
+      subcamp: r.patrolNumber.match(/[A-Za-z]/)[0],
     };
   });
 };
