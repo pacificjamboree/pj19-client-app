@@ -40,3 +40,8 @@ export const patrolFieldMap = {
   Scouts: 'numberOfScouts',
   Scouters: 'numberOfScouters',
 };
+
+export const paymentFieldMap = {
+  'Unit Number': 'patrolNumber',
+  'Date Final Payment Received': 'finalPaymentDate',
+};

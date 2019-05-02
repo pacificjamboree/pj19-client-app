@@ -33,6 +33,9 @@ const Nav = () => (
         <Menu.Item>
           <Link to="patrols/import">Import Patrols</Link>
         </Menu.Item>
+        <Menu.Item>
+          <Link to="patrols/import/payment">Import Patrol Payment File</Link>
+        </Menu.Item>
       </Menu.Menu>
     </Menu.Item>
 
