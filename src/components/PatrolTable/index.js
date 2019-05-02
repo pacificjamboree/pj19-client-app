@@ -246,6 +246,12 @@ class PatrolTable extends Component {
                 >
                   Adventure Selection
                 </Table.HeaderCell>
+                <Table.HeaderCell
+                  sorted={column === 'finalPaymentDate' ? direction : null}
+                  onClick={this.handleSort('finalPaymentDate')}
+                >
+                  Final Payment Date
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
@@ -265,6 +271,7 @@ class PatrolTable extends Component {
                   <Table.Cell>{p.totalUnitSize}</Table.Cell>
                   <Table.Cell>{p.patrolScouter.email}</Table.Cell>
                   <Table.Cell>{p.adventureSelection.workflowState}</Table.Cell>
+                  <Table.Cell>{p.finalPaymentDate}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

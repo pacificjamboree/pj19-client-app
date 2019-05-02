@@ -17,6 +17,7 @@ const GET_PATROLS = gql`
       totalUnitSize
       subcamp
       fullyPaid
+      finalPaymentDate
       patrolScouter {
         id
         email
