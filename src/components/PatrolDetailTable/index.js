@@ -74,7 +74,7 @@ const PatrolDetailTable = ({ admin, patrol }) => {
     numberOfScouters,
     totalUnitSize,
     patrolScouter,
-    finalPaymentReceived,
+    finalPaymentDate,
     adventureSelection,
   } = patrol;
   return (
@@ -139,16 +139,16 @@ const PatrolDetailTable = ({ admin, patrol }) => {
           <Table.Cell>{totalUnitSize}</Table.Cell>
         </Table.Row>
 
-        {/* <Table.Row>
+        <Table.Row>
           <Table.Cell width={4} className={styles.label}>
             Final Payment Date
           </Table.Cell>
           <Table.Cell>
-            {finalPaymentReceived
-              ? formatDate(finalPaymentReceived, 'YYYY-MM-DD')
-              : 'n/a'}
+            {finalPaymentDate
+              ? formatDate(finalPaymentDate, 'YYYY-MM-DD')
+              : 'No payment infomration received from registrar'}
           </Table.Cell>
-        </Table.Row> */}
+        </Table.Row>
 
         <Table.Row>
           <Table.Cell width={4} className={styles.label}>
