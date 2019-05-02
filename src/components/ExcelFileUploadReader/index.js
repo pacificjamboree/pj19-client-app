@@ -45,7 +45,10 @@ class ExcelFileUploadReader extends Component {
     const fileContent = await ExcelFileUploadReader.readUploadedFileAsBinary(
       file
     );
-    const workbook = XLSX.read(fileContent, { type: 'binary' });
+    const workbook = XLSX.read(fileContent, {
+      type: 'binary',
+      cellDates: true,
+    });
     this.props.onReadFile(workbook);
   }
 
