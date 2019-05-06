@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
-import { Grid, Header, Label, Loader } from 'semantic-ui-react';
+import { Button, Grid, Header, Icon, Label, Loader } from 'semantic-ui-react';
 
 import { OFFERS_OF_SERVICE_FOR_ADVENTURE } from '../../graphql/queries';
 import AdventureOOSTable from './table';
 import Export from './export';
+import CopyEmailAddressesModal from '../CopyEmailAddressesModal';
 
 class AdventureOOSList extends Component {
   render() {
@@ -26,6 +27,19 @@ class AdventureOOSList extends Component {
             o => !o.isYouth
           ).length;
 
+          const emailAddresses = [
+            ...new Set(
+              [].concat(
+                ...offersOfServiceForAdventure.map(oos => [
+                  oos.email,
+                  oos.parentEmail,
+                ])
+              )
+            ),
+          ]
+            .filter(Boolean)
+            .join(', ');
+
           return (
             <>
               <Grid columns={2}>
@@ -34,6 +48,16 @@ class AdventureOOSList extends Component {
                     <Header as="h2">Offers of Service</Header>
                   </Grid.Column>
                   <Grid.Column textAlign="right">
+                    <CopyEmailAddressesModal
+                      trigger={
+                        <Button icon labelPosition="left">
+                          <Icon name="copy outline" />
+                          Copy Email Addresses
+                        </Button>
+                      }
+                      description="OOS email addresses. Includes parent email addresses."
+                      emailAddresses={emailAddresses}
+                    />
                     <Export
                       adventureName={adventureName}
                       data={offersOfServiceForAdventure}
@@ -41,7 +65,7 @@ class AdventureOOSList extends Component {
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
-              <div>
+              <div style={{ marginTop: '1em' }}>
                 <Label>
                   OOS Required
                   <Label.Detail>{oosRequired}</Label.Detail>

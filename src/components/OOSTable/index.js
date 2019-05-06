@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Button,
   Dropdown,
   Form,
   Grid,
@@ -18,6 +19,7 @@ import debounce from 'lodash.debounce';
 import pluralize from 'pluralize';
 import SendWelcomeEmail from '../../components/SendWelcomeEmail';
 import SendAssignmentEmail from '../../components/SendAssignmentEmail';
+import CopyEmailAddressesModal from '../../components/CopyEmailAddressesModal';
 import handleSort from '../../lib/handleSort';
 import styles from './styles.module.css';
 
@@ -143,6 +145,12 @@ class OOSList extends Component {
   render() {
     const { data } = this.state;
     const { column, direction } = this.state.sort;
+    const emailAddresses = [
+      ...new Set([].concat(...data.map(oos => [oos.email, oos.parentEmail]))),
+    ]
+      .filter(Boolean)
+      .join(', ');
+
     return (
       <>
         <Grid columns={3} stackable>
@@ -192,6 +200,16 @@ class OOSList extends Component {
           <p style={{ size: '1.5em', fontWeight: 'bold' }}>
             {data.length} {pluralize('result', data.length)} found
           </p>
+          <CopyEmailAddressesModal
+            trigger={
+              <Button icon labelPosition="left" size="tiny">
+                <Icon name="copy outline" />
+                Copy Email Addresses
+              </Button>
+            }
+            description="OOS email addresses. Includes parent email addresses."
+            emailAddresses={emailAddresses}
+          />
           <Table celled selectable sortable striped>
             <Table.Header>
               <Table.Row>

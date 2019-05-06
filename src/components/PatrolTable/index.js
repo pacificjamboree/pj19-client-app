@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { Form, Grid, Input, Select, Table } from 'semantic-ui-react';
+import {
+  Button,
+  Form,
+  Grid,
+  Icon,
+  Input,
+  Select,
+  Table,
+} from 'semantic-ui-react';
 import sortBy from 'lodash.sortby';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import matchSorter from 'match-sorter';
 import debounce from 'lodash.debounce';
 import pluralize from 'pluralize';
-
+import CopyEmailAddressesModal from '../CopyEmailAddressesModal';
 import handleSort from '../../lib/handleSort';
 import styles from './styles.module.css';
 
@@ -179,6 +187,18 @@ class PatrolTable extends Component {
           <p style={{ size: '1.5em', fontWeight: 'bold' }}>
             {data.length} {pluralize('result', data.length)} found
           </p>
+          <CopyEmailAddressesModal
+            trigger={
+              <Button icon labelPosition="left" size="tiny">
+                <Icon name="copy outline" />
+                Copy Email Addresses
+              </Button>
+            }
+            description="Patrol Scouter Email Addresses"
+            emailAddresses={[
+              ...new Set(data.map(d => d.patrolScouter.email)),
+            ].join(', ')}
+          />
           <Table celled selectable sortable striped>
             <Table.Header>
               <Table.Row>
