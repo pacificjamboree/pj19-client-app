@@ -116,7 +116,9 @@ class OOSList extends Component {
         break;
 
       default:
-        data = data.filter(a => a.assignedAdventureId === adventureFilter);
+        data = data.filter(
+          a => a.assignment && a.assignment._id === adventureFilter
+        );
         break;
     }
 
