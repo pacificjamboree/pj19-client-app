@@ -100,6 +100,8 @@ class PatrolPaymentImporter extends Component {
                                 <Table.Cell>{date}</Table.Cell>
                               </Table.Row>
                             );
+                          } else {
+                            return null;
                           }
                         })}
                       </Table.Body>
