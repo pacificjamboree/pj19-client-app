@@ -20,6 +20,7 @@ import PatrolImport from '../PatrolImport';
 import PatrolPaymentImport from '../PatrolPaymentImport';
 import AdventureSelectionView from '../AdventureSelectionView';
 import AdventureSelectionEdit from '../AdventureSelectionEdit';
+import PatrolAdventureSelectionStats from '../PatrolAdventureSelectionStats';
 
 const AdminDashboard = ({ user }) => {
   return (
@@ -51,6 +52,11 @@ const AdminDashboard = ({ user }) => {
             <PatrolDetail path="patrols/:patrolNumber" />
             <PatrolImport path="patrols/import" />
             <PatrolPaymentImport path="patrols/import/payment" />
+
+            <PatrolAdventureSelectionStats
+              user={user}
+              path="/adventureSelection/stats"
+            />
 
             <AdventureSelectionView
               user={user}

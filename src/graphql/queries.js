@@ -545,6 +545,7 @@ const ADMIN_DASHBOARD = gql`
       draft
       saved
       total
+      wantExtraFreePeriod
     }
   }
 `;

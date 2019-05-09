@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Header, Table } from 'semantic-ui-react';
+import { Link } from '@reach/router';
 import Query from '../../components/Query';
 import { ADMIN_DASHBOARD } from '../../graphql/queries';
 
@@ -119,6 +120,9 @@ const Stats = () => {
 
               <Grid.Column>
                 <Header as="h2">Patrol Adventure Selection Stats</Header>
+                <p>
+                  <Link to="./adventureSelection/stats">Detailed Stats</Link>
+                </p>
                 <Table basic="very">
                   <Table.Row>
                     <Table.Cell width={4} className={styles.label}>
@@ -153,6 +157,15 @@ const Stats = () => {
                     </Table.Cell>
                     <Table.Cell>
                       {patrolAdventureSelectionStats.saved}
+                    </Table.Cell>
+                  </Table.Row>
+
+                  <Table.Row>
+                    <Table.Cell width={4} className={styles.label}>
+                      Want Extra Free Period
+                    </Table.Cell>
+                    <Table.Cell>
+                      {patrolAdventureSelectionStats.wantExtraFreePeriod}
                     </Table.Cell>
                   </Table.Row>
                 </Table>
