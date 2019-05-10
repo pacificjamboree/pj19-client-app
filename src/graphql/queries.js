@@ -39,6 +39,7 @@ const GET_DASHBOARD_VIEWER = gql`
           patrolName
           patrolNumber
           fullyPaid
+          finalPaymentDate
           numberOfScouts
           numberOfScouters
           totalUnitSize
