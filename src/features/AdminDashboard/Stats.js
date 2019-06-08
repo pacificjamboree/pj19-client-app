@@ -70,51 +70,53 @@ const Stats = () => {
               <Grid.Column>
                 <Header as="h2">Patrol Stats</Header>
                 <Table basic="very">
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Total Patrols
-                    </Table.Cell>
-                    <Table.Cell>{patrolStats.numberOfPatrols}</Table.Cell>
-                  </Table.Row>
+                  <Table.Body>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Total Patrols
+                      </Table.Cell>
+                      <Table.Cell>{patrolStats.numberOfPatrols}</Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Patrols with Three Scouters
-                    </Table.Cell>
-                    <Table.Cell>
-                      {patrolStats.patrolsWithThreeScouters}
-                    </Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Patrols with Three Scouters
+                      </Table.Cell>
+                      <Table.Cell>
+                        {patrolStats.patrolsWithThreeScouters}
+                      </Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Total Scouts
-                    </Table.Cell>
-                    <Table.Cell>{patrolStats.totalScouts}</Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Total Scouts
+                      </Table.Cell>
+                      <Table.Cell>{patrolStats.totalScouts}</Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Total Scouters
-                    </Table.Cell>
-                    <Table.Cell>{patrolStats.totalScouters}</Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Total Scouters
+                      </Table.Cell>
+                      <Table.Cell>{patrolStats.totalScouters}</Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Total Adventure Participants
-                    </Table.Cell>
-                    <Table.Cell>
-                      {patrolStats.totalAdventureParticipants}
-                    </Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Total Adventure Participants
+                      </Table.Cell>
+                      <Table.Cell>
+                        {patrolStats.totalAdventureParticipants}
+                      </Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Total Overall Participants (incl 3rd Scouter)
-                    </Table.Cell>
-                    <Table.Cell>{patrolStats.totalParticipants}</Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Total Overall Participants (incl 3rd Scouter)
+                      </Table.Cell>
+                      <Table.Cell>{patrolStats.totalParticipants}</Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
                 </Table>
               </Grid.Column>
 
@@ -124,50 +126,52 @@ const Stats = () => {
                   <Link to="./adventureSelection/stats">Detailed Stats</Link>
                 </p>
                 <Table basic="very">
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Total Patrol Adventure Selections
-                    </Table.Cell>
-                    <Table.Cell>
-                      {patrolAdventureSelectionStats.total}
-                    </Table.Cell>
-                  </Table.Row>
+                  <Table.Body>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Total Patrol Adventure Selections
+                      </Table.Cell>
+                      <Table.Cell>
+                        {patrolAdventureSelectionStats.total}
+                      </Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Not Started (defined)
-                    </Table.Cell>
-                    <Table.Cell>
-                      {patrolAdventureSelectionStats.defined}
-                    </Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Not Started (defined)
+                      </Table.Cell>
+                      <Table.Cell>
+                        {patrolAdventureSelectionStats.defined}
+                      </Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Draft
-                    </Table.Cell>
-                    <Table.Cell>
-                      {patrolAdventureSelectionStats.draft}
-                    </Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Draft
+                      </Table.Cell>
+                      <Table.Cell>
+                        {patrolAdventureSelectionStats.draft}
+                      </Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Saved
-                    </Table.Cell>
-                    <Table.Cell>
-                      {patrolAdventureSelectionStats.saved}
-                    </Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Saved
+                      </Table.Cell>
+                      <Table.Cell>
+                        {patrolAdventureSelectionStats.saved}
+                      </Table.Cell>
+                    </Table.Row>
 
-                  <Table.Row>
-                    <Table.Cell width={4} className={styles.label}>
-                      Want Extra Free Period
-                    </Table.Cell>
-                    <Table.Cell>
-                      {patrolAdventureSelectionStats.wantExtraFreePeriod}
-                    </Table.Cell>
-                  </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4} className={styles.label}>
+                        Want Extra Free Period
+                      </Table.Cell>
+                      <Table.Cell>
+                        {patrolAdventureSelectionStats.wantExtraFreePeriod}
+                      </Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
                 </Table>
               </Grid.Column>
             </Grid>
