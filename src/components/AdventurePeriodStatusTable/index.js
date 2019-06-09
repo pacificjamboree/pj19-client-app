@@ -25,7 +25,7 @@ const TableBody = ({ capacity, periods, adventure }) => {
       <Table.Row>
         <Table.Cell>Assigned</Table.Cell>
         {periods.map((p, i) => (
-          <Table.Cell key={`body.${p.id}`} textAlign="center">
+          <Table.Cell key={`body-assigned.${p.id}`} textAlign="center">
             {p.participantsAssigned[totalField]}
           </Table.Cell>
         ))}
@@ -33,7 +33,7 @@ const TableBody = ({ capacity, periods, adventure }) => {
       <Table.Row>
         <Table.Cell>Available</Table.Cell>
         {periods.map(p => (
-          <Table.Cell textAlign="center">
+          <Table.Cell key={`body-available.${p.id}`} textAlign="center">
             {capacity - p.participantsAssigned[totalField]}
           </Table.Cell>
         ))}
@@ -64,7 +64,7 @@ const AdventurePeriodStatusTable = ({ adventure }) => {
       <p>Total Participants Assigned: {totalAssigned}</p>
       <p>Total Vacant: {totalCapacity - totalAssigned}</p>
       {chunks.map((chunk, i) => (
-        <Table celled definition>
+        <Table key={`table-${adventure.id}-${i}`} celled definition>
           <TableHeader adventure={adventure} periods={chunk} />
           <TableBody
             adventure={adventure}
