@@ -53,10 +53,12 @@ const Nav = () => (
     </Menu.Item>
 
     <Menu.Item>
-      <Menu.Header>Users</Menu.Header>
+      <Menu.Header>Scheduling</Menu.Header>
 
       <Menu.Menu>
-        <Menu.Item>User List</Menu.Item>
+        <Menu.Item>
+          <Link to="adventure_status">Adventure Status Report</Link>
+        </Menu.Item>
       </Menu.Menu>
     </Menu.Item>
 

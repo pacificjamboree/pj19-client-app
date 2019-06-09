@@ -21,6 +21,7 @@ import PatrolPaymentImport from '../PatrolPaymentImport';
 import AdventureSelectionView from '../AdventureSelectionView';
 import AdventureSelectionEdit from '../AdventureSelectionEdit';
 import PatrolAdventureSelectionStats from '../PatrolAdventureSelectionStats';
+import AdventureStatus from '../AdventureStatus';
 
 const AdminDashboard = ({ user }) => {
   return (
@@ -66,6 +67,8 @@ const AdminDashboard = ({ user }) => {
               user={user}
               path="/adventureSelection/:id/edit"
             />
+
+            <AdventureStatus path="/adventure_status" />
 
             <NotFound default />
           </Router>
