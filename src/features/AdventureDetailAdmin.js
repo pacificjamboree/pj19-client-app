@@ -16,6 +16,7 @@ import PlanDoReview from '../components/PlanDoReview';
 import UserHasRole from '../components/UserHasRole';
 import AdventureOOSList from '../components/AdventureOOSList';
 import DocumentTitle from '../components/DocumentTitle';
+import AdventurePeriodList from '../components/AdventurePeriodList';
 
 const GET_ADVENTURE_BY_ID = gql`
   query adventureById($searchField: AdventureSearchFields!, $value: String!) {
@@ -37,6 +38,25 @@ const GET_ADVENTURE_BY_ID = gql`
       pdrDo
       pdrReview
       pdrSafetyTips
+      scoutOnly
+      adventurePeriods {
+        id
+        _id
+        startAt
+        participantsAssigned {
+          scouts
+          scouters
+          total
+        }
+        patrols {
+          id
+          _id
+          patrolNumber
+          patrolName
+          numberOfScouts
+          numberOfScouters
+        }
+      }
     }
   }
 `;
@@ -119,6 +139,10 @@ const AdventureDetail = ({ id }) => (
                   adultOOSRequired={adventure.adultOOSRequired}
                   adventureName={adventure.name}
                 />
+              </UserHasRole>
+
+              <UserHasRole userRoles={ADMIN_AND_MANAGER}>
+                <AdventurePeriodList adventure={adventure} />
               </UserHasRole>
             </>
           </DocumentTitle>
