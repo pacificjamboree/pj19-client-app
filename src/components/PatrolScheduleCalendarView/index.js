@@ -37,7 +37,7 @@ MyWeek.title = date => {
 };
 
 const eventStyleGetter = event => {
-  const { location, premiumAdventure } = event.adventure;
+  const { location } = event.adventure;
   const backgroundColor = location === 'onsite' ? '#00b5ad' : '#5700b5';
   const borderColor = location === 'onsite' ? '#1f9c96' : '#5c1f9c';
   const style = {
