@@ -23,11 +23,13 @@ import AdventureSelectionEdit from '../AdventureSelectionEdit';
 import PatrolAdventureSelectionStats from '../PatrolAdventureSelectionStats';
 import AdventureStatus from '../AdventureStatus';
 
+import styles from './styles.module.css';
+
 const AdminDashboard = ({ user }) => {
   return (
     <Container>
       <Grid stackable>
-        <Grid.Column width={3}>
+        <Grid.Column width={3} className={styles.noprint}>
           <Nav />
         </Grid.Column>
         <Grid.Column width={13}>
