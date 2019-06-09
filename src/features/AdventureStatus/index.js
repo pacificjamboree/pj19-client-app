@@ -9,6 +9,7 @@ const QUERY = gql`
     adventures(filters: { workflowState: active }) {
       id
       _id
+      adventureCode
       fullName
       capacityPerPeriod
       scoutOnly

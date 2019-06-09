@@ -2,6 +2,7 @@ import React from 'react';
 import { Header, Table } from 'semantic-ui-react';
 import format from 'date-fns/format';
 import chunk from 'lodash.chunk';
+import { Link } from '@reach/router';
 
 const TableHeader = ({ periods }) => {
   return (
@@ -54,7 +55,12 @@ const AdventurePeriodStatusTable = ({ adventure }) => {
 
   return (
     <>
-      <Header as="h3">{adventure.fullName}</Header>
+      <Header as="h3">
+        <Link to={`/dashboard/adventures/${adventure.adventureCode}`}>
+          {adventure.fullName}{' '}
+        </Link>
+      </Header>
+
       {adventure.scoutOnly ? <Header as="h4">Scouts Only</Header> : null}
       <p>
         Capacity Per Period: {adventure.capacityPerPeriod}{' '}
