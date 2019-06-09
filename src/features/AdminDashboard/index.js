@@ -22,6 +22,7 @@ import AdventureSelectionView from '../AdventureSelectionView';
 import AdventureSelectionEdit from '../AdventureSelectionEdit';
 import PatrolAdventureSelectionStats from '../PatrolAdventureSelectionStats';
 import AdventureStatus from '../AdventureStatus';
+import PatrolScheduleStatus from '../PatrolScheduleStatus';
 
 import styles from './styles.module.css';
 
@@ -71,6 +72,7 @@ const AdminDashboard = ({ user }) => {
             />
 
             <AdventureStatus path="/adventure_status" />
+            <PatrolScheduleStatus path="/patrol_schedule_status" />
 
             <NotFound default />
           </Router>

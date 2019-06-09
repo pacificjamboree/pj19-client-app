@@ -59,6 +59,9 @@ const Nav = () => (
         <Menu.Item>
           <Link to="adventure_status">Adventure Status Report</Link>
         </Menu.Item>
+        <Menu.Item>
+          <Link to="patrol_schedule_status">Patrol Schedule Status Report</Link>
+        </Menu.Item>
       </Menu.Menu>
     </Menu.Item>
 
