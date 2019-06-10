@@ -17,6 +17,10 @@ const QUERY = gql`
         id
         startAt
         endAt
+        patrolsAssignedCount
+        patrols {
+          id
+        }
         participantsAssigned {
           scouts
           scouters

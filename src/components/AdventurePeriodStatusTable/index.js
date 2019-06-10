@@ -51,6 +51,10 @@ const AdventurePeriodStatusTable = ({ adventure }) => {
   const totalCapacity =
     adventure.capacityPerPeriod * adventure.adventurePeriods.length;
 
+  const patrolsAssignedCount = adventure.adventurePeriods.reduce(
+    (prev, period) => period.patrolsAssignedCount + prev,
+    0
+  );
   const chunks = chunk(adventure.adventurePeriods, 12);
 
   return (
@@ -69,6 +73,7 @@ const AdventurePeriodStatusTable = ({ adventure }) => {
       <p>Total Capacity: {totalCapacity}</p>
       <p>Total Participants Assigned: {totalAssigned}</p>
       <p>Total Vacant: {totalCapacity - totalAssigned}</p>
+      <p>Patrols assigned: {patrolsAssignedCount}</p>
       {chunks.map((chunk, i) => (
         <Table key={`table-${adventure.id}-${i}`} celled definition>
           <TableHeader adventure={adventure} periods={chunk} />
