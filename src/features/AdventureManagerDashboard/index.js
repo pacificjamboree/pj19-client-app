@@ -20,6 +20,13 @@ const AdventureManagerDashboard = ({ user }) => {
         <Grid.Column width={13}>
           <Router>
             <Home user={user} path="/" />
+            {user.OfferOfService.managesAdventures.map(a => (
+              <AdventureDetailAdmin
+                key={a.id}
+                id={a.id}
+                path={`adventures/${a.adventureCode}`}
+              />
+            ))}
             <AdventureDetailAdmin
               id={adventureId}
               path={`adventures/${adventureSlug}`}
@@ -47,14 +54,15 @@ const Home = ({ user }) => {
   return (
     <>
       <Header as="h1">Hello, {name}</Header>
-      <p>
-        You are an Adventure Manager for{' '}
-        <Link to={`adventures/${user.OfferOfService.assignment.adventureCode}`}>
-          {OfferOfService.assignment.fullName}
-        </Link>
-        .
-      </p>
-      <Stats adventureId={OfferOfService.assignment.id} />
+      <p>You are an Adventure Manager for:</p>
+      <ul>
+        {OfferOfService.managesAdventures.map(a => (
+          <li key={a.id}>
+            <Link to={`adventures/${a.adventureCode}`}>{a.fullName}</Link>
+          </li>
+        ))}
+      </ul>
+      {/* <Stats adventureId={OfferOfService.assignment.id} /> */}
     </>
   );
 };

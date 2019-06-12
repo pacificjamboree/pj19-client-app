@@ -28,6 +28,12 @@ const GET_DASHBOARD_VIEWER = gql`
       roles
       OfferOfService {
         ...OffersOfServiceFragment
+        managesAdventures {
+          id
+          _id
+          adventureCode
+          fullName
+        }
       }
       PatrolScouter {
         id
