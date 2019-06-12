@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import sortBy from 'lodash.sortby';
 import { Link } from '@reach/router';
+import formatDate from 'date-fns/format';
 
 const QUERY = gql`
   query patrols {
@@ -13,6 +14,7 @@ const QUERY = gql`
       patrolName
       groupName
       fullyPaid
+      finalPaymentDate
       fullyScheduled
       numberOfScouts
       numberOfScouters
@@ -34,10 +36,10 @@ const PatrolScheduleStatus = () => {
           if (error) return <p>Error</p>;
           const { patrols } = data;
           const full = patrols.filter(p => p.fullyScheduled);
-          const notFull = sortBy(
-            patrols.filter(p => !p.fullyScheduled),
-            'schedule.hoursScheduled'
-          );
+          const notFull = sortBy(patrols.filter(p => !p.fullyScheduled), [
+            'finalPaymentDate',
+            'patrolNumber',
+          ]);
 
           return (
             <>
@@ -63,6 +65,7 @@ const PatrolTable = ({ patrols }) => {
           <Table.HeaderCell>Size</Table.HeaderCell>
           <Table.HeaderCell>Hours Scheduled (of 33)</Table.HeaderCell>
           <Table.HeaderCell>Fully Paid</Table.HeaderCell>
+          <Table.HeaderCell>Payment Date</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -78,6 +81,11 @@ const PatrolTable = ({ patrols }) => {
             <Table.Cell collapsing>{patrol.schedule.hoursScheduled}</Table.Cell>
             <Table.Cell collapsing>
               {patrol.fullyPaid ? 'Yes' : 'No'}
+            </Table.Cell>
+            <Table.Cell collapsing>
+              {patrol.finalPaymentDate
+                ? formatDate(patrol.finalPaymentDate, 'YYYY-MM-DD')
+                : 'n/a'}
             </Table.Cell>
           </Table.Row>
         ))}
