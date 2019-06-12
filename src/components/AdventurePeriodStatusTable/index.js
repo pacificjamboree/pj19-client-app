@@ -33,11 +33,22 @@ const TableBody = ({ capacity, periods, adventure }) => {
       </Table.Row>
       <Table.Row>
         <Table.Cell>Available</Table.Cell>
-        {periods.map(p => (
-          <Table.Cell key={`body-available.${p.id}`} textAlign="center">
-            {capacity - p.participantsAssigned[totalField]}
-          </Table.Cell>
-        ))}
+        {periods.map(p => {
+          const available = capacity - p.participantsAssigned[totalField];
+          const backgroundColor =
+            available >= 6 ? '#d2f0d2' : available === 5 ? '#ffffab' : 'none';
+          return (
+            <Table.Cell
+              style={{
+                backgroundColor,
+              }}
+              key={`body-available.${p.id}`}
+              textAlign="center"
+            >
+              {available}
+            </Table.Cell>
+          );
+        })}
       </Table.Row>
     </Table.Body>
   );
