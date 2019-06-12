@@ -6,7 +6,6 @@ import NotFound from '../NotFound';
 import AdventureDetailAdmin from '../AdventureDetailAdmin';
 import AdventureEdit from '../AdventureEdit';
 import OOSDetail from '../OOSDetail';
-import Stats from './Stats';
 
 const AdventureManagerDashboard = ({ user }) => {
   const adventureId = user.OfferOfService.assignment.id;
@@ -62,7 +61,6 @@ const Home = ({ user }) => {
           </li>
         ))}
       </ul>
-      {/* <Stats adventureId={OfferOfService.assignment.id} /> */}
     </>
   );
 };
