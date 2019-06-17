@@ -1,0 +1,7 @@
+.ui.dimmer .ui.loader {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.ui.loader:after {
+  border-color: #54585a transparent transparent !important;
+}
