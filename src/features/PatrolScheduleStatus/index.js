@@ -22,6 +22,7 @@ const QUERY = gql`
       schedule {
         hoursScheduled
       }
+      scheduleRank
     }
   }
 `;
@@ -35,10 +36,12 @@ const PatrolScheduleStatus = () => {
           if (loading) return <Loader content="Loading Patrols" active />;
           if (error) return <p>Error</p>;
           const { patrols } = data;
-          const full = patrols.filter(p => p.fullyScheduled);
+          const full = sortBy(
+            patrols.filter(p => p.fullyScheduled),
+            'scheduleRank'
+          );
           const notFull = sortBy(patrols.filter(p => !p.fullyScheduled), [
-            'finalPaymentDate',
-            'patrolNumber',
+            'scheduleRank',
           ]);
 
           return (
@@ -60,6 +63,7 @@ const PatrolTable = ({ patrols }) => {
     <Table celled>
       <Table.Header>
         <Table.Row>
+          <Table.HeaderCell>Rank</Table.HeaderCell>
           <Table.HeaderCell>Patrol Number</Table.HeaderCell>
           <Table.HeaderCell>Patrol Name</Table.HeaderCell>
           <Table.HeaderCell>Size</Table.HeaderCell>
@@ -71,6 +75,7 @@ const PatrolTable = ({ patrols }) => {
       <Table.Body>
         {patrols.map(patrol => (
           <Table.Row key={patrol.id}>
+            <Table.Cell collapsing>{patrol.scheduleRank}</Table.Cell>
             <Table.Cell collapsing>
               <Link to={`/dashboard/patrols/${patrol.patrolNumber}`}>
                 {patrol.patrolNumber}
