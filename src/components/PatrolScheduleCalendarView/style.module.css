@@ -1,0 +1,14 @@
+.eventDetails {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.eventTitle {
+  flex-grow: 1;
+}
+
+.eventControls {
+  margin-bottom: 1em;
+  text-align: right;
+}

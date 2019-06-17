@@ -4,7 +4,31 @@ import TimeGrid from 'react-big-calendar/lib/TimeGrid';
 import addDays from 'date-fns/add_days';
 import eachDay from 'date-fns/each_day';
 import moment from 'moment';
-import { Icon } from 'semantic-ui-react';
+import { Mutation } from 'react-apollo';
+import { Button, Icon } from 'semantic-ui-react';
+import gql from 'graphql-tag';
+
+import styles from './style.module.css';
+
+const REMOVE_PERIOD = gql`
+  mutation removePeriodFromPatrolSchedule(
+    $adventurePeriodId: ID!
+    $patrolId: ID!
+  ) {
+    removeAdventurePeriodFromPatrolSchedule(
+      input: { patrolId: $patrolId, adventurePeriodId: $adventurePeriodId }
+    ) {
+      patrol {
+        id
+        schedule {
+          periods {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
@@ -37,8 +61,16 @@ MyWeek.title = date => {
 };
 
 const eventStyleGetter = event => {
-  const { location } = event.adventure;
-  const backgroundColor = location === 'onsite' ? '#00b5ad' : '#5700b5';
+  const { adventureCode, location } = event.adventure;
+  let backgroundColor;
+  if (adventureCode === 'free' || adventureCode === 'free1') {
+    backgroundColor = 'green';
+  } else if (location === 'onsite') {
+    backgroundColor = '#00b5ad';
+  } else {
+    backgroundColor = '#5700b5';
+  }
+
   const borderColor = location === 'onsite' ? '#1f9c96' : '#5c1f9c';
   const style = {
     backgroundColor,
@@ -48,31 +80,61 @@ const eventStyleGetter = event => {
   return { style };
 };
 
-const MyCalendar = ({ schedule }) => {
+const MyCalendar = ({ patrol }) => {
+  const { schedule } = patrol;
+
   return (
-    <BigCalendar
-      localizer={localizer}
-      events={schedule.periods}
-      startAccessor={event => new Date(event.startAt)}
-      endAccessor={event => new Date(event.endAt)}
-      titleAccessor={event => {
-        return (
-          <>
-            {event.adventure.premiumAdventure && (
-              <Icon name="star" color="yellow" />
-            )}
-            <span>{event.adventure.fullName}</span>
-          </>
-        );
-      }}
-      eventPropGetter={eventStyleGetter}
-      defaultDate={new Date(2019, 6, 7)}
-      min={new Date(2019, 6, 7, 7, 0)}
-      max={new Date(2019, 6, 7, 18, 0)}
-      defaultView={BigCalendar.Views.WEEK}
-      toolbar={false}
-      views={{ month: false, week: MyWeek, day: false, agenda: false }}
-    />
+    <>
+      <BigCalendar
+        localizer={localizer}
+        events={schedule.periods}
+        startAccessor={event => new Date(event.startAt)}
+        endAccessor={event => new Date(event.endAt)}
+        titleAccessor={event => {
+          return (
+            <div className={styles.eventDetails}>
+              <div className={styles.eventTitle}>
+                {event.adventure.premiumAdventure && (
+                  <Icon name="star" color="yellow" />
+                )}
+                <span>{event.adventure.name}</span>
+              </div>
+              <div className={styles.eventControls}>
+                <Mutation
+                  mutation={REMOVE_PERIOD}
+                  variables={{
+                    adventurePeriodId: event.id,
+                    patrolId: patrol.id,
+                  }}
+                >
+                  {(mutationFn, { data, error }) => {
+                    return (
+                      <Button
+                        circular
+                        compact
+                        icon
+                        onClick={() => {
+                          mutationFn();
+                        }}
+                      >
+                        <Icon name="trash alternate outline" />
+                      </Button>
+                    );
+                  }}
+                </Mutation>
+              </div>
+            </div>
+          );
+        }}
+        eventPropGetter={eventStyleGetter}
+        defaultDate={new Date(2019, 6, 7)}
+        min={new Date(2019, 6, 7, 7, 0)}
+        max={new Date(2019, 6, 7, 18, 0)}
+        defaultView={BigCalendar.Views.WEEK}
+        toolbar={false}
+        views={{ month: false, week: MyWeek, day: false, agenda: false }}
+      />
+    </>
   );
 };
 
