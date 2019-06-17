@@ -11,7 +11,8 @@ const TableHeader = ({ periods }) => {
         <Table.HeaderCell />
         {periods.map(p => (
           <Table.HeaderCell key={`header.${p.id}`} textAlign="center">
-            {format(p.startAt, 'DD ddd\n HH:mm')}
+            {format(p.startAt, 'DD ddd\n HH:mm')}-<br />
+            {format(p.endAt, 'HH:mm')}
           </Table.HeaderCell>
         ))}
       </Table.Row>
@@ -35,8 +36,17 @@ const TableBody = ({ capacity, periods, adventure }) => {
         <Table.Cell>Available</Table.Cell>
         {periods.map(p => {
           const available = capacity - p.participantsAssigned[totalField];
-          const backgroundColor =
-            available >= 6 ? '#d2f0d2' : available === 5 ? '#ffffab' : 'none';
+          let backgroundColor;
+
+          if (available >= 6) {
+            backgroundColor = '#d2f0d2';
+          } else if (available === 5) {
+            backgroundColor = '#ffffab';
+          } else if (available < 0) {
+            backgroundColor = '#e64545';
+          } else {
+            backgroundColor = 'none';
+          }
           return (
             <Table.Cell
               style={{
