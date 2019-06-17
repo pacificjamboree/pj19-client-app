@@ -6,7 +6,7 @@ import AdventurePeriodStatusTable from '../../components/AdventurePeriodStatusTa
 
 const QUERY = gql`
   {
-    adventures(filters: { workflowState: active }) {
+    adventures(filters: { workflowState: active, includeFree: true }) {
       id
       _id
       adventureCode
