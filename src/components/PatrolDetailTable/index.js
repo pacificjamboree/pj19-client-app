@@ -76,6 +76,7 @@ const PatrolDetailTable = ({ admin, patrol }) => {
     patrolScouter,
     finalPaymentDate,
     adventureSelection,
+    scheduleRank,
   } = patrol;
   return (
     <Table basic="very">
@@ -148,6 +149,13 @@ const PatrolDetailTable = ({ admin, patrol }) => {
               ? formatDate(finalPaymentDate, 'YYYY-MM-DD')
               : 'No payment infomration received from registrar'}
           </Table.Cell>
+        </Table.Row>
+
+        <Table.Row>
+          <Table.Cell width={4} className={styles.label}>
+            Schedule Ranking
+          </Table.Cell>
+          <Table.Cell>{scheduleRank}</Table.Cell>
         </Table.Row>
 
         <Table.Row>

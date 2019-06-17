@@ -26,6 +26,7 @@ const GET_PATROL = gql`
       totalUnitSize
       workflowState
       finalPaymentDate
+      scheduleRank
       patrolScouter {
         id
         email
