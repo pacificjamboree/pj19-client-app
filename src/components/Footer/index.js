@@ -12,7 +12,7 @@ import { Link } from '@reach/router';
 const socialIconStyle = { color: 'white' };
 
 const Footer = () => (
-  <Segment inverted vertical style={{ padding: '5em 0em' }}>
+  <Segment inverted vertical className="noprint" style={{ padding: '5em 0em' }}>
     <Container>
       <Grid divided inverted stackable>
         <Grid.Row>

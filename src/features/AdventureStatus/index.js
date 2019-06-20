@@ -48,7 +48,12 @@ const AdventureStatus = () => {
           ));
           return (
             <>
-              <Button labelPosition="left" icon onClick={() => refetch()}>
+              <Button
+                className="noprint"
+                labelPosition="left"
+                icon
+                onClick={() => refetch()}
+              >
                 <Icon name="refresh" />
                 Refresh
               </Button>
