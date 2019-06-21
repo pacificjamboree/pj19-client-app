@@ -50,6 +50,19 @@ const GET_DASHBOARD_VIEWER = gql`
           numberOfScouters
           totalUnitSize
           subcamp
+          scheduleRank
+          schedule {
+            periods {
+              id
+              startAt
+              endAt
+              adventure {
+                adventureCode
+                fullName
+                location
+              }
+            }
+          }
           adventureSelection {
             id
             wantScuba

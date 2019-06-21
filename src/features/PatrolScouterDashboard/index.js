@@ -6,8 +6,10 @@ import NotFound from '../NotFound';
 import Home from './Home';
 import AdventureSelectionEdit from '../AdventureSelectionEdit';
 import AdventureSelectionView from '../AdventureSelectionView';
+import PatrolScheduleView from '../PatrolScheduleView';
 
 const PatrolScouterDashbaord = ({ user }) => {
+  console.log({ user });
   return (
     <Container>
       <Grid stackable>
@@ -25,6 +27,7 @@ const PatrolScouterDashbaord = ({ user }) => {
               user={user}
               path="/adventureSelection/:id/edit"
             />
+            <PatrolScheduleView user={user} path="/patrolSchedule/:id/" />
             <NotFound default />
           </Router>
         </Grid.Column>

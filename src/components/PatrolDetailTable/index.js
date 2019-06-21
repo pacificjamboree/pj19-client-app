@@ -67,6 +67,7 @@ const AdventureSelectionAdminLink = ({
 
 const PatrolDetailTable = ({ admin, patrol }) => {
   const {
+    id,
     groupName,
     patrolName,
     subcamp,
@@ -81,7 +82,7 @@ const PatrolDetailTable = ({ admin, patrol }) => {
   return (
     <Table basic="very">
       <Table.Body>
-        <Table.Row>
+        {/* <Table.Row>
           <Table.Cell width={4} className={styles.label}>
             Adventure Selection
           </Table.Cell>
@@ -95,6 +96,17 @@ const PatrolDetailTable = ({ admin, patrol }) => {
                 adventureSelection={adventureSelection}
               />
             )}
+          </Table.Cell>
+        </Table.Row> */}
+
+        <Table.Row>
+          <Table.Cell width={4} className={styles.label}>
+            Adventure Schedule
+          </Table.Cell>
+          <Table.Cell>
+            <Link to={`patrolSchedule/${id}`}>
+              View your Patrol Adventure Schedule
+            </Link>
           </Table.Cell>
         </Table.Row>
 
@@ -155,7 +167,7 @@ const PatrolDetailTable = ({ admin, patrol }) => {
           <Table.Cell width={4} className={styles.label}>
             Schedule Ranking
           </Table.Cell>
-          <Table.Cell>{scheduleRank}</Table.Cell>
+          <Table.Cell>{scheduleRank} / 267</Table.Cell>
         </Table.Row>
 
         <Table.Row>

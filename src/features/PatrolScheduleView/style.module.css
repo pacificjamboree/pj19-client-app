@@ -1,0 +1,7 @@
+.periodDetail div {
+  padding: 2em 0;
+}
+
+.periodDetail div:not(:last-child) {
+  border-bottom: 1px solid black;
+}
