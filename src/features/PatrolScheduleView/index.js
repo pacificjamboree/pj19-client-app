@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Header, Icon, Loader } from 'semantic-ui-react';
 import formatDate from 'date-fns/format';
 import { Query } from 'react-apollo';
+import { Link } from '@reach/router';
 import gql from 'graphql-tag';
 
 import styles from './style.module.css';
@@ -118,7 +119,11 @@ const PeriodDetail = ({ period }) => {
         {formatDate(period.startAt, DATE_FORMAT_START)} -{' '}
         {formatDate(period.endAt, DATE_FORMAT_END)}
       </Header>
-      <Header as="h3">{period.adventure.fullName}</Header>
+      <Header as="h3">
+        <Link to={`/adventures/${period.adventure.adventureCode}`}>
+          {period.adventure.fullName}
+        </Link>
+      </Header>
       <p>{formatLocation(period.adventure.location)}</p>
       {/* <a
         href={`${process.env.REACT_APP_TRAIL_CARD_URL_BASE}/${
