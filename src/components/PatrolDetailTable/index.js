@@ -82,22 +82,24 @@ const PatrolDetailTable = ({ admin, patrol }) => {
   return (
     <Table basic="very">
       <Table.Body>
-        {/* <Table.Row>
-          <Table.Cell width={4} className={styles.label}>
-            Adventure Selection
-          </Table.Cell>
-          <Table.Cell>
-            {admin ? (
-              <AdventureSelectionAdminLink
-                adventureSelection={adventureSelection}
-              />
-            ) : (
-              <AdventureSelectionStatus
-                adventureSelection={adventureSelection}
-              />
-            )}
-          </Table.Cell>
-        </Table.Row> */}
+        {admin ? (
+          <Table.Row>
+            <Table.Cell width={4} className={styles.label}>
+              Adventure Selection
+            </Table.Cell>
+            <Table.Cell>
+              {admin ? (
+                <AdventureSelectionAdminLink
+                  adventureSelection={adventureSelection}
+                />
+              ) : (
+                <AdventureSelectionStatus
+                  adventureSelection={adventureSelection}
+                />
+              )}
+            </Table.Cell>
+          </Table.Row>
+        ) : null}
 
         <Table.Row>
           <Table.Cell width={4} className={styles.label}>
