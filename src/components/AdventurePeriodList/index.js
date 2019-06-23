@@ -16,12 +16,14 @@ const AdventurePeriodList = ({ adventure }) => (
           <p>Capacity: {adventure.capacityPerPeriod}</p>
           <p>Participants assigned: {totalAssigned}</p>
           <p>Space remaining: {adventure.capacityPerPeriod - totalAssigned}</p>
+          <p>Patrols assigned: {period.patrols.length}</p>
           <Table celled>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Patrol Number</Table.HeaderCell>
                 <Table.HeaderCell>Patrol Name</Table.HeaderCell>
-                <Table.HeaderCell>Size</Table.HeaderCell>
+                <Table.HeaderCell>Scouts</Table.HeaderCell>
+                <Table.HeaderCell>Scouters</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -33,9 +35,8 @@ const AdventurePeriodList = ({ adventure }) => (
                     </Link>
                   </Table.Cell>
                   <Table.Cell collapsing>{patrol.patrolName}</Table.Cell>
-                  <Table.Cell collapsing>
-                    {patrol.numberOfScouts + 2}
-                  </Table.Cell>
+                  <Table.Cell collapsing>{patrol.numberOfScouts}</Table.Cell>
+                  <Table.Cell collapsing>2</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

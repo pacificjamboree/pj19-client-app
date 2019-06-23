@@ -141,7 +141,7 @@ const AdventureDetail = ({ id }) => (
                 />
               </UserHasRole>
 
-              <UserHasRole userRoles={['admin']}>
+              <UserHasRole userRoles={ADMIN_AND_MANAGER}>
                 <AdventurePeriodList adventure={adventure} />
               </UserHasRole>
             </>
