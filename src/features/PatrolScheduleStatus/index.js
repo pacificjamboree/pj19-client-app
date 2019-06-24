@@ -23,6 +23,7 @@ const QUERY = gql`
         hoursScheduled
       }
       scheduleRank
+      numberOfFreePeriods
     }
   }
 `;
@@ -40,15 +41,15 @@ const PatrolScheduleStatus = () => {
             patrols.filter(p => p.fullyScheduled),
             'scheduleRank'
           );
-          const notFull = sortBy(patrols.filter(p => !p.fullyScheduled), [
-            'scheduleRank',
-          ]);
+          // const notFull = sortBy(patrols.filter(p => !p.fullyScheduled), [
+          //   'scheduleRank',
+          // ]);
 
           return (
             <>
-              <Header as="h3">Not Fully Scheduled ({notFull.length})</Header>
-              <PatrolTable patrols={notFull} />
-              <Header as="h3">Fully Scheduled ({full.length})</Header>
+              {/* <Header as="h3">Not Fully Scheduled ({notFull.length})</Header>
+              <PatrolTable patrols={notFull} /> */}
+              {/* <Header as="h3">Fully Scheduled ({full.length})</Header> */}
               <PatrolTable patrols={full} />
             </>
           );
@@ -68,6 +69,7 @@ const PatrolTable = ({ patrols }) => {
           <Table.HeaderCell>Patrol Name</Table.HeaderCell>
           <Table.HeaderCell>Size</Table.HeaderCell>
           <Table.HeaderCell>Hours Scheduled (of 33)</Table.HeaderCell>
+          <Table.HeaderCell>Free Periods</Table.HeaderCell>
           <Table.HeaderCell>Fully Paid</Table.HeaderCell>
           <Table.HeaderCell>Payment Date</Table.HeaderCell>
         </Table.Row>
@@ -84,6 +86,7 @@ const PatrolTable = ({ patrols }) => {
             <Table.Cell collapsing>{patrol.patrolName}</Table.Cell>
             <Table.Cell collapsing>{patrol.numberOfScouts + 2}</Table.Cell>
             <Table.Cell collapsing>{patrol.schedule.hoursScheduled}</Table.Cell>
+            <Table.Cell collapsing>{patrol.numberOfFreePeriods}</Table.Cell>
             <Table.Cell collapsing>
               {patrol.fullyPaid ? 'Yes' : 'No'}
             </Table.Cell>
