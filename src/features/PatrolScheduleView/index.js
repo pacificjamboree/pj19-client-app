@@ -1,13 +1,19 @@
 import React from 'react';
-import { Button, Header, Icon, Loader, Message } from 'semantic-ui-react';
+import { Button, Header, Icon, Loader } from 'semantic-ui-react';
 import formatDate from 'date-fns/format';
 import { Query } from 'react-apollo';
 import { Link } from '@reach/router';
 import gql from 'graphql-tag';
 
 import styles from './style.module.css';
-const DATE_FORMAT_START = 'dddd h:mm A';
-const DATE_FORMAT_END = 'h:mm A';
+const DATE_FORMAT_COMMON = {
+  timeZone: 'America/Vancouver',
+  hour: 'numeric',
+  minute: '2-digit',
+};
+
+const DATE_FORMAT_START = { ...DATE_FORMAT_COMMON, weekday: 'long' };
+const DATE_FORMAT_END = DATE_FORMAT_COMMON;
 const QUERY = gql`
   query getParol($id: String!) {
     patrol(search: { searchField: id, value: $id }) {
@@ -113,10 +119,11 @@ const PatrolScheduleView = ({ id }) => {
 
 const formatPeriodDate = p => {
   if (p.adventure.location === 'onsite') {
-    return `${formatDate(p.startAt, DATE_FORMAT_START)} - ${formatDate(
-      p.endAt,
-      DATE_FORMAT_END
-    )}`;
+    console.log(new Date(p.startAt).toLocaleString('en-US', DATE_FORMAT_START));
+    return `${new Date(p.startAt).toLocaleString(
+      'en-US',
+      DATE_FORMAT_START
+    )} - ${new Date(p.endAt).toLocaleString('en-US', DATE_FORMAT_END)}`;
   } else {
     return `${formatDate(p.startAt, 'dddd')} ${
       formatDate(p.startAt, 'A') === 'AM' ? 'Morning' : 'Afternoon'
