@@ -1,12 +1,11 @@
 import React from 'react';
-import { Button, Header, Icon, Loader } from 'semantic-ui-react';
+import { Button, Header, Icon, Loader, Message } from 'semantic-ui-react';
 import formatDate from 'date-fns/format';
 import { Query } from 'react-apollo';
 import { Link } from '@reach/router';
 import gql from 'graphql-tag';
 
 import styles from './style.module.css';
-console.log(styles);
 const DATE_FORMAT_START = 'dddd h:mm A';
 const DATE_FORMAT_END = 'h:mm A';
 const QUERY = gql`
@@ -25,6 +24,7 @@ const QUERY = gql`
             location
             adventureCode
             fullName
+            scoutOnly
           }
         }
       }
@@ -38,8 +38,7 @@ const formatLocation = location =>
   ) : (
     <span>
       <Icon name="bus" />
-      Off-Site – 
-      <strong>Consult Bus Schedule for Departure Time and Bus Number</strong>
+      Off-Site
     </span>
   );
 
@@ -112,20 +111,39 @@ const PatrolScheduleView = ({ id }) => {
   );
 };
 
+const formatPeriodDate = p => {
+  if (p.adventure.location === 'onsite') {
+    return `${formatDate(p.startAt, DATE_FORMAT_START)} - ${formatDate(
+      p.endAt,
+      DATE_FORMAT_END
+    )}`;
+  } else {
+    return `${formatDate(p.startAt, 'dddd')} ${
+      formatDate(p.startAt, 'A') === 'AM' ? 'Morning' : 'Afternoon'
+    }`;
+  }
+};
+
 const PeriodDetail = ({ period }) => {
   return (
     <div>
       <Header as="h2">
-        {formatDate(period.startAt, DATE_FORMAT_START)} -{' '}
-        {formatDate(period.endAt, DATE_FORMAT_END)}
+        {formatPeriodDate(period)} — {formatLocation(period.adventure.location)}
       </Header>
       <Header as="h3">
         <Link to={`/adventures/${period.adventure.adventureCode}`}>
           {period.adventure.fullName}
         </Link>
       </Header>
-      <p>{formatLocation(period.adventure.location)}</p>
-      {/* <a
+      {period.adventure.scoutOnly && (
+        <p>
+          <strong>Scouts Only</strong>: Due to the extremely limited capacity of
+          this activity, participation is limited to Scouts only. If there is
+          excess capacity in your assigned period, Scouters may be able to
+          participate at the Adventure Lead's discretion.
+        </p>
+      )}
+      <a
         href={`${process.env.REACT_APP_TRAIL_CARD_URL_BASE}/${
           period.adventure.adventureCode
         }.pdf`}
@@ -134,7 +152,7 @@ const PeriodDetail = ({ period }) => {
           <Icon name="file pdf" />
           Trail Card
         </Button>
-      </a> */}
+      </a>
     </div>
   );
 };
