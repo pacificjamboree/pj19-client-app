@@ -113,6 +113,20 @@ const AdventureDetail = ({ id }) => (
 
               <AdventureLabels location={true} adventure={adventure} />
 
+              <a
+                href={`${process.env.REACT_APP_TRAIL_CARD_URL_BASE}/${
+                  adventure.adventureCode
+                }.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ marginBottom: '1em', display: 'block' }}
+              >
+                <Button icon labelPosition="left" color="blue">
+                  <Icon name="file pdf" />
+                  Trail Card
+                </Button>
+              </a>
+
               <ReactMarkdown source={adventure.description} />
 
               {adventure.oosDescription && (
