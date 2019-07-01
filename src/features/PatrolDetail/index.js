@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import { Container, Grid, Header, Loader } from 'semantic-ui-react';
+import {
+  Button,
+  Container,
+  Grid,
+  Header,
+  Icon,
+  Loader,
+} from 'semantic-ui-react';
 import DocumentTitle from '../../components/DocumentTitle';
 import NotFound from '../NotFound';
 import PatrolDetailTable from '../../components/PatrolDetailTable';
@@ -65,17 +72,11 @@ const PatrolDetail = ({ patrolNumber }) => {
   return (
     <DocumentTitle title={`Patrol ${patrolNumber}`}>
       <Container>
-        <Query
-          query={GET_PATROL}
-          variables={{ patrolNumber }}
-          fetchPolicy="network-only"
-        >
+        <Query query={GET_PATROL} variables={{ patrolNumber }}>
           {({ error, loading, data, ...rest }) => {
-            console.log({ error, loading, data, rest });
             if (error) return <p>Error</p>;
             if (loading) return <Loader active content="Loading Patrol" />;
             if (!data.patrol) {
-              console.log({ data });
               return <NotFound />;
             }
             const {
@@ -119,14 +120,33 @@ const PatrolDetail = ({ patrolNumber }) => {
                   </Grid.Column>
                 </Grid>
 
-                <AddAdventurePeriodToPatrolPopup
-                  open={addAdventureModalOpen}
-                  modalToggle={setAddAdventureModalOpen}
-                  patrol={data.patrol}
-                />
+                <div className={styles.patrolScheduleCalendarContainer}>
+                  <Header as="h2">Patrol Schedule</Header>
+                  <AddAdventurePeriodToPatrolPopup
+                    open={addAdventureModalOpen}
+                    modalToggle={setAddAdventureModalOpen}
+                    patrol={data.patrol}
+                  />
 
-                <div style={{ height: 'calc(100vh - 100px)' }}>
-                  <PatrolScheduleCalendarView patrol={data.patrol} />
+                  <a
+                    href={`${process.env.REACT_APP_PATROL_SCHEDULE_URL_BASE}/${
+                      data.patrol._id
+                    }.pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      marginBottom: '1em',
+                    }}
+                  >
+                    <Button icon labelPosition="left">
+                      <Icon name="file pdf" />
+                      Print Schedule
+                    </Button>
+                  </a>
+
+                  <div style={{ height: '100vh' }}>
+                    <PatrolScheduleCalendarView patrol={data.patrol} />
+                  </div>
                 </div>
               </>
             );

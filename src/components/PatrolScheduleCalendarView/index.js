@@ -97,7 +97,9 @@ const MyCalendar = ({ patrol }) => {
                 {event.adventure.premiumAdventure && (
                   <Icon name="star" color="yellow" />
                 )}
-                <span>{event.adventure.name}</span>
+                <span style={{ fontSize: '0.9em' }}>
+                  {event.adventure.name}
+                </span>
               </div>
               <div className={styles.eventControls}>
                 <Mutation
@@ -128,8 +130,8 @@ const MyCalendar = ({ patrol }) => {
         }}
         eventPropGetter={eventStyleGetter}
         defaultDate={new Date(2019, 6, 7)}
-        min={new Date(2019, 6, 7, 7, 0)}
-        max={new Date(2019, 6, 7, 18, 0)}
+        min={new Date(2019, 6, 7, 8, 0)}
+        max={new Date(2019, 6, 7, 17, 30)}
         defaultView={BigCalendar.Views.WEEK}
         toolbar={false}
         views={{ month: false, week: MyWeek, day: false, agenda: false }}
