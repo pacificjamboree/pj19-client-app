@@ -43,6 +43,7 @@ const GET_ADVENTURE_BY_ID = gql`
         id
         _id
         startAt
+        capacityOverride
         participantsAssigned {
           scouts
           scouters
