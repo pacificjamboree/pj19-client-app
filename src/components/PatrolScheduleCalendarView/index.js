@@ -116,7 +116,13 @@ const MyCalendar = ({ patrol }) => {
                         compact
                         icon
                         onClick={() => {
-                          mutationFn();
+                          if (
+                            window.confirm(
+                              "Are you sure you want to remove this adventure from the patrol's schedule?"
+                            )
+                          ) {
+                            mutationFn();
+                          }
                         }}
                       >
                         <Icon name="trash alternate outline" />
