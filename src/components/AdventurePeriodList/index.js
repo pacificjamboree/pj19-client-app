@@ -13,7 +13,10 @@ const AdventurePeriodList = ({ adventure }) => (
       return (
         <Fragment key={period.id}>
           <Header as="h3">{format(period.startAt, 'dddd HH:mm')}</Header>
-          <p>Capacity: {adventure.capacityPerPeriod}</p>
+          <p>Database ID: {period._id}</p>
+          <p>
+            Capacity: {period.capacityOverride || adventure.capacityPerPeriod}
+          </p>
           <p>Participants assigned: {totalAssigned}</p>
           <p>Space remaining: {adventure.capacityPerPeriod - totalAssigned}</p>
           <p>Patrols assigned: {period.patrols.length}</p>
