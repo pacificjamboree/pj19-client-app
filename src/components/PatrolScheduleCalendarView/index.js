@@ -32,6 +32,14 @@ const REMOVE_PERIOD = gql`
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
+const HIDE_DELETE_BUTTON_FOR = [
+  'free1',
+  'stem_ar_vr',
+  'stem_moon',
+  'stem_escape_room',
+  'stem_spheros',
+];
+
 class MyWeek extends React.Component {
   render() {
     let { date } = this.props;
@@ -102,34 +110,38 @@ const MyCalendar = ({ patrol }) => {
                 </span>
               </div>
               <div className={styles.eventControls}>
-                <Mutation
-                  mutation={REMOVE_PERIOD}
-                  variables={{
-                    adventurePeriodId: event.id,
-                    patrolId: patrol.id,
-                  }}
-                >
-                  {(mutationFn, { data, error }) => {
-                    return (
-                      <Button
-                        circular
-                        compact
-                        icon
-                        onClick={() => {
-                          if (
-                            window.confirm(
-                              "Are you sure you want to remove this adventure from the patrol's schedule?"
-                            )
-                          ) {
-                            mutationFn();
-                          }
-                        }}
-                      >
-                        <Icon name="trash alternate outline" />
-                      </Button>
-                    );
-                  }}
-                </Mutation>
+                {!HIDE_DELETE_BUTTON_FOR.includes(
+                  event.adventure.adventureCode
+                ) && (
+                  <Mutation
+                    mutation={REMOVE_PERIOD}
+                    variables={{
+                      adventurePeriodId: event.id,
+                      patrolId: patrol.id,
+                    }}
+                  >
+                    {(mutationFn, { data, error }) => {
+                      return (
+                        <Button
+                          circular
+                          compact
+                          icon
+                          onClick={() => {
+                            if (
+                              window.confirm(
+                                "Are you sure you want to remove this adventure from the patrol's schedule?"
+                              )
+                            ) {
+                              mutationFn();
+                            }
+                          }}
+                        >
+                          <Icon name="trash alternate outline" />
+                        </Button>
+                      );
+                    }}
+                  </Mutation>
+                )}
               </div>
             </div>
           );
