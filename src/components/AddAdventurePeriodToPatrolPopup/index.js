@@ -64,7 +64,12 @@ const AddAdventurePeriodToPatrolPopup = ({ patrol, open, modalToggle }) => {
       closeOnDocumentClick={false}
       open={open}
       trigger={
-        <Button icon labelPosition="left" onClick={() => modalToggle(true)}>
+        <Button
+          style={{ marginBottom: '1em' }}
+          icon
+          labelPosition="left"
+          onClick={() => modalToggle(true)}
+        >
           <Icon name="calendar plus outline" />
           Add Adventure to Schedule
         </Button>
@@ -157,9 +162,6 @@ const AddAdventurePeriodToPatrolPopup = ({ patrol, open, modalToggle }) => {
             patrolId: patrol.id,
             adventurePeriodId: selectedPeriod,
           }}
-          onCompleted={() => {
-            modalToggle(false);
-          }}
         >
           {(mutationFn, { data, error }) => (
             <Button
@@ -168,7 +170,7 @@ const AddAdventurePeriodToPatrolPopup = ({ patrol, open, modalToggle }) => {
               icon="calendar plus outline"
               content="Add to Schedule"
               onClick={() => {
-                // modalToggle(false);
+                modalToggle(false);
                 mutationFn();
               }}
             />
