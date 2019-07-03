@@ -20,6 +20,7 @@ const QUERY = gql`
       id
       _id
       patrolNumber
+      subcamp
       schedule {
         periods {
           id
@@ -62,15 +63,20 @@ const PatrolScheduleView = ({ id }) => {
         const entries = data.patrol.schedule.periods.map(p => (
           <PeriodDetail key={p.id} period={p} />
         ));
+
+        const scheduleFilename = `${data.patrol.subcamp}-${
+          data.patrol.patrolNumber
+        }-${data.patrol._id}`;
+
         return (
           <>
             <Header as="h1">
               Adventure Schedule - Patrol {data.patrol.patrolNumber}
             </Header>
             <a
-              href={`${process.env.REACT_APP_PATROL_SCHEDULE_URL_BASE}/${
-                data.patrol._id
-              }.pdf`}
+              href={`${
+                process.env.REACT_APP_PATROL_SCHEDULE_URL_BASE
+              }/${scheduleFilename}.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               style={{ marginBottom: '1em', display: 'block' }}

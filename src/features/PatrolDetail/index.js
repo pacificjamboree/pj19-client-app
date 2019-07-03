@@ -84,8 +84,11 @@ const PatrolDetail = ({ patrolNumber }) => {
               _id,
               patrolNumber,
               patrolScouter,
+              subcamp,
               workflowState,
             } = data.patrol;
+
+            const scheduleFilename = `${subcamp}-${patrolNumber}-${_id}`;
             return (
               <>
                 <Grid stackable divided columns={16}>
@@ -129,9 +132,9 @@ const PatrolDetail = ({ patrolNumber }) => {
                   />
 
                   <a
-                    href={`${process.env.REACT_APP_PATROL_SCHEDULE_URL_BASE}/${
-                      data.patrol._id
-                    }.pdf`}
+                    href={`${
+                      process.env.REACT_APP_PATROL_SCHEDULE_URL_BASE
+                    }/${scheduleFilename}.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
