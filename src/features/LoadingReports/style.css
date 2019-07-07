@@ -1,0 +1,5 @@
+@media print {
+  .adventure {
+    page-break-after: always;
+  }
+}

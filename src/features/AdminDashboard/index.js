@@ -23,7 +23,7 @@ import AdventureSelectionEdit from '../AdventureSelectionEdit';
 import PatrolAdventureSelectionStats from '../PatrolAdventureSelectionStats';
 import AdventureStatus from '../AdventureStatus';
 import PatrolScheduleStatus from '../PatrolScheduleStatus';
-
+import LoadingReports from '../LoadingReports';
 import styles from './styles.module.css';
 
 const AdminDashboard = ({ user }) => {
@@ -73,7 +73,7 @@ const AdminDashboard = ({ user }) => {
 
             <AdventureStatus path="/adventure_status" />
             <PatrolScheduleStatus path="/patrol_schedule_status" />
-
+            <LoadingReports path="/loading_reports" />
             <NotFound default />
           </Router>
         </Grid.Column>

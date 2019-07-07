@@ -39,7 +39,7 @@ const PatrolScheduleStatus = () => {
           const { patrols } = data;
           const full = sortBy(
             patrols.filter(p => p.fullyScheduled),
-            'scheduleRank'
+            'numberOfFreePeriods'
           );
           // const notFull = sortBy(patrols.filter(p => !p.fullyScheduled), [
           //   'scheduleRank',
